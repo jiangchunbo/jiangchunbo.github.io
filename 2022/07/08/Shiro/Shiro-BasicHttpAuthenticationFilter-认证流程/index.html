@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Shiro BasicHttpAuthenticationFilter 认证流程 | Hexo
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+    
+<script src="/js/gitment.js"></script>
+
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Shiro BasicHttpAuthenticationFilter 认证流程</h2>
+  <p class="post-date">2022-07-08</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Shiro-BasicHttpAuthenticationFilter-认证流程分析"><a href="#Shiro-BasicHttpAuthenticationFilter-认证流程分析" class="headerlink" title="Shiro BasicHttpAuthenticationFilter 认证流程分析"></a>Shiro BasicHttpAuthenticationFilter 认证流程分析</h1><p>以 Shiro 1.8.0 为例子，其中新增了一些新的组件，譬如 <code>HttpAuthenticationFilter</code><br>之前使用的 1.4.1 并不存在 <code>HttpAuthenticationFilter</code> 组件</p>
+<h2 id="1-BasicHttpAuthenticationFilter-层次结构"><a href="#1-BasicHttpAuthenticationFilter-层次结构" class="headerlink" title="1. BasicHttpAuthenticationFilter 层次结构"></a>1. BasicHttpAuthenticationFilter 层次结构</h2><p>要分析 <code>BasicHttpAuthenticationFilter</code> 的认证流程，其实也是分析该过滤器（<code>doFilter</code>）的执行流程，而该过滤器的继承层次有一定复杂度，因此先了解一下其继承结构：</p>
+<img src="https://cannedbread-1302516612.cos.ap-shanghai.myqcloud.com/BasicHttpAuthenticationFilter.png" width="500">
+
+
+<h2 id="2-OncePerRequestFilter-doFilter"><a href="#2-OncePerRequestFilter-doFilter" class="headerlink" title="2. OncePerRequestFilter.doFilter"></a>2. OncePerRequestFilter.doFilter</h2><p>从继承关系可以看到 <code>BasicHttpAuthenticationFilter</code> 继承自抽象类 <code>OncePerRequestFilter</code>。</p>
+<blockquote>
+<p><code>OncePerRequestFilter</code> 的字面意思是：Once Per Request，即每个请求只执行一次，它巧妙的设计使得无论添加多少个过滤器，都只执行一次。</p>
+</blockquote>
+<p>如下是 <code>OncePerRequestFilter</code> 的 <code>doFilter</code> 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain filterChain)</span></span><br><span class="line">        <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!(request <span class="keyword">instanceof</span> HttpServletRequest) || !(response <span class="keyword">instanceof</span> HttpServletResponse)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ServletException</span>(<span class="string">&quot;OncePerRequestFilter just supports HTTP requests&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">HttpServletRequest</span> <span class="variable">httpRequest</span> <span class="operator">=</span> (HttpServletRequest) request;</span><br><span class="line">    <span class="type">HttpServletResponse</span> <span class="variable">httpResponse</span> <span class="operator">=</span> (HttpServletResponse) response;</span><br><span class="line"></span><br><span class="line">    <span class="type">String</span> <span class="variable">alreadyFilteredAttributeName</span> <span class="operator">=</span> getAlreadyFilteredAttributeName();</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">hasAlreadyFilteredAttribute</span> <span class="operator">=</span> request.getAttribute(alreadyFilteredAttributeName) != <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (hasAlreadyFilteredAttribute || skipDispatch(httpRequest) || shouldNotFilter(httpRequest)) &#123;</span><br><span class="line">        <span class="comment">// 继续执行，不调用此过滤器</span></span><br><span class="line">        filterChain.doFilter(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 调用该过滤器</span></span><br><span class="line">        request.setAttribute(alreadyFilteredAttributeName, Boolean.TRUE);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            doFilterInternal(httpRequest, httpResponse, filterChain);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">// 为本次请求删除 &quot;已经过滤&quot; 的请求属性，能够释放一些空间</span></span><br><span class="line">            request.removeAttribute(alreadyFilteredAttributeName);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="3-AdviceFilter-doFilterInternal"><a href="#3-AdviceFilter-doFilterInternal" class="headerlink" title="3. AdviceFilter.doFilterInternal"></a>3. AdviceFilter.doFilterInternal</h2><p>可以知道 <code>OncePerRequestFilter</code> 已经实现了 <code>doFilter</code>，而且知道，真正的处理逻辑在 <code>doFilterInternal()</code> 方法中。然而，<code>doFilterInternal()</code> 方法是在子类 <code>AdviceFilter</code> 实现的，源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doFilterInternal</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span></span><br><span class="line">    <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">Exception</span> <span class="variable">exception</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 前置处理</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">continueChain</span> <span class="operator">=</span> preHandle(request, response);</span><br><span class="line">        <span class="keyword">if</span> (log.isTraceEnabled()) &#123;</span><br><span class="line">            log.trace(<span class="string">&quot;Invoked preHandle method.  Continuing chain?: [&quot;</span> + continueChain + <span class="string">&quot;]&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 是否继续</span></span><br><span class="line">        <span class="keyword">if</span> (continueChain) &#123;</span><br><span class="line">            executeChain(request, response, chain);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 后置处理</span></span><br><span class="line">        postHandle(request, response);</span><br><span class="line">        <span class="keyword">if</span> (log.isTraceEnabled()) &#123;</span><br><span class="line">            log.trace(<span class="string">&quot;Successfully invoked postHandle method&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        exception = e;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        cleanup(request, response, exception);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-PathMatchingFilter-preHandle"><a href="#4-PathMatchingFilter-preHandle" class="headerlink" title="4. PathMatchingFilter.preHandle"></a>4. PathMatchingFilter.preHandle</h2><p>下面先看 preHandle，<code>PathMatchingFilter</code> 已经实现了 preHandle()。PathMatchingFilter，顾名思义，路径匹配过滤器，它的作用就是来根据路径匹配结果，调用相应过滤器（没匹配上的直接 return true，即继续执行过滤器链）。</p>
+<blockquote>
+<p>path 匹配是通过 <code>FilterChainDefinitionMap</code> 注册的，比如设置了 “&#x2F;login”, “anon”，那么如果本次请求的地址也是 &#x2F;login，则会匹配上。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(ServletRequest request, ServletResponse response)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.appliedPaths == <span class="literal">null</span> || <span class="built_in">this</span>.appliedPaths.isEmpty()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (log.isTraceEnabled()) &#123;</span><br><span class="line">            log.trace(<span class="string">&quot;appliedPaths property is null or empty.  This Filter will passthrough immediately.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (String path : <span class="built_in">this</span>.appliedPaths.keySet()) &#123;</span><br><span class="line">        <span class="comment">// If the path does match, then pass on to the subclass implementation for</span></span><br><span class="line">        <span class="comment">// specific checks</span></span><br><span class="line">        <span class="comment">// (first match &#x27;wins&#x27;):</span></span><br><span class="line">        <span class="keyword">if</span> (pathsMatch(path, request)) &#123;</span><br><span class="line">            log.trace(<span class="string">&quot;Current requestURI matches pattern &#x27;&#123;&#125;&#x27;.  Determining filter chain execution...&quot;</span>, path);</span><br><span class="line">            <span class="type">Object</span> <span class="variable">config</span> <span class="operator">=</span> <span class="built_in">this</span>.appliedPaths.get(path);</span><br><span class="line">            <span class="keyword">return</span> isFilterChainContinued(request, response, path, config);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// no path matched, allow the request to go through:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上述代码中的 config 对象具有非常高的灵活性，在 <code>BasicHttpAuthenticationFilter</code> 的流程中，你可以进行一些 HTTP Method、permissive 的特殊配置，这些设计都是内嵌在过滤器中的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 表示对于 /** 的 GET POST 请求都需要经过 Basic 验证</span></span><br><span class="line">chainDefinition.addPathDefinition(<span class="string">&quot;/**&quot;</span>, <span class="string">&quot;authcBasic[get,post]&quot;</span>);</span><br><span class="line"><span class="comment">// 表示对于 /permissive 开头的请求都会放行</span></span><br><span class="line">chainDefinition.addPathDefinition(<span class="string">&quot;/permissive/**&quot;</span>, <span class="string">&quot;authcBasic[permissive]&quot;</span>);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>如果 path 匹配成功，则会先执行 isFilterChainContinued()，isFilterChainContinued() 方法也是在 PathMatchingFilter 实现的。它的作用就是判断过滤器是否可用，如果可用就继续执行；否则，跳过，return true。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">isFilterChainContinued</span><span class="params">(ServletRequest request, ServletResponse response,</span></span><br><span class="line"><span class="params">    String path, Object pathConfig)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isEnabled(request, response, path, pathConfig)) &#123; <span class="comment">// isEnabled check added in 1.2</span></span><br><span class="line">        <span class="keyword">if</span> (log.isTraceEnabled()) &#123;</span><br><span class="line">            log.trace(<span class="string">&quot;Filter &#x27;&#123;&#125;&#x27; is enabled for the current request under path &#x27;&#123;&#125;&#x27; with config [&#123;&#125;].  &quot;</span> +</span><br><span class="line">                <span class="string">&quot;Delegating to subclass implementation for &#x27;onPreHandle&#x27; check.&quot;</span>,</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">Object</span>[] &#123; getName(), path, pathConfig &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//The filter is enabled for this specific request, so delegate to subclass implementations</span></span><br><span class="line"><span class="comment">//so they can decide if the request should continue through the chain or not:</span></span><br><span class="line">        <span class="keyword">return</span> onPreHandle(request, response, pathConfig);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (log.isTraceEnabled()) &#123;</span><br><span class="line">        log.trace(<span class="string">&quot;Filter &#x27;&#123;&#125;&#x27; is disabled for the current request under path &#x27;&#123;&#125;&#x27; with config [&#123;&#125;].  &quot;</span> +</span><br><span class="line">            <span class="string">&quot;The next element in the FilterChain will be called immediately.&quot;</span>,</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Object</span>[] &#123; getName(), path, pathConfig &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//This filter is disabled for this specific request,</span></span><br><span class="line"><span class="comment">//return &#x27;true&#x27; immediately to indicate that the filter will not process the request</span></span><br><span class="line"><span class="comment">//and let the request/response to continue through the filter chain:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>isEnabled 方法本质上是判断 enabled 是否为 true。其实几乎所有的过滤器都可以执行，因此 enabled 默认为 true，除非人为的去设置它的值：</p>
+<h2 id="5-AccessControlFilter-onPreHandle"><a href="#5-AccessControlFilter-onPreHandle" class="headerlink" title="5. AccessControlFilter.onPreHandle"></a>5. AccessControlFilter.onPreHandle</h2><p>从 <code>preHandle()</code> 走下来的，这里之所以起名为 <code>onPreHandle()</code>，是因为这才是真正的执行逻辑，之前的种种都是可以看作判断。</p>
+<p><code>onPreHandle()</code> 在 <code>PathMatchingFilter</code> 的子类 <code>AccessControlFilter</code> 有了新的实现，它的返回值依赖两个方法 isAccessAllowed()、onAccessDenied()。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onPreHandle</span><span class="params">(ServletRequest request, ServletResponse response, Object mappedValue)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="keyword">return</span> isAccessAllowed(request, response, mappedValue) || onAccessDenied(request, response, mappedValue);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述逻辑可以转换为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onPreHandle</span><span class="params">(ServletRequest request, ServletResponse response, Object mappedValue)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="keyword">if</span> (isAccessAllowed(request, response, mappedValue)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> onAccessDenied(request, response, mappedValue);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-HttpAuthenticationFilter-isAccessAllowed"><a href="#6-HttpAuthenticationFilter-isAccessAllowed" class="headerlink" title="6. HttpAuthenticationFilter.isAccessAllowed"></a>6. HttpAuthenticationFilter.isAccessAllowed</h2><p>当执行 AccessControlFilter.onPreHandle 会首先判断 <code>isAccessAllowed</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="type">boolean</span> <span class="title function_">isAccessAllowed</span><span class="params">(ServletRequest request, ServletResponse response, Object mappedValue)</span> &#123;</span><br><span class="line">    <span class="type">HttpServletRequest</span> <span class="variable">httpRequest</span> <span class="operator">=</span> WebUtils.toHttp(request);</span><br><span class="line">    <span class="type">String</span> <span class="variable">httpMethod</span> <span class="operator">=</span> httpRequest.getMethod();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check whether the current request&#x27;s method requires authentication.</span></span><br><span class="line">    <span class="comment">// If no methods have been configured, then all of them require auth,</span></span><br><span class="line">    <span class="comment">// otherwise only the declared ones need authentication.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 此处的 mappedValue 其实就是上述的 config 对象，本质上是一个 String[]</span></span><br><span class="line">    <span class="comment">// 这里可以校验一些 HTTP Method 是否需要认证</span></span><br><span class="line">    <span class="comment">// 这也就是为什么你可以设计为 authBasic[get,post]</span></span><br><span class="line">    Set&lt;String&gt; methods = httpMethodsFromOptions((String[]) mappedValue);</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">authcRequired</span> <span class="operator">=</span> methods.size() == <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (String m : methods) &#123;</span><br><span class="line">        <span class="keyword">if</span> (httpMethod.toUpperCase(Locale.ENGLISH).equals(m)) &#123;</span><br><span class="line">            <span class="comment">// 需要认证</span></span><br><span class="line">            authcRequired = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (authcRequired) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.isAccessAllowed(request, response, mappedValue);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述校验 HTTP Method 的方法对 RESTful 风格非常有效：<br>实际上，该方法先做了一个 HTTP Method 的比对，自定义 FilterChainDefinitionMap 的时候，可以设置一批 HTTP method 是需要认证的，比如：<br>如果当前使用 RESTful 风格请求。现有 [PUT] &#x2F;project 用于更新，[GET] &#x2F;project 用于获取全部数据，这两个请求 URL 都是一样的，但如何让 GET 请求通过，PUT 请求需要授权呢？答案就是使用 HTTP Method 方法过滤。<br>配置 &#x2F;project &#x3D; authcBasic[PUT]<br>那么，访问 &#x2F;project 的时候，GET 方法是不用认证的。<br>所以现在知道，即使没有写 GET，依然也会走 BasicHttpAuthenticationFilter，只是认证直接跳过（return true）。<br>因此，如果 HTTP Method 属于这一类 Method，那么就调用了 super.isAccessAllowed 进行判断。</p>
+<h2 id="7-AuthenticationFilter-isAccessAllowed"><a href="#7-AuthenticationFilter-isAccessAllowed" class="headerlink" title="7. AuthenticationFilter.isAccessAllowed"></a>7. AuthenticationFilter.isAccessAllowed</h2><p>下面继续观察 super.isAccessAllowed() 方法到底做了什么？</p>
+<p>首先，在继承链上，离 <code>HttpAuthenticationFilter</code> 最近的 <code>AuthenticatingFilter</code> 也实现了 isAccessAllowed() 方法，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="type">boolean</span> <span class="title function_">isAccessAllowed</span><span class="params">(ServletRequest request, ServletResponse response, Object mappedValue)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">super</span>.isAccessAllowed(request, response, mappedValue) ||</span><br><span class="line">            (!isLoginRequest(request, response) &amp;&amp; isPermissive(mappedValue));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>注意到，该方法也使用了 super 去调用父类方法，找到最近的有实现方法的父类 AuthenticationFilter，方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="type">boolean</span> <span class="title function_">isAccessAllowed</span><span class="params">(ServletRequest request, ServletResponse response, Object mappedValue)</span> &#123;</span><br><span class="line">    <span class="type">Subject</span> <span class="variable">subject</span> <span class="operator">=</span> getSubject(request, response);</span><br><span class="line">    <span class="keyword">return</span> subject.isAuthenticated();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取 Subject，然后调用 isAuthenticated() 判断是否已经认证过了。</p>
+<blockquote>
+<p>作用：判断是否认证过了，通俗来说，就是登陆了没。</p>
+</blockquote>
+<p>如果 isAccessAllowed 返回 false，表示不允许访问，那么需要继续判断：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!isLoginRequest(request, response) &amp;&amp; isPermissive(mappedValue)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>isLoginRequest()</code> 的判断，在本 BasicHttpAuthenticationFilter 的案例中，根据请求头判断<br><code>isPermissive()</code> 的判断是根据你是否在 chainDefinition 配置 [permissive]</p>
+</blockquote>
+<h2 id="8-BasicHttpAuthenticationFilter-isLoginRequest"><a href="#8-BasicHttpAuthenticationFilter-isLoginRequest" class="headerlink" title="8. BasicHttpAuthenticationFilter.isLoginRequest"></a>8. BasicHttpAuthenticationFilter.isLoginRequest</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">final</span> <span class="type">boolean</span> <span class="title function_">isLoginRequest</span><span class="params">(ServletRequest request, ServletResponse response)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.isLoginAttempt(request, response);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">protected</span> <span class="type">boolean</span> <span class="title function_">isLoginAttempt</span><span class="params">(ServletRequest request, ServletResponse response)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">authzHeader</span> <span class="operator">=</span> getAuthzHeader(request);</span><br><span class="line">    <span class="comment">// 判断头部 Authorization 是否以 BASIC 开头</span></span><br><span class="line">    <span class="keyword">return</span> authzHeader != <span class="literal">null</span> &amp;&amp; isLoginAttempt(authzHeader);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="9-BasicHttpAuthenticationFilter-onAccessDenied"><a href="#9-BasicHttpAuthenticationFilter-onAccessDenied" class="headerlink" title="9. BasicHttpAuthenticationFilter.onAccessDenied"></a>9. BasicHttpAuthenticationFilter.onAccessDenied</h2><p>回到 AccessControlFilter.onPreHandle 第二个处理逻辑 —— <code>onAccessDenied</code></p>
+<p>该方法就是 isAccessAllowed 返回 false 之后执行的，即访问拒绝的逻辑。</p>
+<p><code>BasicHttpAuthenticationFilter</code> 实现了自己的 onAccessDenied：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="type">boolean</span> <span class="title function_">onAccessDenied</span><span class="params">(ServletRequest request, ServletResponse response)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">loggedIn</span> <span class="operator">=</span> <span class="literal">false</span>; <span class="comment">// false by default or we wouldn&#x27;t be in this method</span></span><br><span class="line">    <span class="comment">// 判断是否是 Basic 特定请求头</span></span><br><span class="line">    <span class="keyword">if</span> (isLoginAttempt(request, response)) &#123;</span><br><span class="line">        loggedIn = executeLogin(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!loggedIn) &#123;</span><br><span class="line">        <span class="comment">// 发送质询</span></span><br><span class="line">        sendChallenge(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> loggedIn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="10-AuthenticatingFilter-executeLogin"><a href="#10-AuthenticatingFilter-executeLogin" class="headerlink" title="10. AuthenticatingFilter.executeLogin"></a>10. AuthenticatingFilter.executeLogin</h2><p>BasicHttpAuthenticationFilter 是没有实现 executeLogin() 的，因此将调用父类 AuthenticatingFilter 的 executeLogin() 方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="type">boolean</span> <span class="title function_">executeLogin</span><span class="params">(ServletRequest request, ServletResponse response)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="type">AuthenticationToken</span> <span class="variable">token</span> <span class="operator">=</span> createToken(request, response);</span><br><span class="line">    <span class="keyword">if</span> (token == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">msg</span> <span class="operator">=</span> <span class="string">&quot;createToken method implementation returned null. A valid non-null AuthenticationToken &quot;</span> +</span><br><span class="line">            <span class="string">&quot;must be created in order to execute a login attempt.&quot;</span>;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalStateException</span>(msg);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="type">Subject</span> <span class="variable">subject</span> <span class="operator">=</span> getSubject(request, response);</span><br><span class="line">        subject.login(token);</span><br><span class="line">        <span class="keyword">return</span> onLoginSuccess(token, subject, request, response);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (AuthenticationException e) &#123;</span><br><span class="line">        <span class="keyword">return</span> onLoginFailure(token, e, request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>createToken()，该方法又是 BasicHttpAuthenticationFilter 来实现的，其实也就是从 Authorization 的 Request Header 提取base64 编码的用户名和密码，然后解析，最终会实例化 UsernamePasswordToken。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> AuthenticationToken <span class="title function_">createToken</span><span class="params">(ServletRequest request, ServletResponse response)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">authorizationHeader</span> <span class="operator">=</span> getAuthzHeader(request);</span><br><span class="line">    <span class="keyword">if</span> (authorizationHeader == <span class="literal">null</span> || authorizationHeader.length() == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// Create an empty authentication token since there is no</span></span><br><span class="line">        <span class="comment">// Authorization header.</span></span><br><span class="line">        <span class="keyword">return</span> createToken(<span class="string">&quot;&quot;</span>, <span class="string">&quot;&quot;</span>, request, response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    log.debug(<span class="string">&quot;Attempting to execute login with auth header&quot;</span>);</span><br><span class="line"></span><br><span class="line">    String[] prinCred = getPrincipalsAndCredentials(authorizationHeader, request);</span><br><span class="line">    <span class="keyword">if</span> (prinCred == <span class="literal">null</span> || prinCred.length &lt; <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="comment">// Create an authentication token with an empty password,</span></span><br><span class="line">        <span class="comment">// since one hasn&#x27;t been provided in the request.</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">username</span> <span class="operator">=</span> prinCred == <span class="literal">null</span> || prinCred.length == <span class="number">0</span> ? <span class="string">&quot;&quot;</span> : prinCred[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">return</span> createToken(username, <span class="string">&quot;&quot;</span>, request, response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">String</span> <span class="variable">username</span> <span class="operator">=</span> prinCred[<span class="number">0</span>];</span><br><span class="line">    <span class="type">String</span> <span class="variable">password</span> <span class="operator">=</span> prinCred[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> createToken(username, password, request, response);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>在 createToken 之后，会 getSubject，执行 login()。后面会委托给 SecurityManager.login 方法，在 securityManager 中会对 token 进行验证，本质上就是调用 Realm 方法验证，如果验证过程中没有异常抛出，则顺利执行，</p>
+<p>​如果认证过程没有异常抛出，最终会走到 onLoginSuccess()，如果有异常抛出则执行 onLoginFailure()。</p>
+<blockquote>
+<p>一般也就是在 Realm 的执行逻辑中抛出异常。</p>
+</blockquote>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Shiro" >
+    <span class="tag-code">Shiro</span>
+  </a>
+
+  <a href="/tags#Security" >
+    <span class="tag-code">Security</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/07/Spring-Boot/Spring-Boot-Features/">
+        <span class="nav-arrow">← </span>
+        
+          Spring Boot Features
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/10/Security/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86%E7%AC%94%E8%AE%B0/">
+        
+          加密解密笔记
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Shiro-BasicHttpAuthenticationFilter-%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90"><span class="toc-nav-text">Shiro BasicHttpAuthenticationFilter 认证流程分析</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-BasicHttpAuthenticationFilter-%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="toc-nav-text">1. BasicHttpAuthenticationFilter 层次结构</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-OncePerRequestFilter-doFilter"><span class="toc-nav-text">2. OncePerRequestFilter.doFilter</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3-AdviceFilter-doFilterInternal"><span class="toc-nav-text">3. AdviceFilter.doFilterInternal</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4-PathMatchingFilter-preHandle"><span class="toc-nav-text">4. PathMatchingFilter.preHandle</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5-AccessControlFilter-onPreHandle"><span class="toc-nav-text">5. AccessControlFilter.onPreHandle</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#6-HttpAuthenticationFilter-isAccessAllowed"><span class="toc-nav-text">6. HttpAuthenticationFilter.isAccessAllowed</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#7-AuthenticationFilter-isAccessAllowed"><span class="toc-nav-text">7. AuthenticationFilter.isAccessAllowed</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#8-BasicHttpAuthenticationFilter-isLoginRequest"><span class="toc-nav-text">8. BasicHttpAuthenticationFilter.isLoginRequest</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#9-BasicHttpAuthenticationFilter-onAccessDenied"><span class="toc-nav-text">9. BasicHttpAuthenticationFilter.onAccessDenied</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#10-AuthenticatingFilter-executeLogin"><span class="toc-nav-text">10. AuthenticatingFilter.executeLogin</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/08/Shiro/Shiro-BasicHttpAuthenticationFilter-认证流程/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "jiangchunbo";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "Shiro BasicHttpAuthenticationFilter 认证流程",
+        owner: "jiangchunbo",
+        repo: "jiangchunbo.github.io",
+        oauth: {
+          client_id: "8ff18c626ce6de443832",
+          client_secret: "ccbfc51ce15c59b57e0fe4a4dea81060976bbde3"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

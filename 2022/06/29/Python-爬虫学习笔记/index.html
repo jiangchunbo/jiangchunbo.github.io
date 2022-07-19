@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Python 爬虫学习笔记 | Hexo
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+    
+<script src="/js/gitment.js"></script>
+
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Python 爬虫学习笔记</h2>
+  <p class="post-date">2022-06-29</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Python-爬虫"><a href="#Python-爬虫" class="headerlink" title="Python 爬虫"></a>Python 爬虫</h1><h2 id="1-urllib"><a href="#1-urllib" class="headerlink" title="1. urllib"></a>1. urllib</h2><h3 id="1-1-参考文档"><a href="#1-1-参考文档" class="headerlink" title="1.1. 参考文档"></a>1.1. 参考文档</h3><p><a target="_blank" rel="noopener" href="https://docs.python.org/3/howto/urllib2.html">https://docs.python.org/3/howto/urllib2.html</a></p>
+<h3 id="1-2-抓取-url"><a href="#1-2-抓取-url" class="headerlink" title="1.2. 抓取 url"></a>1.2. 抓取 url</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">with</span> urllib.request.urlopen(<span class="string">&#x27;http://www.baidu.com/&#x27;</span>) <span class="keyword">as</span> response:</span><br><span class="line">    html = response.read()</span><br></pre></td></tr></table></figure>
+
+<p>如果你想抓取 url 并存储到临时文件夹下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> shutil</span><br><span class="line"><span class="keyword">import</span> tempfile</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> urllib.request.urlopen(<span class="string">&#x27;http://python.org/&#x27;</span>) <span class="keyword">as</span> response:</span><br><span class="line">    <span class="keyword">with</span> tempfile.NamedTemporaryFile(delete=<span class="literal">False</span>) <span class="keyword">as</span> tmp_file:</span><br><span class="line">        shutil.copyfileobj(response, tmp_file)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(tmp_file.name) <span class="keyword">as</span> html:</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p>定制化 Request</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line">req = urllib.request.Request(<span class="string">&#x27;http://www.voidspace.org.uk&#x27;</span>)</span><br><span class="line"><span class="keyword">with</span> urllib.request.urlopen(req) <span class="keyword">as</span> response:</span><br><span class="line">   the_page = response.read()</span><br></pre></td></tr></table></figure>
+
+<h4 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.parse</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://www.someserver.com/cgi-bin/register.cgi&#x27;</span></span><br><span class="line">values = &#123;<span class="string">&#x27;name&#x27;</span> : <span class="string">&#x27;Michael Foord&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;location&#x27;</span> : <span class="string">&#x27;Northampton&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;language&#x27;</span> : <span class="string">&#x27;Python&#x27;</span> &#125;</span><br><span class="line"></span><br><span class="line">data = urllib.parse.urlencode(values)</span><br><span class="line">data = data.encode(<span class="string">&#x27;ascii&#x27;</span>) <span class="comment"># data should be bytes</span></span><br><span class="line">req = urllib.request.Request(url, data)</span><br><span class="line"><span class="keyword">with</span> urllib.request.urlopen(req) <span class="keyword">as</span> response:</span><br><span class="line">   the_page = response.read()</span><br></pre></td></tr></table></figure>
+<h2 id="2-requests"><a href="#2-requests" class="headerlink" title="2. requests"></a>2. requests</h2><p><a target="_blank" rel="noopener" href="https://requests.readthedocs.io/en/latest/">https://requests.readthedocs.io/en/latest/</a></p>
+<h3 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">r = requests.get(<span class="string">&#x27;https://api.github.com/events&#x27;</span>)</span><br><span class="line">r = requests.post(<span class="string">&#x27;https://httpbin.org/post&#x27;</span>, data=&#123;<span class="string">&#x27;key&#x27;</span>: <span class="string">&#x27;value&#x27;</span>&#125;)</span><br><span class="line">r = requests.put(<span class="string">&#x27;https://httpbin.org/put&#x27;</span>, data=&#123;<span class="string">&#x27;key&#x27;</span>: <span class="string">&#x27;value&#x27;</span>&#125;)</span><br><span class="line">r = requests.delete(<span class="string">&#x27;https://httpbin.org/delete&#x27;</span>)</span><br><span class="line">r = requests.head(<span class="string">&#x27;https://httpbin.org/get&#x27;</span>)</span><br><span class="line">r = requests.options(<span class="string">&#x27;https://httpbin.org/get&#x27;</span>)</span><br><span class="line"><span class="comment"># 设置编码格式</span></span><br><span class="line">r.encoding = <span class="string">&#x27;UTF-8&#x27;</span></span><br><span class="line"><span class="comment"># 返回响应字符串</span></span><br><span class="line">r.text</span><br><span class="line"><span class="comment"># 返回 url 地址</span></span><br><span class="line">r.url</span><br><span class="line"><span class="comment"># 返回响应字节</span></span><br><span class="line">r.content</span><br><span class="line"><span class="comment"># 响应状态码</span></span><br><span class="line">r.status_code</span><br><span class="line"><span class="comment"># 响应头</span></span><br><span class="line">r.headers</span><br></pre></td></tr></table></figure>
+
+<h3 id="GET-请求"><a href="#GET-请求" class="headerlink" title="GET 请求"></a>GET 请求</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">&#x27;https://www.baidu.com/s&#x27;</span></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">params = &#123;</span><br><span class="line">    <span class="string">&#x27;wd&#x27;</span>: <span class="string">&#x27;北京&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">response = requests.get(url=url, params=params, headers=headers)</span><br></pre></td></tr></table></figure>
+
+<h1 id="BS4"><a href="#BS4" class="headerlink" title="BS4"></a>BS4</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 返回数组</span></span><br><span class="line">soup.select(<span class="string">&#x27;#haha&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="selenium"><a href="#selenium" class="headerlink" title="selenium"></a>selenium</h1><h2 id="headless"><a href="#headless" class="headerlink" title="headless"></a>headless</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.chrome.options <span class="keyword">import</span> Options</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">share_browser</span>():</span><br><span class="line">    chrome_options = Options()</span><br><span class="line">    chrome_options.add_argument(<span class="string">&#x27;--headless&#x27;</span>)</span><br><span class="line">    chrome_options.add_argument(<span class="string">&#x27;--disable-gpu&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    path = <span class="string">&#x27;C:\Program Files\Google\Chrome\Application\chrome.exe&#x27;</span></span><br><span class="line">    chrome_options.binary_location = path</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> webdriver.Chrome(chrome_options=chrome_options)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="requests"><a href="#requests" class="headerlink" title="requests"></a>requests</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install requests</span><br></pre></td></tr></table></figure>
+
+<h3 id="Get-请求"><a href="#Get-请求" class="headerlink" title="Get 请求"></a>Get 请求</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;https://www.baidu.com/s&#x27;</span></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">params = &#123;</span><br><span class="line">    <span class="string">&#x27;wd&#x27;</span>: <span class="string">&#x27;北京&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">response = requests.get(url=url, params=params, headers=headers)</span><br><span class="line">content = response.text</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="scrapy"><a href="#scrapy" class="headerlink" title="scrapy"></a>scrapy</h2><p>以下这段话来自 <a target="_blank" rel="noopener" href="https://scrapy.org/">https://scrapy.org/</a></p>
+<blockquote>
+<p>An open source and collaborative framework for extracting the data you need from websites.<br>In a fast, simple, yet extensible way.</p>
+</blockquote>
+<p>scrapy 是一个开源和协作框架，用于从网站上提取所需的数据。<br>以快速，简单但可扩展的方式。</p>
+<h3 id="安装错误总结"><a href="#安装错误总结" class="headerlink" title="安装错误总结"></a>安装错误总结</h3><blockquote>
+<p>来自于尚硅谷 Python 视频</p>
+</blockquote>
+<ol>
+<li>缺少 twisted.test.raiser 扩展</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#twisted">http://www.lfd.uci.edu/~gohlke/pythonlibs/#twisted</a></p>
+<ol start="2">
+<li>升级 pip</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m pip install --upgrade pip</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="快速开始-1"><a href="#快速开始-1" class="headerlink" title="快速开始"></a>快速开始</h3><ol>
+<li>创建爬虫项目</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy startproject myproject</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>myproject 为自定义项目名称。项目名称必须以字母开头，并且只包含字母、数字、下划线。</p>
+</blockquote>
+<p>命令执行完毕会得到如下目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">├─myproject</span><br><span class="line">│  │  scrapy.cfg</span><br><span class="line">│  │</span><br><span class="line">│  └─myproject</span><br><span class="line">│      │  items.py</span><br><span class="line">│      │  middlewares.py</span><br><span class="line">│      │  pipelines.py</span><br><span class="line">│      │  settings.py</span><br><span class="line">│      │  __init__.py</span><br><span class="line">│      │</span><br><span class="line">│      └─spiders</span><br><span class="line">│              __init__.py</span><br></pre></td></tr></table></figure>
+
+
+<ol>
+<li>创建爬虫文件</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy genspider 爬虫名 爬取网页</span><br></pre></td></tr></table></figure>
+
+
+<ol>
+<li>运行爬虫代码</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy crawl 爬虫名</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="response"><a href="#response" class="headerlink" title="response"></a>response</h3><p>获取响应字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.text</span><br></pre></td></tr></table></figure>
+
+
+<p>获取响应二进制数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.body</span><br></pre></td></tr></table></figure>
+
+
+<p>获取</p>
+</section>
+    <!-- Tags START -->
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/05/24/%E5%90%84%E7%B1%BB%E5%9C%BA%E6%99%AF%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0/">
+        <span class="nav-arrow">← </span>
+        
+          各类场景请求参数
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/07/Spring-Boot/Spring-Boot-Features/">
+        
+          Spring Boot Features
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Python-%E7%88%AC%E8%99%AB"><span class="toc-nav-text">Python 爬虫</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-urllib"><span class="toc-nav-text">1. urllib</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-1-%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-nav-text">1.1. 参考文档</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-2-%E6%8A%93%E5%8F%96-url"><span class="toc-nav-text">1.2. 抓取 url</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Data"><span class="toc-nav-text">Data</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-requests"><span class="toc-nav-text">2. requests</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B"><span class="toc-nav-text">快速开始</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#GET-%E8%AF%B7%E6%B1%82"><span class="toc-nav-text">GET 请求</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#BS4"><span class="toc-nav-text">BS4</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#selenium"><span class="toc-nav-text">selenium</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#headless"><span class="toc-nav-text">headless</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#requests"><span class="toc-nav-text">requests</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Get-%E8%AF%B7%E6%B1%82"><span class="toc-nav-text">Get 请求</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#scrapy"><span class="toc-nav-text">scrapy</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%AE%89%E8%A3%85%E9%94%99%E8%AF%AF%E6%80%BB%E7%BB%93"><span class="toc-nav-text">安装错误总结</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B-1"><span class="toc-nav-text">快速开始</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#response"><span class="toc-nav-text">response</span></a></li></ol></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/06/29/Python-爬虫学习笔记/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "jiangchunbo";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "Python 爬虫学习笔记",
+        owner: "jiangchunbo",
+        repo: "jiangchunbo.github.io",
+        oauth: {
+          client_id: "8ff18c626ce6de443832",
+          client_secret: "ccbfc51ce15c59b57e0fe4a4dea81060976bbde3"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

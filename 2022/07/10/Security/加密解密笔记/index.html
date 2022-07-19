@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      加密解密笔记 | Hexo
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+    
+<script src="/js/gitment.js"></script>
+
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>加密解密笔记</h2>
+  <p class="post-date">2022-07-10</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="加密解密笔记"><a href="#加密解密笔记" class="headerlink" title="加密解密笔记"></a>加密解密笔记</h1><h2 id="密码技术"><a href="#密码技术" class="headerlink" title="密码技术"></a>密码技术</h2><ul>
+<li>原文：或者叫明文，就是被隐藏的文字。</li>
+<li>加密法：指隐藏原文的法则。</li>
+<li>密文：或者叫伪文，指对原文按照加密法处理过后生成的可公开传递的文字。</li>
+<li>密钥：在加密法中起决定性的因素，可能是数字、词汇，也可能是一些字母，或者这些东西的组合。</li>
+</ul>
+<h2 id="1-对称加密算法"><a href="#1-对称加密算法" class="headerlink" title="1. 对称加密算法"></a>1. 对称加密算法</h2><p>对称加密是指加密和解密使用同一个密钥。对称加密只有一个密钥，作为私钥。<br>具体的算法有：DES、3DES、TDEA、Blowfish、RC5、IDEA。常用的有：DES、AES</p>
+<p>优点：计算量小、加密速度快<br>缺点：不太安全，需要保存好密钥，而且，一般会为每个用户准备不同私钥，存储量大。</p>
+<h3 id="1-1-ECB-和-CBC"><a href="#1-1-ECB-和-CBC" class="headerlink" title="1.1. ECB 和 CBC"></a>1.1. ECB 和 CBC</h3><ul>
+<li>ECB 模式</li>
+</ul>
+<p>Electronic Codebook 电码本。将数据按照8个字节一段进行DES加密或解密得到一段段的8个字节的密文或者明文，最后一段不足8个字节（一般补0或者F），按照需求补足8个字节进行计算（并行计算），之后按照顺序将计算所得的数据连在一起即可，各段数据之间互不影响。</p>
+<ul>
+<li>CBC 模式</li>
+</ul>
+<p>Cipher Block Chaining 密文分组链接模式。</p>
+<p>(1) 将数据按照 8 字节分组，得到D1, D2, … , Dn（若数据不是8的整数倍，用指定的PADDING数据补位）<br>(2) 第一组数据 D1 与初始化向量 I 异或后的结果进行 DES 加密得到第一组密文 C1<br>(3) 第二组数据 D2 与第一组的加密结果 C1 异或以后的结果进行 DES 加密，得到第二组密文 C2<br>(4) 之后的数据以此类推，得到Cn<br>(5) 按顺序连为C1C2C3…Cn即为加密结果。</p>
+<h3 id="1-2-DES"><a href="#1-2-DES" class="headerlink" title="1.2. DES"></a>1.2. DES</h3><p>分组密码，以 64 位为分组对数据加密，密钥长度是 56 位。穷举法进行搜索，运算次数为 $2^{56}$ </p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><ul>
+<li>PHP</li>
+</ul>
+<p>php 7.1 之前加密与解密参考<a target="_blank" rel="noopener" href="https://github.com/JiangChunbo/crypto/blob/master/des/php7.1-/DES.php">这里</a></p>
+<p>php 7.1 之后加密解密 —— openssl</p>
+<h4 id="加密与解密"><a href="#加密与解密" class="headerlink" title="加密与解密"></a>加密与解密</h4><ul>
+<li>pkcs7Padding 函数</li>
+</ul>
+<p>可能在填充字节的过程中遇到。如果是 pkcs5Padding，固定传入 $size &#x3D; 8 即可</p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/jiang_chun_bo/encrypt/blob/master/des/php7.1-/DES.php#L30">代码参考</a></p>
+<p>&amp;nbsp;</p>
+<ul>
+<li>php 7.1 之前加密与解密</li>
+</ul>
+<p>如果与 Java 系统对接，建议传入 $key 固定为 8 位，保持与 Java 加解密库兼容。</p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/jiang_chun_bo/encrypt/blob/master/des/php7.1-/DES.php">代码参考</a></p>
+<p>&amp;nbsp;</p>
+<ul>
+<li>php 7.1 之后加密解密 —— openssl</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/jiang_chun_bo/encrypt/blob/master/des/php7.1+/DES.php">代码参考</a></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">openssl_encrypt</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">	<span class="keyword">string</span> <span class="variable">$data</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">	<span class="keyword">string</span> <span class="variable">$cipher_algo</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">	<span class="keyword">string</span> <span class="variable">$passphrase</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">	<span class="keyword">int</span> <span class="variable">$options</span> = <span class="number">0</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">	<span class="keyword">string</span> <span class="variable">$iv</span> = <span class="string">&quot;&quot;</span>, </span></span></span><br><span class="line"><span class="params"><span class="function">	&amp;<span class="variable">$tag</span>, <span class="keyword">string</span> <span class="variable">$aad</span> = <span class="string">&quot;&quot;</span>, </span></span></span><br><span class="line"><span class="params"><span class="function">	<span class="keyword">int</span> <span class="variable">$tag_length</span> = <span class="number">16</span></span></span></span><br><span class="line"><span class="params"><span class="function"></span>): <span class="title">string</span>|<span class="title">false</span></span></span><br></pre></td></tr></table></figure>
+
+<p>参数说明：</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">$data</td>
+<td align="left">数据</td>
+</tr>
+<tr>
+<td align="left">$options</td>
+<td align="left">OPENSSL_NO_PADDING：需要手动填充，否则不对齐返回 false<br>OPENSSL_RAW_DATA：自动以 pkcs5 填充</td>
+</tr>
+</tbody></table>
+<p>&amp;nbsp;</p>
+<ul>
+<li>Java 加密解密</li>
+</ul>
+<p>Java DESKeySpec 需要密码至少 8 字节，如果超过 8 字节，只取前 8 字节。</p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/jiang_chun_bo/encrypt/blob/master/des/jdk8+/DES.java">代码参考</a></p>
+<p>&amp;nbsp;</p>
+<h3 id="1-2-AES"><a href="#1-2-AES" class="headerlink" title="1.2. AES"></a>1.2. AES</h3><p>AES 是一个高级加密标准（Advanced Encryption Standard）。</p>
+<p>AES 按加密方式分为：AES-128、AES-192、AES-256</p>
+<p>按加密模式分为：ECB、CBC、CTR、CFB、OCF</p>
+<p>对称分组密码体制，分组长度 128 位。这种加密算法是美国联邦政府采用的区块加密标准，AES 标准用来代替原先的 DES。</p>
+<p>javax.crypto 包下。</p>
+<p>加解密功能由 Cipher 组件提供，</p>
+<p>在设置 Cipher 类的时候注意点：<br>(1) Cipher 在使用时需以参数方式指定 transformation<br>(2) transformation 格式为 algorithm&#x2F;mode&#x2F;padding，其中 algorithm 为必输项，<br>(3) 缺省的 mode 为 ECB，缺省的 padding 为 PKCS5Padding<br>(4) 在 block 算法与流加密模式组合时，需在 mode 后面指定每次处理的 bit 数，如 DES&#x2F;CFB8&#x2F;NoPadding，如未指定则使用缺省值，SunJCE 缺省值为 64 bits<br>(5) Cipher 有 4 中操作模式：ENCRYPT_MODE(加密)、DECRYPT_MODE(解密)、WRAP_MODE(导出Key)、UNWRAP_MODE(导入Key)，初始化（init）时需要指定某种操作模式</p>
+<p>&amp;nbsp;</p>
+<h3 id="1-3-Discuz"><a href="#1-3-Discuz" class="headerlink" title="1.3. Discuz"></a>1.3. Discuz</h3><p>php 论坛框架 discuz 的加密算法，也兼容过期时间校验。</p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/jiang_chun_bo/encrypt/blob/master/discuz/php/DiscuzUtil.php">代码参考</a></p>
+<p>&amp;nbsp;</p>
+<h2 id="2-非对称加密算法"><a href="#2-非对称加密算法" class="headerlink" title="2. 非对称加密算法"></a>2. 非对称加密算法</h2><p>加密和解密用的不是同一个密钥。每个用户拥有 2 把钥匙，公钥和私钥。顾名思义，公钥，是可以对外发布的，私钥是自己保存，只有自己知道的。</p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p><strong>信息加密和解密</strong> 用 A 用户的公钥加密后只能用 A 用户的私钥解密。B 需要告诉 A：请来 X 区域找我。B 使用 A 的公钥进行加密，将密文发送给 A，其他人拿到密文没有 A 私钥是无法知道内容的，只有 A 拿到密文之后使用私钥解密才行。</p>
+<p><strong>加签和解签</strong> 公钥是用来解密信息的，确保别人知道这条消息是由我发布的，且是完整的。</p>
+<p>A 用户通过私钥加密：我是 A，我收到了你的信息。此时，B 通过 A 的公钥解密，确认 A 已经收到了自己的消息。</p>
+<h3 id="生成-RSA-密钥对"><a href="#生成-RSA-密钥对" class="headerlink" title="生成 RSA 密钥对"></a>生成 RSA 密钥对</h3><ul>
+<li><p>openssl 命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1024 密钥长度</span></span><br><span class="line">openssl genrsa -out key.pem 1024</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-out</td>
+<td align="left">指定生成文件，包含公钥和私钥</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>Java 代码生成</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">keySize</span> <span class="operator">=</span> <span class="number">1028</span>;</span><br><span class="line"><span class="type">KeyPairGenerator</span> <span class="variable">keyPairGenerator</span> <span class="operator">=</span> KeyPairGenerator.getInstance(<span class="string">&quot;RSA&quot;</span>);</span><br><span class="line">keyPairGenerator.initialize(keySize);</span><br><span class="line"><span class="type">KeyPair</span> <span class="variable">keyPair</span> <span class="operator">=</span> keyPairGenerator.generateKeyPair();</span><br><span class="line"></span><br><span class="line"><span class="type">Cipher</span> <span class="variable">cipher</span> <span class="operator">=</span> Cipher.getInstance(<span class="string">&quot;RSA&quot;</span>);</span><br><span class="line">cipher.init(Cipher.ENCRYPT_MODE, keyPair.getPublic());</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>PHP 代码生成</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$opensslConfigPath</span> = <span class="string">&#x27;D:\wampserver\bin\apache\apache2.4.46\conf\openssl.cnf&#x27;</span>;</span><br><span class="line"><span class="variable">$config</span> = <span class="keyword">array</span>(</span><br><span class="line">    <span class="string">&#x27;digest_alg&#x27;</span> =&gt; <span class="string">&#x27;sha512&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;private_key_bits&#x27;</span> =&gt; <span class="number">1024</span>,</span><br><span class="line">    <span class="string">&#x27;private_key_type&#x27;</span> =&gt; OPENSSL_KEYTYPE_RSA,</span><br><span class="line">    <span class="string">&#x27;config&#x27;</span>=&gt; <span class="variable">$opensslConfigPath</span></span><br><span class="line">);</span><br><span class="line"><span class="variable">$res</span> = <span class="title function_ invoke__">openssl_pkey_new</span>(<span class="variable">$config</span>); <span class="comment">//创建密钥对</span></span><br><span class="line"><span class="title function_ invoke__">openssl_pkey_export</span>(<span class="variable">$res</span>, <span class="variable">$privkey</span>, <span class="literal">null</span>, <span class="variable">$config</span>); <span class="comment">//生成私钥</span></span><br><span class="line"><span class="variable">$pubKey</span> = <span class="title function_ invoke__">openssl_pkey_get_details</span>(<span class="variable">$res</span>)[<span class="string">&#x27;key&#x27;</span>]; <span class="comment">//生成公钥</span></span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="variable">$privkey</span>);</span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="variable">$pubKey</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="RSA-加密与解密"><a href="#RSA-加密与解密" class="headerlink" title="RSA 加密与解密"></a>RSA 加密与解密</h3><h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><ul>
+<li><p>Java 公钥加密</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">BigInteger</span> <span class="variable">modulus</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BigInteger</span>(<span class="string">&quot;&quot;</span>, <span class="number">16</span>);</span><br><span class="line"><span class="type">BigInteger</span> <span class="variable">pubExp</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BigInteger</span>(<span class="string">&quot;&quot;</span>, <span class="number">16</span>);</span><br><span class="line"><span class="type">KeyFactory</span> <span class="variable">keyFactory</span> <span class="operator">=</span> KeyFactory.getInstance(<span class="string">&quot;RSA&quot;</span>);</span><br><span class="line"><span class="type">RSAPublicKeySpec</span> <span class="variable">pubKeySpec</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RSAPublicKeySpec</span>(modulus, pubExp);</span><br><span class="line"><span class="type">RSAPublicKey</span> <span class="variable">key</span> <span class="operator">=</span> (RSAPublicKey) keyFactory.generatePublic(pubKeySpec);</span><br><span class="line"><span class="type">Cipher</span> <span class="variable">cipher</span> <span class="operator">=</span> Cipher.getInstance(<span class="string">&quot;RSA/ECB/PKCS1Padding&quot;</span>);</span><br><span class="line">cipher.init(Cipher.ENCRYPT_MODE, key);</span><br><span class="line"><span class="type">byte</span>[] cipherData = cipher.doFinal(<span class="string">&quot;密文&quot;</span>.getBytes());</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Java 私钥解密</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">byte</span>[] encrypted = <span class="string">&quot;&quot;</span>; <span class="comment">// 密文，需要 base64 解码</span></span><br><span class="line"><span class="type">PKCS8EncodedKeySpec</span> <span class="variable">keySpec</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PKCS8EncodedKeySpec</span>(Base64.getDecoder().decode(<span class="string">&quot;非 PEM 格式私钥&quot;</span>));</span><br><span class="line"><span class="type">KeyFactory</span> <span class="variable">keyFactory</span> <span class="operator">=</span> KeyFactory.getInstance(<span class="string">&quot;RSA&quot;</span>);</span><br><span class="line"><span class="type">RSAPrivateKey</span> <span class="variable">privateKey</span> <span class="operator">=</span> (RSAPrivateKey) keyFactory.generatePrivate(keySpec);</span><br><span class="line"><span class="type">Cipher</span> <span class="variable">cipher</span> <span class="operator">=</span> Cipher.getInstance(<span class="string">&quot;RSA/ECB/PKCS1Padding&quot;</span>);</span><br><span class="line">cipher.init(Cipher.DECRYPT_MODE, privateKey);</span><br><span class="line"><span class="type">byte</span>[] decrptyed = cipher.doFinal(encrypted);</span><br><span class="line">System.out.println(<span class="keyword">new</span> <span class="title class_">String</span>(decrptyed));</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h4><ul>
+<li>公钥加密</li>
+</ul>
+<p>使用 <strong>JSEncrypt</strong> 库</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">JSEncrypt</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;jsencrypt/lib/JSEncrypt&#x27;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> publicKey = <span class="string">&#x27;&#x27;</span> <span class="comment">// PEM 格式公钥</span></span><br><span class="line"><span class="keyword">const</span> origin = <span class="string">&#x27;&#x27;</span> <span class="comment">// 需要加密的数据</span></span><br><span class="line"><span class="keyword">const</span> jsEncrypt = <span class="keyword">new</span> <span class="title class_">JSEncrypt</span>()</span><br><span class="line">jsEncrypt.<span class="title function_">setPublicKey</span>(publicKey)</span><br><span class="line"><span class="keyword">const</span> encrypted = jsEncrypt.<span class="title function_">encrypt</span>(origin) <span class="comment">// 返回的是 base64 编码的结果</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>私钥解密<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> privateKey = <span class="string">&#x27;&#x27;</span> <span class="comment">//</span></span><br><span class="line"><span class="keyword">const</span> encrypted = <span class="string">&#x27;&#x27;</span> <span class="comment">// 传递 base64 编码的加密值</span></span><br><span class="line"><span class="keyword">const</span> jsEncrypt = <span class="keyword">new</span> <span class="title class_">JSEncrypt</span>()</span><br><span class="line">jsEncrypt.<span class="title function_">setPrivateKey</span>(privateKey)</span><br><span class="line"><span class="keyword">const</span> decrypted = jsEncrypt.<span class="title function_">decrypt</span>(msg)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h4><ul>
+<li>解密<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$encrypted</span> = <span class="string">&#x27;&#x27;</span>; <span class="comment">// 密文，如果有必要需要进行 base64 解码</span></span><br><span class="line"><span class="variable">$decrypted</span> = <span class="string">&#x27;&#x27;</span>; <span class="comment">// 解密之后存放的变量</span></span><br><span class="line"><span class="variable">$private_key</span> = <span class="string">&#x27;&#x27;</span>; <span class="comment">// PEM 格式私钥</span></span><br><span class="line"><span class="title function_ invoke__">openssl_private_decrypt</span>(<span class="variable">$password</span>, <span class="variable">$decrypted</span>, <span class="variable">$private_key</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="摘要算法"><a href="#摘要算法" class="headerlink" title="摘要算法"></a>摘要算法</h2><p>通过对所有数据提取指纹信息以实现数据签名、数据完整性校验等功能。数据摘要算法也被称为哈希算法或散列算法。</p>
+<p>具体摘要算法：</p>
+<p>CRC8 CRC16 CRC 32</p>
+<p>MD2 MD4 MD5 </p>
+<p>SHA1 SHA256  SHA384  SHA512，SHA（Secure Hash Algorithm）是由美国专门制定密码算法的标准机构——美国国家标准技术研究院制定。</p>
+<p>RIPEMD、PANAMA、TIGER、ADLER32 </p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#crpto" >
+    <span class="tag-code">crpto</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/08/Shiro/Shiro-BasicHttpAuthenticationFilter-%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B/">
+        <span class="nav-arrow">← </span>
+        
+          Shiro BasicHttpAuthenticationFilter 认证流程
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/10/Spring-Core/Spring-%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96/">
+        
+          Spring 循环依赖
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86%E7%AC%94%E8%AE%B0"><span class="toc-nav-text">加密解密笔记</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%AF%86%E7%A0%81%E6%8A%80%E6%9C%AF"><span class="toc-nav-text">密码技术</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="toc-nav-text">1. 对称加密算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-1-ECB-%E5%92%8C-CBC"><span class="toc-nav-text">1.1. ECB 和 CBC</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-2-DES"><span class="toc-nav-text">1.2. DES</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-nav-text">代码</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86"><span class="toc-nav-text">加密与解密</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-2-AES"><span class="toc-nav-text">1.2. AES</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-3-Discuz"><span class="toc-nav-text">1.3. Discuz</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="toc-nav-text">2. 非对称加密算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%BA%94%E7%94%A8"><span class="toc-nav-text">应用</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E7%94%9F%E6%88%90-RSA-%E5%AF%86%E9%92%A5%E5%AF%B9"><span class="toc-nav-text">生成 RSA 密钥对</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#RSA-%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86"><span class="toc-nav-text">RSA 加密与解密</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Java"><span class="toc-nav-text">Java</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#JavaScript"><span class="toc-nav-text">JavaScript</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#PHP"><span class="toc-nav-text">PHP</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%91%98%E8%A6%81%E7%AE%97%E6%B3%95"><span class="toc-nav-text">摘要算法</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/10/Security/加密解密笔记/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "jiangchunbo";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "加密解密笔记",
+        owner: "jiangchunbo",
+        repo: "jiangchunbo.github.io",
+        oauth: {
+          client_id: "8ff18c626ce6de443832",
+          client_secret: "ccbfc51ce15c59b57e0fe4a4dea81060976bbde3"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

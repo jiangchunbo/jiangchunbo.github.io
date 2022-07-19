@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Shiro FilterChainDefinitionMap 注册原理 | Hexo
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+    
+<script src="/js/gitment.js"></script>
+
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Shiro FilterChainDefinitionMap 注册原理</h2>
+  <p class="post-date">2022-07-14</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Shiro-FilterChainDefinitionMap-注册原理"><a href="#Shiro-FilterChainDefinitionMap-注册原理" class="headerlink" title="Shiro FilterChainDefinitionMap 注册原理"></a>Shiro FilterChainDefinitionMap 注册原理</h1><p>在进行 <code>FilterChainDefinitionMap</code> 配置的时候，需要准备两个字符串，分别称之为 <code>antPath</code> 和 <code>definition</code>。以如下的配置为例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">DefaultShiroFilterChainDefinition</span> <span class="variable">chainDefinition</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultShiroFilterChainDefinition</span>();</span><br><span class="line">chainDefinition.addPathDefinition(<span class="string">&quot;/url&quot;</span>, <span class="string">&quot;authc, roles[admin,user], perms[file:edit]&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>第一个字符串可以认为是路径（可以包含通配符），第二个字符串是过滤器链定义</p>
+</blockquote>
+<p>对于 <code>FilterChainDefinitionMap</code> 中每个 filter Chain Definition 的处理都是在 <code>DefaultFilterChainManager</code> 进行的，主要关注如下方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 此处的 chainName 就是 antPath </span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">createChain</span><span class="params">(String chainName, String chainDefinition)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!StringUtils.hasText(chainName)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NullPointerException</span>(<span class="string">&quot;chainName cannot be null or empty.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!StringUtils.hasText(chainDefinition)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NullPointerException</span>(<span class="string">&quot;chainDefinition cannot be null or empty.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (log.isDebugEnabled()) &#123;</span><br><span class="line">        log.debug(<span class="string">&quot;Creating chain [&quot;</span> + chainName + <span class="string">&quot;] with global filters &quot;</span> + globalFilterNames + <span class="string">&quot; and from String definition [&quot;</span> + chainDefinition + <span class="string">&quot;]&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 首先以此添加全局 filter，比如 InvalidRequestFilter</span></span><br><span class="line">    <span class="keyword">if</span> (!CollectionUtils.isEmpty(globalFilterNames)) &#123;</span><br><span class="line">        globalFilterNames.stream().forEach(filterName -&gt; addToChain(chainName, filterName));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对值进行标记解析，以获得最后特定于过滤器的配置项</span></span><br><span class="line">    <span class="comment">// 这里以半角逗号(,) 作为分隔符，忽略两边空白符</span></span><br><span class="line">    <span class="comment">// 例如对于值：</span></span><br><span class="line">    <span class="comment">//     &quot;authc, roles[admin,user], perms[file:edit]&quot;</span></span><br><span class="line">    <span class="comment">// 最终的标记数组为：</span></span><br><span class="line">    <span class="comment">//     &#123; &quot;authc&quot;, &quot;roles[admin,user]&quot;, &quot;perms[file:edit]&quot; &#125;</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    String[] filterTokens = splitChainDefinition(chainDefinition);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 每个标记都是特定于每个过滤器的</span></span><br><span class="line">    <span class="comment">// 即，这些配置可能是过滤器约定好的，你需要熟悉这些用法</span></span><br><span class="line">    <span class="comment">// 譬如 roles[admin,user] 括号 [] 之间代表着角色</span></span><br><span class="line">    <span class="comment">//      perms[file:edit] 括号 [] 之间代表权限，权限又用 : 隔开，前者表示操作对象，后者表示操作类型</span></span><br><span class="line">    <span class="comment">// 剥离 name，提取括号 [] 之间的特定于过滤器的配置</span></span><br><span class="line">    <span class="keyword">for</span> (String token : filterTokens) &#123;</span><br><span class="line">        <span class="comment">// 一定是一个包含 2 个元素的数组，第一个是 filter name，第二个 config 可能是 null</span></span><br><span class="line">        <span class="comment">// [ &quot;authc&quot;, null ]</span></span><br><span class="line">        <span class="comment">// [ &quot;roles&quot;, &quot;admin,user&quot; ]</span></span><br><span class="line">        <span class="comment">// [ &quot;perms&quot;, &quot;file:edit&quot; ]</span></span><br><span class="line">        String[] nameConfigPair = toNameConfigPair(token);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 现在，我们拥有过滤器名称，路径，以及特定于路径的配置（可能是 null，也就是没有配置）</span></span><br><span class="line">        addToChain(chainName, nameConfigPair[<span class="number">0</span>], nameConfigPair[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addToChain</span><span class="params">(String chainName, String filterName, String chainSpecificFilterConfig)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!StringUtils.hasText(chainName)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;chainName cannot be null or empty.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">Filter</span> <span class="variable">filter</span> <span class="operator">=</span> getFilter(filterName);</span><br><span class="line">    <span class="keyword">if</span> (filter == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;There is no filter with name &#x27;&quot;</span> + filterName +</span><br><span class="line">                <span class="string">&quot;&#x27; to apply to chain [&quot;</span> + chainName + <span class="string">&quot;] in the pool of available Filters.  Ensure a &quot;</span> +</span><br><span class="line">                <span class="string">&quot;filter with that name/path has first been registered with the addFilter method(s).&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这里主要就是把配置字符串，如：admin,user 按照半角逗号（,）分割</span></span><br><span class="line">    <span class="comment">// 将得到的 chainName 和 [admin, user] 放入过滤器中  Map&lt;String, Object&gt; appliedPaths 结构中</span></span><br><span class="line">    <span class="comment">// 之所以这样做，是因为对于不同的路径，可能会配置同一个过滤器的不同过滤规则</span></span><br><span class="line">    <span class="comment">// 比如： 学校列表学校管理员与区级管理员可访问，区列表仅区级管理员访问</span></span><br><span class="line">    <span class="comment">//      /school/list  roles[school_admin, area_admin]</span></span><br><span class="line">    <span class="comment">//      /area/list    roles[area_admin]</span></span><br><span class="line">    applyChainConfig(chainName, filter, chainSpecificFilterConfig);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ensureChain 顾名思义，表示确保 chain 存在，如果不存在就新建一个</span></span><br><span class="line">    <span class="type">NamedFilterList</span> <span class="variable">chain</span> <span class="operator">=</span> ensureChain(chainName);</span><br><span class="line">    chain.add(filter);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Shiro" >
+    <span class="tag-code">Shiro</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/14/Shiro/Shiro-DefaultFilter-%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+        <span class="nav-arrow">← </span>
+        
+          Shiro DefaultFilter 使用笔记
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/14/Shiro/Shiro-Subject-login-%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90/">
+        
+          Shiro Subject login 流程分析
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Shiro-FilterChainDefinitionMap-%E6%B3%A8%E5%86%8C%E5%8E%9F%E7%90%86"><span class="toc-nav-text">Shiro FilterChainDefinitionMap 注册原理</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/14/Shiro/Shiro-FilterChainDefinitionMap-注册原理/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "jiangchunbo";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "Shiro FilterChainDefinitionMap 注册原理",
+        owner: "jiangchunbo",
+        repo: "jiangchunbo.github.io",
+        oauth: {
+          client_id: "8ff18c626ce6de443832",
+          client_secret: "ccbfc51ce15c59b57e0fe4a4dea81060976bbde3"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

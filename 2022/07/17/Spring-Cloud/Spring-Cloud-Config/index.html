@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Spring Cloud Config | Hexo
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+    
+<script src="/js/gitment.js"></script>
+
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Spring Cloud Config</h2>
+  <p class="post-date">2022-07-17</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Spring-Cloud-Config"><a href="#Spring-Cloud-Config" class="headerlink" title="Spring Cloud Config"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/">Spring Cloud Config</a></h1><h2 id="1-Quick-Start"><a href="#1-Quick-Start" class="headerlink" title="1. Quick Start"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_quick_start">1. Quick Start</a></h2><blockquote>
+<p>该章是官网的一个体验案例</p>
+</blockquote>
+<p>首先，启动服务，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> spring-cloud-config-server</span><br><span class="line">$ ../mvnw spring-boot:run</span><br></pre></td></tr></table></figure>
+<p>服务是一个 Spring Boot 程序，你也可以从 IDE 运行。</p>
+<p>接下来，试验一下客户端，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ curl localhost:8888/foo/development</span><br><span class="line">&#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;foo&quot;</span>,<span class="string">&quot;label&quot;</span>:<span class="string">&quot;master&quot;</span>,<span class="string">&quot;propertySources&quot;</span>:[</span><br><span class="line">  &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;https://github.com/scratches/config-repo/foo-development.properties&quot;</span>,<span class="string">&quot;source&quot;</span>:&#123;<span class="string">&quot;bar&quot;</span>:<span class="string">&quot;spam&quot;</span>&#125;&#125;,</span><br><span class="line">  &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;https://github.com/scratches/config-repo/foo.properties&quot;</span>,<span class="string">&quot;source&quot;</span>:&#123;<span class="string">&quot;foo&quot;</span>:<span class="string">&quot;bar&quot;</span>&#125;&#125;</span><br><span class="line">]&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定位属性资源的默认策略是去克隆一个 git 存储库（位于 <code>spring.cloud.config.server.git.uri</code>），并使用它去实例化一个迷你的 <code>SpringApplication</code>。</p>
+<p>HTTP 服务以下格式的资源：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/&#123;application&#125;/&#123;profile&#125;[/&#123;label&#125;]</span><br><span class="line">/&#123;application&#125;-&#123;profile&#125;.yml</span><br><span class="line">/&#123;label&#125;/&#123;application&#125;-&#123;profile&#125;.yml</span><br><span class="line">/&#123;application&#125;-&#123;profile&#125;.properties</span><br><span class="line">/&#123;label&#125;/&#123;application&#125;-&#123;profile&#125;.properties</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-1-Client-Side-Usage"><a href="#1-1-Client-Side-Usage" class="headerlink" title="1.1. Client Side Usage"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_client_side_usage">1.1. Client Side Usage</a></h3><p>为了在应用程序中使用这些功能，你可以将其构建为依赖于 <code>spring-cloud-config-client</code> 的Spring Boot 项目。最简便的方法是使用 Spring Boot 启动器 <code>org.springframework.cloud:spring-cloud-starter-config</code>。对于 maven 用户以及 Gradle 和 Spring CLI 用户的 Spring IO 版本管理属性文件，也有一个父 POM 和 BOM（spring-cloud-starter-parent）。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<p>现在，你可以创建一个标准的 Spring Boot 应用，就像下面的 HTTP 服务：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">home</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello World!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当这个 HTTP 服务启动的时候，它会从默认的监听于本地端口 8888 配置服务（如果启动了）获取外部配置。如果想修改默认行为，你可以修改 bootstrap.properties 中的配置服务的位置，如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring.cloud.config.uri: http://myconfigserver.com</span><br></pre></td></tr></table></figure>
+
+<p>默认地，如果应用名称没有设置，则会使用 <code>application</code>。如果要修改默认行为，可以使用 <code>spring.application.name</code> 进行修改：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.application.name:</span> <span class="string">myapp</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>设置属性 <code>$&#123;spring.application.name&#125;</code> 不要使用保留字 <code>application-</code> 作为应用名前缀，防止无法解析出正确的资源。</li>
+</ul>
+</blockquote>
+<h2 id="2-Spring-Cloud-Config-Server"><a href="#2-Spring-Cloud-Config-Server" class="headerlink" title="2. Spring Cloud Config Server"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_spring_cloud_config_server">2. Spring Cloud Config Server</a></h2><p>Spring Cloud Config Server 提供了一个用于外部配置的 HTTP 资源 API。通过使用 <code>@EnableConfigServer</code> 注解，服务就能嵌入到 Spring Boot 应用中。因此，下面的应用就是一个配置服务：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableConfigServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ConfigServer</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    SpringApplication.run(ConfigServer.class, args);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>和所有的 Spring Boot 应用一样，它默认运行在 8080 端口，但你可以将其切换到约定好的 8888 端口。最简单的方式是，通过配置 <code>spring.config.name=configserver</code> 来启动应用，这同时也设置了默认的存储库类型。</p>
+<blockquote>
+<p>注意，这种配置方式的依据是 Config Server jar 包下的 configserver.yml 文件。实际并没有作用，引用的是 github 上面的样本地址。</p>
+</blockquote>
+<p>另一种方式是使用你自己的 <code>application.properties</code>，如下所示：</p>
+<p><strong>application.properties</strong></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server.port:</span> <span class="number">8888</span></span><br><span class="line"><span class="attr">spring.cloud.config.server.git.uri:</span> <span class="string">file://$&#123;user.home&#125;/config-repo</span></span><br></pre></td></tr></table></figure>
+
+<p>在这里，<code>$&#123;user.home&#125;/config-repo</code> 是一个包含 YAML 以及属性文件的 git 存储库。</p>
+<blockquote>
+<p>在 Windows 上，如果 git 存储库是一个绝对驱动的前缀，你需要再加一个 “&#x2F;“，例如：<code>file:///$&#123;user.home&#125;/config-repo)</code></p>
+</blockquote>
+<h3 id="2-1-Environment-Repository"><a href="#2-1-Environment-Repository" class="headerlink" title="2.1. Environment Repository"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_environment_repository">2.1. Environment Repository</a></h3><p>在什么地方存储配置服务的配置数据？管理此行为的策略是 <code>EnvironmentRepository</code>，服务 <code>Environment</code> 对象。这个 <code>Environment</code> 是 Spring Environment 的浅拷贝（包括 <code>propertySources</code> 作为主要功能）。<code>Environment</code> 资源是三个变量的参数化：</p>
+<ul>
+<li><code>&#123;application&#125;</code>，映射到 <code>spring.application.name</code></li>
+<li><code>&#123;profile&#125;</code>，在客户端映射到 <code>spring.profiles.active</code></li>
+<li><code>&#123;label&#125;</code></li>
+</ul>
+<p>存储库的实现通常表现得像一个 Spring Boot 程序，它从 <code>spring.config.name</code> 等于 <code>&#123;application&#125;</code> 以及 <code>spring.profiles.active</code> 等于 <code>&#123;profiles&#125;</code> 中加载配置文件。配置文件的优先规则也与常规的 Spring Boot 程序相同：激活的配置文件优先于默认值，如果又多个配置文件，则选择最后一个（类似向 Map 添加条目）。</p>
+<p>如果存储库是基于文件的，那么服务器将从 application.yml 和 foo.yml 中创建一个 <code>Environment</code>。如果 YAML 文件在它们内部有指向 Spring 配置文件的文档，那么会使用更高的优先级。如果有特定的配置 YAML 文件，那么这些文件也以比默认值更高的优先级而使用。高优先级转换为在 <code>Environment</code> 中提前列出的 <code>PropertySource</code>。</p>
+<h4 id="2-1-1-Git-Backend"><a href="#2-1-1-Git-Backend" class="headerlink" title="2.1.1. Git Backend"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_git_backend">2.1.1. Git Backend</a></h4><p>默认的 <code>EnvironmentRepository</code> 的实现使用 Git 后端，这对于管理升级和物理环境，以及对于跟踪变化非常方便。要更改存储库的位置，你可以在 Config Server（例如在 <code>application.yml</code> 中）中设置 <code>spring.cloud.config.server.git.uri</code> 配置属性。如果你用一个 <code>file:</code> 前缀进行设置，则应从本地存储库工作，以便于你可以在没有服务器的情况下快速启动。但是，在这种情况下，服务直接在本地存储库上操作而无需克隆（无论是否是裸仓库都无关紧要，因为 Config Server 永远不会更改 “remote” 存储库）。为了扩展 Config Server 并使其高度可用，你需要将所有服务实例指向相同的存储库，因此只有共享文件系统才能起作用。甚至在这种情况下，最好将 <code>ssh:</code> 协议用于共享文件系统存储库，以便于服务可以克隆它，并将本地工作副本作为缓存。</p>
+<h5 id="Skipping-SSL-Certificate-Validation"><a href="#Skipping-SSL-Certificate-Validation" class="headerlink" title="Skipping SSL Certificate Validation"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_skipping_ssl_certificate_validation">Skipping SSL Certificate Validation</a></h5><p>通过将 <code>git.skipSslValidation</code> 属性设置为 <code>true</code>（默认为 <code>false</code>），可以禁用配置服务器对 Git 服务器的 SSSL 证书校验：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">server:</span></span><br><span class="line">        <span class="attr">git:</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">https://example.com/my/repo</span></span><br><span class="line">          <span class="attr">skipSslValidation:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Setting-HTTP-Connection-Timeout"><a href="#Setting-HTTP-Connection-Timeout" class="headerlink" title="Setting HTTP Connection Timeout"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_setting_http_connection_timeout">Setting HTTP Connection Timeout</a></h5><h4 id="2-1-3-File-System-Backend"><a href="#2-1-3-File-System-Backend" class="headerlink" title="2.1.3. File System Backend"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_file_system_backend">2.1.3. File System Backend</a></h4><p>Config Server 中拥有一个 <code>native</code> profile，该配置不使用 Git，而是从本地类路径或者文件系加载配置文件。为了使用本地配置，以 <code>spring.profiles.active=native</code> 启动 Config Server。</p>
+<p>搜索路径可以包含占位符 <code>&#123;application&#125;</code>, <code>&#123;profile&#125;</code>, <code>&#123;label&#125;</code>。通过这种方式，你可以在路径中分离目录并选择一个对你有意义的策略。</p>
+<p>如果你没有在搜索路径中使用占位符，存储库还会将 <code>&#123;label&#125;</code> 参数追加到存储路径末尾，因此属性文件会从每个搜索路径，以及有一个 label 后缀的子目录去加载。因此，没有占位符的默认行为与在搜索路径末尾添加 <code>/&#123;label&#125;/</code> 相同。举个例子，<code>file:/tmp/config</code> 与 <code>file:/tmp/config,file:/tmp/config/&#123;label&#125;</code> 相同。这个行为可以通过设置 <code>spring.cloud.config.server.native.addLabelLocations=false</code> 从而禁用。</p>
+<blockquote>
+<ul>
+<li>默认添加 label 后缀的行为很单纯，例如，你设置了 <code>spring.cloud.config.server.native.search-locations=file:///f:/profiles/application</code>，同时 label 参数为 dev，那么还会搜索的路径就是 <code>file:///f:/profiles/applicationdev</code>，并不会帮你自动添加路径分隔符 <code>/</code>，至少在 2.2.8.RELEASE 测试是如此。</li>
+</ul>
+</blockquote>
+<h4 id="2-1-6-Sharing-Configuration-With-All-Applications"><a href="#2-1-6-Sharing-Configuration-With-All-Applications" class="headerlink" title="2.1.6. Sharing Configuration With All Applications"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_sharing_configuration_with_all_applications">2.1.6. Sharing Configuration With All Applications</a></h4><h5 id="2-1-6-1-File-Based-Repositories"><a href="#2-1-6-1-File-Based-Repositories" class="headerlink" title="2.1.6.1. File Based Repositories"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#spring-cloud-config-server-file-based-repositories">2.1.6.1. File Based Repositories</a></h5><p>使用基于文件的存储库，在所有客户端应用之间共享文件名为 <code>application*</code> 的资源（<code>application.properties</code>, <code>application.yml</code>, <code>application-*.properties</code> 等）。你可以使用具有这些文件名的资源来进行全局默认配置，并且根据需要让它们被应用特定的文件覆盖。</p>
+<p>属性覆盖功能也可以用于设置全局默认，应用程序允许在本地覆盖它们。</p>
+<blockquote>
+<p>使用 native 配置文件（本地文件系统后端），你应该使用不属于服务自己的配置的指定搜索路径。否则，位于默认搜索路径中的 <code>application*</code> 资源会被移除，因为它们是服务的一部分。</p>
+</blockquote>
+<h4 id="2-1-7-JDBC-Backend"><a href="#2-1-7-JDBC-Backend" class="headerlink" title="2.1.7. JDBC Backend"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_jdbc_backend">2.1.7. JDBC Backend</a></h4><p>Spring Cloud Config 服务支持 JDBC 作为配置属性的后端。你可以通过添加 <code>spring-jdbc</code> 到类路径，并使用 <code>jdbc</code> 配置，或者添加 <code>JdbcEnvironmentRepository</code> 该 bean 来启用此功能。</p>
+<p>你可以通过设置 <code>spring.cloud.config.server.jdbc.enabled=false</code> 来禁用 <code>JdbcEnvironmentRepository</code> 的自动配置。</p>
+<blockquote>
+<p>至少 Spring Cloud Config 2.2.8.RELEASE 开始支持 enabled 属性</p>
+</blockquote>
+<p>数据库需要有一个名为 <code>PROPERTIES</code> 的表，列为 <code>APPLICATION</code>, <code>PROFILE</code>, <code>LABEL</code>, <code>KEY</code>, <code>VALUE</code>。所有的字段都是 Java 的 String 类型，因此你可以定义为 <code>VARCHAR</code>。属性值表现与它们来自 Spring Boot 属性文件 <code>&#123;application&#125;-&#123;profile&#125;.properties</code> 相同，包括所有的编码与解码，这些稍后会进行处理（即不会直接再存储库实现中）。</p>
+<blockquote>
+<p>默认的 SQL 为 <code>SELECT KEY, VALUE from PROPERTIES where APPLICATION=? and PROFILE=? and LABEL=?</code>，但这对于 MySQL 并不管用，因为 KEY 为关键字，应当被反引号包裹，否则在执行过程中报错。</p>
+</blockquote>
+<h4 id="2-1-8-Redis-Backend"><a href="#2-1-8-Redis-Backend" class="headerlink" title="2.1.8. Redis Backend"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_redis_backend">2.1.8. Redis Backend</a></h4><h4 id="2-1-11-Composite-Environment-Repositories"><a href="#2-1-11-Composite-Environment-Repositories" class="headerlink" title="2.1.11 Composite Environment Repositories"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#composite-environment-repositories">2.1.11 Composite Environment Repositories</a></h4><p>从多个环境存储库提取配置数据。</p>
+<h3 id="2-2-Health-Indicator"><a href="#2-2-Health-Indicator" class="headerlink" title="2.2.  Health Indicator"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_health_indicator">2.2.  Health Indicator</a></h3><p>配置服务器附带一个健康指示器，用于检查配置的 <code>EnvironmentRepository</code> 是否正常工作。默认地，它会请求 <code>EnvironmentRepository</code> 一个名为 <code>app</code> 的应用，<code>default</code> 的配置，由 <code>EnvironmentRepository</code> 实现提供的默认标签。</p>
+<p>通过 <code>health.config.enabled=false</code>，你可以禁用健康指示器。</p>
+<h3 id="2-3-Security"><a href="#2-3-Security" class="headerlink" title="2.3. Security"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_security">2.3. Security</a></h3><p>你可以以任何对你有意义的方法保护 Config Server（从物理网络安全到 OAuth2 持票人令牌），Spring Security 和 Spring Boot 提供了许多安全性的功能。</p>
+<p>为了使用默认的 Spring Boot 配置 HTTP Basic 安全，需要包含 Spring Security 到类路径。默认具有一个名为 <code>user</code> 的用户名和随机生成的密码。实践中，随机密码并没有太大用处，推荐配置密码并加密。</p>
+<blockquote>
+<ul>
+<li>需要包含 <code>spring-boot-starter-security</code> 依赖，以使用 Spring 的自动配置化的 HTTP Basic 安全</li>
+<li>通过设置 <code>spring.security.user.password</code> 配置密码</li>
+<li>客户端注意设置用户名和密码</li>
+</ul>
+</blockquote>
+<h3 id="2-4-Encryption-and-Decryption"><a href="#2-4-Encryption-and-Decryption" class="headerlink" title="2.4. Encryption and Decryption"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_encryption_and_decryption">2.4. Encryption and Decryption</a></h3><blockquote>
+<p>为了使用加密和解密功能，旧版本 JDK 需要下载完全的 <a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/javase-jce-all-downloads.html">JCD</a></p>
+</blockquote>
+<p>如果远程属性资源包含加密内容（以 <code>&#123;cipher&#125;</code> 开头），则先解密再通过 HTTP 发送。该设置的优点是：当属性值 “静止” 时，不需要以纯文本方式展示。如果值无法被解密，将会从属性源中删除它，并添加一个额外的有相同键的属性，但是具有 <code>invalid</code> 前缀，值意味着不适用。这主要是为了加密文本用作密码，有可能意外泄漏。</p>
+<h3 id="2-5-Key-Management"><a href="#2-5-Key-Management" class="headerlink" title="2.5. Key Management"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_key_management">2.5. Key Management</a></h3><p>Config Server 可以使用对称加密或者非对称加密（RSA 密钥对）。选择不对称加密在安全性方面更优越，但使用对称密钥通常更方便，因为它是在 <code>bootstrap.properties</code> 中配置的单个属性值。</p>
+<p>要配置对称密钥，你需要设置 <code>encryt.key</code> 为密钥字符串（或者使用 <code>ENCRYPT_KEY</code> 环境变量，可以脱离纯文本配置文件）。</p>
+<h3 id="2-6-Creating-a-Key-Store-for-Testing"><a href="#2-6-Creating-a-Key-Store-for-Testing" class="headerlink" title="2.6. Creating a Key Store for Testing"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_creating_a_key_store_for_testing">2.6. Creating a Key Store for Testing</a></h3><p>使用 JDK 自带的 <code>keytool</code> 工具创建密钥库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ keytool -genkeypair -<span class="built_in">alias</span> mytestkey -keyalg RSA \</span><br><span class="line">  -dname <span class="string">&quot;CN=Web Server,OU=Unit,O=Organization,L=City,S=State,C=US&quot;</span> \</span><br><span class="line">  -keypass changeme -keystore server.jks -storepass letmein</span><br></pre></td></tr></table></figure>
+
+<p>将生成的 <code>server.jks</code> 文件放到类路径下，然后在 <code>bootstrap.yml</code> 进行配置：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">encrypt:</span></span><br><span class="line">  <span class="attr">keyStore:</span></span><br><span class="line">    <span class="attr">location:</span> <span class="string">classpath:/server.jks</span> <span class="comment"># keystore 文件存储路径</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">letmein</span> <span class="comment"># storepass 密钥仓库</span></span><br><span class="line">    <span class="attr">alias:</span> <span class="string">mytestkey</span> <span class="comment"># 密钥对别名</span></span><br><span class="line">    <span class="attr">secret:</span> <span class="string">changeme</span> <span class="comment"># keypass 用来保护所生成密钥对中的私钥</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-7-Using-Multiple-Keys-and-Key-Rotation"><a href="#2-7-Using-Multiple-Keys-and-Key-Rotation" class="headerlink" title="2.7. Using Multiple Keys and Key Rotation"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_using_multiple_keys_and_key_rotation">2.7. Using Multiple Keys and Key Rotation</a></h3><h3 id="2-8-Serving-Encrypted-Properties"><a href="#2-8-Serving-Encrypted-Properties" class="headerlink" title="2.8. Serving Encrypted Properties"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_serving_encrypted_properties">2.8. Serving Encrypted Properties</a></h3><p>有时候，你往客户端自行解密配置，而不是在配置中心解密完毕再传送过来。在这种情况下，如果你提供了 <code>encrypt.*</code> 相关配置来定位 key，你还是可以具有 <code>/encrypt</code> 和 <code>/decrypt</code> 端点，但是你需要在 <code>boostrap.[yml|properties]</code> 设置 <code>spring.cloud.config.server.encrypt.enabled=false</code> 来显式关闭传出属性的解密功能。如果你不关心端点，那么如果你没有配置 key 或者 enabled 标志，就能起作用了。</p>
+<h2 id="3-Serving-Alternative-Formats"><a href="#3-Serving-Alternative-Formats" class="headerlink" title="3. Serving Alternative Formats"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_serving_alternative_formats">3. Serving Alternative Formats</a></h2><p>来自环境端点的默认 JSON 格式是完美被 Spring 应用消费的，因为它直接映射到 <code>Environment</code> 抽象上。如果你愿意，你也可以通过增加一个后缀（”.yml”, “.yaml” 或者 “.properties”）以 YAML 或者 Java 属性消费相同的数据。这对于那些不关心 JSON 端点的结构，或者额外元数据的应用来消费是非常有用的（例如，未使用 Spring 的应用可能会受益于此方法的简单性）。</p>
+<h2 id="4-Serving-Plain-Text"><a href="#4-Serving-Plain-Text" class="headerlink" title="4. Serving Plain Text"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_serving_plain_text">4. Serving Plain Text</a></h2><p>不使用 <code>Environment</code> 抽象，你的应用可能需要对其环境量身定制的通用普通文本配置文件。Config Server 通过一个位于 <code>/&#123;application&#125;/&#123;profile&#125;/&#123;label&#125;/&#123;path&#125;</code> 的额外端点提供这些，其中，<code>application</code>，<code>profile</code>，<code>label</code> 与常规的环境端点有相同含义，但是 <code>path</code> 是一个文件名的路径（例如 log.xml）。此端点的源文件以与环境端点相同的方式定位。相同的搜索路径被用于 properties 和 YAML 文件。但是，仅返回第一个被匹配的资源，而不是聚合所有资源。</p>
+<p>在资源被定位之后，以常规格式的占位符（<code>$&#123;...&#125;</code>）会被使用提供的 application name，profile，label 解析。以这种方式，资源端点与环境端点紧密集成。</p>
+<h2 id="5-Embedding-the-Config-Server"><a href="#5-Embedding-the-Config-Server" class="headerlink" title="5. Embedding the Config Server"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_embedding_the_config_server">5. Embedding the Config Server</a></h2><p>配置服务最好以独立应用运行。但是，如果你需要，你也可以将其嵌入到另一个应用中。使用 <code>@EnableConfigServer</code> 注解，一个可选的属性 <code>spring.cloud.config.server.bootstrap</code> 在这种情况下是有用的。这是一个标记，指示该服务是否应该从它自己的远程存储库配置自己。默认地，该标记是关闭的，因为它可以延迟启动。但是，当嵌入另一个应用中时，将与任何其他应用程序以一样的方式启动是有意义的。将 <code>spring.cloud.config.server.bootstrap</code> 设置为 <code>true</code> 时，还必须使用符合环境存储库配置。</p>
+<h2 id="6-Push-Notifications-and-Spring-Cloud-Bus"><a href="#6-Push-Notifications-and-Spring-Cloud-Bus" class="headerlink" title="6. Push Notifications and Spring Cloud Bus"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_push_notifications_and_spring_cloud_bus">6. Push Notifications and Spring Cloud Bus</a></h2><p>许多源代码存储库提供者（如 Github，Gitlab，Gitea, Gitee, Gogs, 或者 Bitbucket）通过 webhook 通知你存储库中的更改。你可以通过提供者的用户接口以一个 URL 和一组你感兴趣的事件配置 webhook。如果你添加了 <code>spring-cloud-config-monitor</code> 依赖，并且在你的配置中心激活了 Spring Cloud Bus，那么 <code>/monitor</code> 端点会被启用。</p>
+<p>当 webhook 被激活时，配置服务会针对它认为可能已经更改的应用程序发送 <code>RefreshRemoteApplicationEvent</code> 。变更检测是策略化的。但是，默认地，它会寻找与应用程序名称匹配的文件中地变更。</p>
+<h2 id="7-Spring-Cloud-Config-Client"><a href="#7-Spring-Cloud-Config-Client" class="headerlink" title="7. Spring Cloud Config Client"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_spring_cloud_config_client">7. Spring Cloud Config Client</a></h2><p>Spring Boot 应用可以立即使用 Spring Config 服务。</p>
+<h3 id="7-1-Config-First-Bootstrap"><a href="#7-1-Config-First-Bootstrap" class="headerlink" title="7.1. Config First Bootstrap"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#config-first-bootstrap">7.1. Config First Bootstrap</a></h3><p>类路径上拥有 Spring Cloud Config Client 的应用程序，默认的行为是：当配置客户端启动时，它会绑定到 Config Server（通过 <code>spring.cloud.config.uri</code> 引导配置属性），并使用远程属性源初始化 Spring 的 <code>Environment</code>。</p>
+<p>此行为的最终结果是，所有希望消费 Config Server 的客户端需要一个 <code>bootstrap.yml</code>，其中需要在 <code>spring.cloud.config.uri</code> 中配置好服务地址（默认是 <code>http://localhost:8888</code>）。</p>
+<h3 id="7-2-Discovery-First-Bootstrap"><a href="#7-2-Discovery-First-Bootstrap" class="headerlink" title="7.2. Discovery First Bootstrap"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#discovery-first-bootstrap">7.2. Discovery First Bootstrap</a></h3><h3 id="7-3-Config-Client-Fail-Fast"><a href="#7-3-Config-Client-Fail-Fast" class="headerlink" title="7.3. Config Client Fail Fast"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#config-client-fail-fast">7.3. Config Client Fail Fast</a></h3><h3 id="7-4-Config-Client-Retry"><a href="#7-4-Config-Client-Retry" class="headerlink" title="7.4. Config Client Retry"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#config-client-retry">7.4. Config Client Retry</a></h3><h3 id="7-5-Locating-Remote-Configuration-Resources"><a href="#7-5-Locating-Remote-Configuration-Resources" class="headerlink" title="7.5. Locating Remote Configuration Resources"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_locating_remote_configuration_resources">7.5. Locating Remote Configuration Resources</a></h3><p>Config Service 从 <code>/&#123;application&#125;/&#123;profile&#125;/&#123;label&#125;</code> 供应属性源，在客户端应用中<strong>默认</strong>的绑定如下：</p>
+<ul>
+<li>“application”&#x3D;<code>$&#123;spring.application.name&#125;</code></li>
+<li>“profile”&#x3D;<code>$&#123;spring.profiles.active&#125;</code></li>
+<li>“label”&#x3D;”master”</li>
+</ul>
+<p>你可以通过设置 <code>spring.cloud.config.*</code> 来覆盖它们（此处 <code>*</code> 表示 <code>name</code>, <code>profile</code>, <code>label</code>）。</p>
+<p><code>label</code> 对于回滚到之前的配置版本比较有用，使用默认的 Config Server 实现，它可以是 git label，分支名，commit ID。</p>
+<p><code>label</code> 也可以用逗号分隔的列表表示，在这种情况下，列表中的项目会逐个尝试，直至成功（即只有一个有效）。当工作在功能分支上时，此行为可能比较有用，例如，你可能希望将 <code>label</code> 与你的分支对齐，但使其可选，在这种情况下，你可以使用 <code>spring.cloud.config.label=myfeature,develop</code>。</p>
+<h3 id="7-6-Specifying-Multiple-Urls-for-the-Config-Server"><a href="#7-6-Specifying-Multiple-Urls-for-the-Config-Server" class="headerlink" title="7.6. Specifying Multiple Urls for the Config Server"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_specifying_multiple_urls_for_the_config_server">7.6. Specifying Multiple Urls for the Config Server</a></h3><h3 id="7-7-Configuring-Timeouts"><a href="#7-7-Configuring-Timeouts" class="headerlink" title="7.7. Configuring Timeouts"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_configuring_timeouts">7.7. Configuring Timeouts</a></h3><p>配置超时阈值：</p>
+<ul>
+<li>读取超时：<code>spring.cloud.config.request-read-timeout</code></li>
+<li>连接超时：<code>spring.cloud.config.request-connect-timeout</code></li>
+</ul>
+<h3 id="7-8-Security"><a href="#7-8-Security" class="headerlink" title="7.8. Security"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_security_2">7.8. Security</a></h3><p>如果你使用 HTTP Basic 安全验证，客户端需要知晓密码（如果不是默认的，还需要用户名）。你可以通过配置服务的 URI 指定用户名和密码，或者通过 <code>username</code> 和 <code>password</code> 属性：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">     <span class="attr">uri:</span> <span class="string">https://user:secret@myconfig.mycompany.com</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">     <span class="attr">uri:</span> <span class="string">https://myconfig.mycompany.com</span></span><br><span class="line">     <span class="attr">username:</span> <span class="string">user</span></span><br><span class="line">     <span class="attr">password:</span> <span class="string">secret</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>spring.cloud.config.username</code> 和 <code>spring.cloud.config.password</code> 会覆盖 URI 里的值</p>
+</blockquote>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Spring Cloud" >
+    <span class="tag-code">Spring Cloud</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/16/%E6%9D%82%E9%A1%B9/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+        <span class="nav-arrow">← </span>
+        
+          设计模式
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/18/Vue/Vue-%E6%89%93%E5%8C%85%E9%83%A8%E7%BD%B2%E8%84%9A%E6%9C%AC/">
+        
+          Vue 打包部署脚本
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Spring-Cloud-Config"><span class="toc-nav-text">Spring Cloud Config</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-Quick-Start"><span class="toc-nav-text">1. Quick Start</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-1-Client-Side-Usage"><span class="toc-nav-text">1.1. Client Side Usage</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-Spring-Cloud-Config-Server"><span class="toc-nav-text">2. Spring Cloud Config Server</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2-1-Environment-Repository"><span class="toc-nav-text">2.1. Environment Repository</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#2-1-1-Git-Backend"><span class="toc-nav-text">2.1.1. Git Backend</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Skipping-SSL-Certificate-Validation"><span class="toc-nav-text">Skipping SSL Certificate Validation</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Setting-HTTP-Connection-Timeout"><span class="toc-nav-text">Setting HTTP Connection Timeout</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#2-1-3-File-System-Backend"><span class="toc-nav-text">2.1.3. File System Backend</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#2-1-6-Sharing-Configuration-With-All-Applications"><span class="toc-nav-text">2.1.6. Sharing Configuration With All Applications</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#2-1-6-1-File-Based-Repositories"><span class="toc-nav-text">2.1.6.1. File Based Repositories</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#2-1-7-JDBC-Backend"><span class="toc-nav-text">2.1.7. JDBC Backend</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#2-1-8-Redis-Backend"><span class="toc-nav-text">2.1.8. Redis Backend</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#2-1-11-Composite-Environment-Repositories"><span class="toc-nav-text">2.1.11 Composite Environment Repositories</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2-2-Health-Indicator"><span class="toc-nav-text">2.2.  Health Indicator</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2-3-Security"><span class="toc-nav-text">2.3. Security</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2-4-Encryption-and-Decryption"><span class="toc-nav-text">2.4. Encryption and Decryption</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2-5-Key-Management"><span class="toc-nav-text">2.5. Key Management</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2-6-Creating-a-Key-Store-for-Testing"><span class="toc-nav-text">2.6. Creating a Key Store for Testing</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2-7-Using-Multiple-Keys-and-Key-Rotation"><span class="toc-nav-text">2.7. Using Multiple Keys and Key Rotation</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2-8-Serving-Encrypted-Properties"><span class="toc-nav-text">2.8. Serving Encrypted Properties</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3-Serving-Alternative-Formats"><span class="toc-nav-text">3. Serving Alternative Formats</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4-Serving-Plain-Text"><span class="toc-nav-text">4. Serving Plain Text</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5-Embedding-the-Config-Server"><span class="toc-nav-text">5. Embedding the Config Server</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#6-Push-Notifications-and-Spring-Cloud-Bus"><span class="toc-nav-text">6. Push Notifications and Spring Cloud Bus</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#7-Spring-Cloud-Config-Client"><span class="toc-nav-text">7. Spring Cloud Config Client</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#7-1-Config-First-Bootstrap"><span class="toc-nav-text">7.1. Config First Bootstrap</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#7-2-Discovery-First-Bootstrap"><span class="toc-nav-text">7.2. Discovery First Bootstrap</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#7-3-Config-Client-Fail-Fast"><span class="toc-nav-text">7.3. Config Client Fail Fast</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#7-4-Config-Client-Retry"><span class="toc-nav-text">7.4. Config Client Retry</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#7-5-Locating-Remote-Configuration-Resources"><span class="toc-nav-text">7.5. Locating Remote Configuration Resources</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#7-6-Specifying-Multiple-Urls-for-the-Config-Server"><span class="toc-nav-text">7.6. Specifying Multiple Urls for the Config Server</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#7-7-Configuring-Timeouts"><span class="toc-nav-text">7.7. Configuring Timeouts</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#7-8-Security"><span class="toc-nav-text">7.8. Security</span></a></li></ol></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/17/Spring-Cloud/Spring-Cloud-Config/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "jiangchunbo";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "Spring Cloud Config",
+        owner: "jiangchunbo",
+        repo: "jiangchunbo.github.io",
+        oauth: {
+          client_id: "8ff18c626ce6de443832",
+          client_secret: "ccbfc51ce15c59b57e0fe4a4dea81060976bbde3"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Hexo
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+    
+<script src="/js/gitment.js"></script>
+
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link active">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link mobile-active">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <main class="app-body">
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/19/Spring-Core/Spring-Core-@Resource-%E4%B8%8E-@Autowired/">Spring Bean @Autowired 与 JSR-250 @Resource</a>
+      </h2>
+      <p class="article-date">July 19, 2022</p>
+      
+        
+  <a href="/tags#Spring Bean" >
+    <span class="tag-code">Spring Bean</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Spring Bean @Autowired 与 JSR-250 @Resource@Autowired由 Spring 提供的注解，依赖注入的过程由 AutowiredAnnotationBeanPostProcessor 执行。
+通常这一步骤发生在 populateBean 流程之中，使 ...
+        
+      </div>
+      <a class="more" href="/2022/07/19/Spring-Core/Spring-Core-@Resource-%E4%B8%8E-@Autowired/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/18/Android/Android-%E7%AC%94%E8%AE%B0/">Android 笔记</a>
+      </h2>
+      <p class="article-date">July 18, 2022</p>
+      
+        
+  <a href="/tags#Android 笔记" >
+    <span class="tag-code">Android 笔记</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          清单文件ActivitiesFragments创建一个 fragment一个 fragment 表示某个 activity 中用户接口的一个模块化部分。一个 fragment 有它自己的生命周期，接受它自己的输入事件，并且你可以在activity 运行时添加或移除 fragment。
+设置环 ...
+        
+      </div>
+      <a class="more" href="/2022/07/18/Android/Android-%E7%AC%94%E8%AE%B0/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/18/Android/%E5%90%91-Activity-%E6%B7%BB%E5%8A%A0-Fragment/">向 Activity 添加 Fragment</a>
+      </h2>
+      <p class="article-date">July 18, 2022</p>
+      
+        
+  <a href="/tags#Android" >
+    <span class="tag-code">Android</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          向 Activity 添加 Fragment方式一在 Activity 的布局文件内声明片段
+12345678910111213141516&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;LinearLa ...
+        
+      </div>
+      <a class="more" href="/2022/07/18/Android/%E5%90%91-Activity-%E6%B7%BB%E5%8A%A0-Fragment/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/18/%E7%AE%80%E5%8E%86/">简历</a>
+      </h2>
+      <p class="article-date">July 18, 2022</p>
+      
+      <div class="article-summary">
+        
+          知识：
+PHP Java JavaScript HTML CSS MySQL Redis Nginx XML Json Node.js Vue 企业微信自建 企业微信代开发
+云尚作业统计模块
+空中课堂一期大屏统计模块
+实验竞赛统计模块
+腾讯云云点播、对象存储、拓课云、推流直播等服务对接
+20 ...
+        
+      </div>
+      <a class="more" href="/2022/07/18/%E7%AE%80%E5%8E%86/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/18/Security/AES-%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/">AES 加密算法</a>
+      </h2>
+      <p class="article-date">July 18, 2022</p>
+      
+      <div class="article-summary">
+        
+          AES 加密算法密钥扩展算法
+
+步骤说明：
+
+将密钥 key 按左图的格式，从上到下，从左到右排列，每一列 4 个字节，其中 $k_n$ 表示 1 个字节。
+
+AES 支持密钥长度为 16、24、32 字节，因此可能的列数是 4、6、8
+
+
+将每一列的 4 字节从上到下拼接成 32 bit， ...
+        
+      </div>
+      <a class="more" href="/2022/07/18/Security/AES-%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/18/Tool/%E6%95%B0%E6%8D%AE%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%99%A8-screw/">数据文档生成器 screw</a>
+      </h2>
+      <p class="article-date">July 18, 2022</p>
+      
+        
+  <a href="/tags#screw" >
+    <span class="tag-code">screw</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          数据文档生成器 screw相关链接https://github.com/yihr/screw
+参考文章
+maven 依赖12345&lt;dependency&gt;	&lt;groupId&gt;cn.smallbun.screw&lt;/groupId&gt;	&lt;artifactI ...
+        
+      </div>
+      <a class="more" href="/2022/07/18/Tool/%E6%95%B0%E6%8D%AE%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%99%A8-screw/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/18/Vue/Vue-%E6%89%93%E5%8C%85%E9%83%A8%E7%BD%B2%E8%84%9A%E6%9C%AC/">Vue 打包部署脚本</a>
+      </h2>
+      <p class="article-date">July 18, 2022</p>
+      
+        
+  <a href="/tags#Vue" >
+    <span class="tag-code">Vue</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Vue 打包部署脚本环境准备1npm install --save-dev scp2 cross-env ora@4.1.1 chalk
+
+配置文件123456789101112131415161718192021222324252627282930313233343536373839404 ...
+        
+      </div>
+      <a class="more" href="/2022/07/18/Vue/Vue-%E6%89%93%E5%8C%85%E9%83%A8%E7%BD%B2%E8%84%9A%E6%9C%AC/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/17/Spring-Cloud/Spring-Cloud-Config/">Spring Cloud Config</a>
+      </h2>
+      <p class="article-date">July 17, 2022</p>
+      
+        
+  <a href="/tags#Spring Cloud" >
+    <span class="tag-code">Spring Cloud</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Spring Cloud Config1. Quick Start
+该章是官网的一个体验案例
+
+首先，启动服务，如下：
+12$ cd spring-cloud-config-server$ ../mvnw spring-boot:run
+服务是一个 Spring Boot 程序，你也可以从  ...
+        
+      </div>
+      <a class="more" href="/2022/07/17/Spring-Cloud/Spring-Cloud-Config/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/16/%E6%9D%82%E9%A1%B9/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+      </h2>
+      <p class="article-date">July 16, 2022</p>
+      
+        
+  <a href="/tags#设计模式" >
+    <span class="tag-code">设计模式</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          设计模式Proxy 模式Proxy 模式中的角色在 Proxy 模式中一般有以下角色：
+
+Subject（主体）
+
+Subject 定义了使 Proxy 和 RealSubject 之间具有一致性的接口。
+
+Proxy（代理人）
+
+Proxy 会尽量处理来自外界的请求。当自己不能处理时，才会 ...
+        
+      </div>
+      <a class="more" href="/2022/07/16/%E6%9D%82%E9%A1%B9/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/16/MyBatis/MyBatis-%E6%9E%84%E9%80%A0-Mapper-Proxy-%E5%8E%9F%E7%90%86/">MyBatis 构造 Mapper Proxy 原理</a>
+      </h2>
+      <p class="article-date">July 16, 2022</p>
+      
+        
+  <a href="/tags#MyBatis" >
+    <span class="tag-code">MyBatis</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          在 MyBatis 应用中，我们定义的 Mapper 接口，最终都会转换为 JDK 动态代理对象 Proxy。
+假设有 UserMapper.xml：
+12SqlSession sqlSession = sqlSessionFactory.openSession();UserMapper u ...
+        
+      </div>
+      <a class="more" href="/2022/07/16/MyBatis/MyBatis-%E6%9E%84%E9%80%A0-Mapper-Proxy-%E5%8E%9F%E7%90%86/">Read more</a>
+    </article>
+  
+
+  
+    <div class="guide-pager">
+  
+    <a class="unvisible" href="/"><span class="page-arrow">←</span> Prev</a>
+  
+  
+    <a href="/page/2/">Next<span class="page-arrow"> →</span></a>
+  
+</div>
+  
+</main>
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

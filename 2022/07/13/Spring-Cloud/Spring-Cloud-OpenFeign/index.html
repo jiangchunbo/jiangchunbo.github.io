@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Spring Cloud OpenFeign | Hexo
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+    
+<script src="/js/gitment.js"></script>
+
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Spring Cloud OpenFeign</h2>
+  <p class="post-date">2022-07-13</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Spring-Cloud-OpenFeign"><a href="#Spring-Cloud-OpenFeign" class="headerlink" title="Spring Cloud OpenFeign"></a>Spring Cloud OpenFeign</h1><h2 id="1-Declarative-REST-Client-Feign"><a href="#1-Declarative-REST-Client-Feign" class="headerlink" title="1. Declarative REST Client: Feign"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.RELEASE/reference/html/#spring-cloud-feign">1. Declarative REST Client: Feign</a></h2><p>Feign 是一个声明式 Web 服务客户端。它使得编写 Web 服务客户端更容易。使用 Feign 创建一个接口并注解它。它具有可插入的注解支持，包括 Feign 注解和 JAX-RS 注解。Feign 还支持可插拔的编码器和解码器。Spring Cloud 增加了对 Spring MVC 注解的支持，以及支持使用 Spring Web 中默认项相同的 <code>HttpMessageConverters</code>。Spring Cloud 集成了 Ribbon 以及 Eureka，Spring Cloud CiruitBreaker，以及 Spring Cloud LoadBalancer，以便在使用 Feign 时提供负载均衡的 HTTP 客户端。</p>
+<h3 id="1-1-How-to-Include-Feign"><a href="#1-1-How-to-Include-Feign" class="headerlink" title="1.1. How to Include Feign"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.RELEASE/reference/html/#netflix-feign-starter">1.1. How to Include Feign</a></h3><p>要在项目中包含 Feign，请使用 group 为 <code>org.springframework.cloud</code>，artifact id 为 <code>spring-cloud-starter-openfeign</code> 的 starter。有关使用当前 Spring Cloud Release Train 设置你的构建系统的详情，参见 <a target="_blank" rel="noopener" href="https://projects.spring.io/spring-cloud/">Spring Cloud Project page</a></p>
+<p>示例 Spring Boot 应用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableFeignClients</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>StoreClient.java</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient(&quot;stores&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">StoreClient</span> &#123;</span><br><span class="line">    <span class="meta">@RequestMapping(method = RequestMethod.GET, value = &quot;/stores&quot;)</span></span><br><span class="line">    List&lt;Store&gt; <span class="title function_">getStores</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(method = RequestMethod.GET, value = &quot;/stores&quot;)</span></span><br><span class="line">    Page&lt;Store&gt; <span class="title function_">getStores</span><span class="params">(Pageable pageable)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(method = RequestMethod.POST, value = &quot;/stores/&#123;storeId&#125;&quot;, consumes = &quot;application/json&quot;)</span></span><br><span class="line">    Store <span class="title function_">update</span><span class="params">(<span class="meta">@PathVariable(&quot;storeId&quot;)</span> Long storeId, Store store)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>@FeignClient</code> 注解中，字符串 value（即上面的 “stores”）是一个任意的 client name，用于创建一个 Ribbon 负载均衡或者 Spring Cloud LoadBalancer。你还可以使用 <code>url</code> 属性（绝对值或者一个主机名）指定一个 URL。应用上下文中 Bean 的名称是接口的完全限定名。为了指定你自己的别名，你可以使用 <code>@FeignClient</code> 注解的 <code>qualifiers</code> 值。</p>
+<p>上面的负载均衡客户端将会希望发现 “stores” 服务的物理地址。如果你的应用是 Eureka 客户端，则它将在 Eureka 服务注册表中解析该服务。如果你不想使用 Eureka，则可以使用 <code>SimpleDiscoveryClient</code> 在外部配置中简单地配置服务器列表。</p>
+<h3 id="1-2-Overriding-Feign-Defaults"><a href="#1-2-Overriding-Feign-Defaults" class="headerlink" title="1.2. Overriding Feign Defaults"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.RELEASE/reference/html/#spring-cloud-feign-overriding-defaults">1.2. Overriding Feign Defaults</a></h3><p>Spring Cloud 的 Feign 支持中的一个核心概念就是有名客户端。每个 Feign 客户端都是一群组件的部分，它们共同协作按需与远程服务进行连接，并且这个整体有一个你作为开发者使用 <code>@FeignClient</code> 注解赋予的名字。Spring Cloud 使用 <code>FeignClientsConfiguration</code> 为每个有名客户端按需地，以 <code>ApplicationContext</code> 的形式创建一个全新的整体。这包含一个 <code>feign.Decoder</code>，一个 <code>feign.Encoder</code>，以及一个 <code>feign.Contract</code>。可以使用 <code>@FeignClient</code> 注解的 <code>contextId</code> 属性覆盖该整体的名称。</p>
+<p>Spring Cloud 使你可以使用 <code>@FeignClient</code> 声明额外的配置（覆盖 <code>FeignClientsConfiguration</code>）完全控制 feign 客户端。</p>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient(name = &quot;stores&quot;, configuration = FooConfiguration.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">StoreClient</span> &#123;</span><br><span class="line">    <span class="comment">//..</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这种情况下，客户端是由已经存在于 <code>FeignClientsConfiguration</code> 中的组件，以及 <code>FooConfiguration</code> （后者覆盖前者）中的种种组成。</p>
+<blockquote>
+<p><code>FooConfiguration</code> 不需要 <code>@Configuration</code> 注解。但是，如果这样做，请将其从任何 <code>@ComponentScan</code> 中排除，否则将包含此配置，因为它将将成为 <code>feign.Decoder</code>，<code>feign.Encoder</code>，<code>feign.Contract</code> 等默认源。</p>
+</blockquote>
+<p><code>name</code> 和 <code>url</code> 属性也支持占位符。</p>
+<h4 id="1-2-1-SpringEncoder-configuration"><a href="#1-2-1-SpringEncoder-configuration" class="headerlink" title="1.2.1. SpringEncoder configuration"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.RELEASE/reference/html/#springencoder-configuration">1.2.1. SpringEncoder configuration</a></h4><p>在我们提供的 <code>SpringEncoder</code> 中，我们为二进制内容类型设置了 <code>null</code> 字符集，并未所有其他的设置了 <code>UTF-8</code>。</p>
+<p>你可以通过设置 <code>feign.encoder.charset-from-content-type</code> 的值为 <code>true</code>来修改此行为，以从 <code>Content-Type</code> 头部 charset 获得字符集。</p>
+<h3 id="1-3-Timeout-Handling"><a href="#1-3-Timeout-Handling" class="headerlink" title="1.3. Timeout Handling"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.RELEASE/reference/html/#timeout-handling">1.3. Timeout Handling</a></h3><p>我们可以在默认和有名客户端上配置超时。OpenFeign 可与两个超时参数一起使用：</p>
+<ul>
+<li><code>connectTime</code></li>
+<li><code>readTimeout</code></li>
+</ul>
+<h3 id="1-5-Feign-Hystrix-Support"><a href="#1-5-Feign-Hystrix-Support" class="headerlink" title="1.5. Feign Hystrix Support"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.RELEASE/reference/html/#spring-cloud-feign-hystrix">1.5. Feign Hystrix Support</a></h3><p>如果 Hystrix 在类路径，并且 <code>feign.hystrix.enabled=true</code>，Feign 将用熔断器包装所有方法。还提供返回一个 <code>com.netflix.hystrix.HystrixCommand</code>。这使你可以使用响应式模式。</p>
+<h3 id="1-6-Feign-Hystrix-Fallbacks"><a href="#1-6-Feign-Hystrix-Fallbacks" class="headerlink" title="1.6. Feign Hystrix Fallbacks"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.RELEASE/reference/html/#spring-cloud-feign-hystrix-fallback">1.6. Feign Hystrix Fallbacks</a></h3><h3 id="1-10-Feign-Inheritance-Support"><a href="#1-10-Feign-Inheritance-Support" class="headerlink" title="1.10. Feign Inheritance Support"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.RELEASE/reference/html/#spring-cloud-feign-inheritance">1.10. Feign Inheritance Support</a></h3><p>Feign 通过单继承接口支持样板 API。这允许你将通用操作分组为方便的基础接口。</p>
+<p><strong>UserService.java</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">UserService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(method = RequestMethod.GET, value =&quot;/users/&#123;id&#125;&quot;)</span></span><br><span class="line">    User <span class="title function_">getUser</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> <span class="type">long</span> id)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>UserResource.java</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserResource</span> <span class="keyword">implements</span> <span class="title class_">UserService</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>UserClient.java</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> project.user;</span><br><span class="line"></span><br><span class="line"><span class="meta">@FeignClient(&quot;users&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">UserClient</span> <span class="keyword">extends</span> <span class="title class_">UserService</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-Timeout-Handling-1"><a href="#1-3-Timeout-Handling-1" class="headerlink" title="1.3. Timeout Handling"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.RELEASE/reference/html/#timeout-handling">1.3. Timeout Handling</a></h3><p>我们可以在默认和有名客户端上配置 timeout 属性。OpenFeign 用这两个 timeout 参数进行工作：</p>
+<ul>
+<li><code>connectTimeout</code> 防止由于较长的服务端处理时间导致的阻塞。</li>
+<li><code>readTimeout</code> 在连接建立的时候使用，并且当返回响应花费太久的时候会触发</li>
+</ul>
+<blockquote>
+<p>如果服务没有运行或者不可用，数据包可能以连接被拒绝结束。通信以错误信息或者后背方式结束。如果 <code>connectTimeout</code> 设置非常低，这就有可能在 <code>connectTimeout</code> 之前就结束通信。执行查找以及接收这样的数据包的时间可能会产生较大一部分延迟。可以基于涉及到 DNS 查找的远程主机修改该值。</p>
+</blockquote>
+<p>当启用 Hystrix 后，超时配置默认是 1000 毫秒。因此，它可能发生在我们前面配置的客户端超时之前。增加该超时，防止发生这种情况。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">feign:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">default:</span></span><br><span class="line">        <span class="attr">connectTimeout:</span> <span class="number">5000</span></span><br><span class="line">        <span class="attr">readTimeout:</span> <span class="number">5000</span></span><br><span class="line">  <span class="attr">hystrix:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">hystrix:</span></span><br><span class="line">  <span class="attr">command:</span></span><br><span class="line">    <span class="attr">default:</span></span><br><span class="line">      <span class="attr">execution:</span></span><br><span class="line">        <span class="attr">timeout:</span></span><br><span class="line">          <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">isolation:</span></span><br><span class="line">          <span class="attr">thread:</span></span><br><span class="line">            <span class="attr">timeoutInMilliseconds:</span> <span class="number">60000</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>当启用 Hystrix 的 timeout 且它的 timeout 设置得比 feign client 更长时，<code>HystrixTimeoutException</code> 会包装一个 feign 异常。否则，唯一的区别就是异常的原因。<code>HystrixTimeoutException</code> 的目的是包装先发生的任何运行时异常，并抛出自身实例。</p>
+</blockquote>
+<h3 id="1-5-Feign-Hystrix-Support-1"><a href="#1-5-Feign-Hystrix-Support-1" class="headerlink" title="1.5. Feign Hystrix Support"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.RELEASE/reference/html/#spring-cloud-feign-hystrix">1.5. Feign Hystrix Support</a></h3><p>如果 Hystrix 在类路径中，且 <code>feign.hystrix.enabled=true</code>，Feign 将使用熔断器包装所有的方法。还可以返回一个 <code>HystrixCommand</code>。</p>
+<h3 id="1-12-Feign-logging"><a href="#1-12-Feign-logging" class="headerlink" title="1.12. Feign logging"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.RELEASE/reference/html/#feign-logging">1.12. Feign logging</a></h3><p>为每个 Feign 客户端创建了一个 logger。默认情况下，logger 的名字是用于创建 Feign 客户端的接口的完全限定类名。Feign 日志仅仅响应 <code>DEBUG</code> 级别。</p>
+<p><strong>application.yml</strong></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">logging.level.project.user.UserClient</span>: <span class="string">DEBUG</span></span><br></pre></td></tr></table></figure>
+
+<p>你可以为每个客户端配置的 <code>Logger.Level</code> 对象，告诉 Feign 多少要记录。选项如下：</p>
+<ul>
+<li><code>NONE</code>，不记录日志（DEFAULT）</li>
+<li><code>BASIC</code>，仅仅记录请求方法，URL，响应状态码，以及执行时间</li>
+<li><code>HEADERS</code>，记录基本信息，以及请求头和响应头</li>
+<li><code>FULL</code>，记录来自请求或响应的头部</li>
+</ul>
+<h3 id="1-13-Feign-QueryMap-support"><a href="#1-13-Feign-QueryMap-support" class="headerlink" title="1.13. Feign @QueryMap support"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.RELEASE/reference/html/#feign-querymap-support">1.13. Feign @QueryMap support</a></h3></section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Spring Cloud" >
+    <span class="tag-code">Spring Cloud</span>
+  </a>
+
+  <a href="/tags#OpenFeign" >
+    <span class="tag-code">OpenFeign</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/12/Eureka-%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/">
+        <span class="nav-arrow">← </span>
+        
+          Eureka 配置实践
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/14/Shiro/Shiro-DefaultFilter-%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+        
+          Shiro DefaultFilter 使用笔记
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Spring-Cloud-OpenFeign"><span class="toc-nav-text">Spring Cloud OpenFeign</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-Declarative-REST-Client-Feign"><span class="toc-nav-text">1. Declarative REST Client: Feign</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-1-How-to-Include-Feign"><span class="toc-nav-text">1.1. How to Include Feign</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-2-Overriding-Feign-Defaults"><span class="toc-nav-text">1.2. Overriding Feign Defaults</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#1-2-1-SpringEncoder-configuration"><span class="toc-nav-text">1.2.1. SpringEncoder configuration</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-3-Timeout-Handling"><span class="toc-nav-text">1.3. Timeout Handling</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-5-Feign-Hystrix-Support"><span class="toc-nav-text">1.5. Feign Hystrix Support</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-6-Feign-Hystrix-Fallbacks"><span class="toc-nav-text">1.6. Feign Hystrix Fallbacks</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-10-Feign-Inheritance-Support"><span class="toc-nav-text">1.10. Feign Inheritance Support</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-3-Timeout-Handling-1"><span class="toc-nav-text">1.3. Timeout Handling</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-5-Feign-Hystrix-Support-1"><span class="toc-nav-text">1.5. Feign Hystrix Support</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-12-Feign-logging"><span class="toc-nav-text">1.12. Feign logging</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-13-Feign-QueryMap-support"><span class="toc-nav-text">1.13. Feign @QueryMap support</span></a></li></ol></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/13/Spring-Cloud/Spring-Cloud-OpenFeign/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "jiangchunbo";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "Spring Cloud OpenFeign",
+        owner: "jiangchunbo",
+        repo: "jiangchunbo.github.io",
+        oauth: {
+          client_id: "8ff18c626ce6de443832",
+          client_secret: "ccbfc51ce15c59b57e0fe4a4dea81060976bbde3"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

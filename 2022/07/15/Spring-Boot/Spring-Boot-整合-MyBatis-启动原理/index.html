@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Spring Boot 整合 MyBatis 启动原理 | Hexo
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+    
+<script src="/js/gitment.js"></script>
+
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Spring Boot 整合 MyBatis 启动原理</h2>
+  <p class="post-date">2022-07-15</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Spring-Boot-整合-MyBatis-启动原理"><a href="#Spring-Boot-整合-MyBatis-启动原理" class="headerlink" title="Spring Boot 整合 MyBatis 启动原理"></a>Spring Boot 整合 MyBatis 启动原理</h1><p>MyBatis 整合 Spring Boot 需要解决的是如何将自己创建的代理对象（<code>java.lang.reflect.Proxy</code>）交给 Spring 容器管理，这与将一个类（Class）交给 Spring 管理有所不同。</p>
+<blockquote>
+<p>将对象交给 Spring 容器管理，我们可以选择注入 Bean Definition，然后让 Spring 完成对象构造、配置、初始化等操作，然后放到 <code>singletonObjects</code> 单例池中，也可以选择直接放到单例池中，也就是不构造 Bean Definition，也不会存在于 <code>beanDefinitionMap</code>，这就是下面提及的 <code>SingletonBeanRegistry.registerSingleton</code> 方式</p>
+</blockquote>
+<p>将自定义的对象交给 Spring 容器管理，一般考虑的方式是：</p>
+<ul>
+<li>@Bean</li>
+<li>factory method</li>
+<li>SingletonBeanRegistry.registerSingleton</li>
+<li>FactoryBean</li>
+</ul>
+<p>对于 <code>@Bean</code> 方式，我们可以使用这种方式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> UserMapper <span class="title function_">videoMapper</span><span class="params">(SqlSession sqlSession)</span> &#123;</span><br><span class="line">    <span class="comment">// 添加到 MapperRegistry.knownMappers，否则 SqlSession.getMapper 会抛出异常</span></span><br><span class="line">    sqlSession.getConfiguration().addMapper(UserMapper.class);</span><br><span class="line">    <span class="keyword">return</span> sqlSession.getMapper(UserMapper.class);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述方式的确可行，但是我们每定义一个 Mapper 就需要写一个 <code>@Bean</code> 方法，还是比较麻烦的。</p>
+<p>factory method 注入的方式与 <code>@Bean</code> 大同小异。</p>
+<p>MyBatis 整合进 Spring 选择的是 <code>FactoryBean</code> 方式，通过向容器注入 <code>FactoryBean</code> 这种特殊的 Bean Definitnion，进而注入 <code>Mapper</code></p>
+<p>比较朴素的想法是，对于每个 <code>Mapper</code> 我们都为它定义一个 <code>FactoryBean</code>，但是这样工作量太大，MyBatis 通过动态 Class 实现了只需要一个 <code>MapperFactoryBean</code> 就可以构造出不同的 <code>Mapper</code> 实例</p>
+<blockquote>
+<p>底层对应 <code>MapperFactoryBean</code> 的属性 <code>mapperInterface</code>，表示不同的 <code>Mapper</code> 接口的 <code>Class</code> 对象</p>
+</blockquote>
+<p>在使用 Spring 整合 MyBatis 的时候，通常会使用如下配置，这也是官网 <a target="_blank" rel="noopener" href="http://mybatis.org/spring/getting-started.html">Getting Started</a> 提供的案例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userMapper&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.mybatis.spring.mapper.MapperFactoryBean&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;mapperInterface&quot;</span> <span class="attr">value</span>=<span class="string">&quot;org.mybatis.spring.sample.mapper.UserMapper&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;sqlSessionFactory&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;sqlSessionFactory&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>MyBatis Spring Boot Starter 为了解决上述这种按需配置 <code>MapperFactoryBean</code> 的繁琐步骤，引入了 Spring 类路径扫描机制。</p>
+<h2 id="Spring-Boot-加载-Mapper"><a href="#Spring-Boot-加载-Mapper" class="headerlink" title="Spring Boot 加载 Mapper"></a>Spring Boot 加载 Mapper</h2><ol>
+<li>Spring Boot 启动过程中，会调用 <code>AbstractApplicationContext</code> 的 <code>refresh</code> 方法，其中一个过程是 <code>invokeBeanFactoryPostProcessors</code>，它会调用 <code>ConfigurationClassPostProcessor</code> 后置处理器加载具有 <code>@Configuration</code> 注解的 Bean。</li>
+<li><code>ConfigurationClassPostProcessor</code> 关注的是 <code>@Configuration</code> 类型的 Bean，它会判断该 Bean 是否包含 <code>@Import</code> 注解。假设我们将 <code>@MapperScan</code> 添加在主启动类上（一般是具有 <code>@SpringBootApplication</code> 注解），那么将会读取主启动类注解，发现具有 <code>@MapperScan</code>，而 <code>@MapperScan</code> 嵌套了 <code>@Import</code> 注解，value 为 <code>MapperScannerRegistrar.class</code>，因此，将会构造<code>MapperScannerRegistrar</code> Bean Definition 进入 Spring 容器</li>
+</ol>
+<p>当 <code>@Configuration</code> 类解析完毕加载到容器后，就会执行 <code>load</code> 方法，用于加载这些 <code>@Configuration</code> 类相关的 Bean、Resource 等（如 <code>@Import</code>, <code>@ImportResource</code>）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">this</span>.reader.loadBeanDefinitions(configClasses)</span><br></pre></td></tr></table></figure>
+
+<p>当 <code>load</code> 完毕，此时 <code>MapperScannerRegistrar</code> 已经加载到 Spring 容器，而且 <code>load</code> 会主动触发 <code>MapperScannerRegistrar</code> 的回调方法 <code>registerBeanDefinitions</code>。</p>
+<p><code>MapperScannerRegistrar</code> 是 <code>ImportBeanDefinitionRegistrars</code> 的子类，其关键方法 <code>registerBeanDefinitions</code> 如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">registerBeanDefinitions</span><span class="params">(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry)</span> &#123;</span><br><span class="line">    <span class="comment">// 获得 @MapperScan 的全部属性</span></span><br><span class="line">    <span class="type">AnnotationAttributes</span> <span class="variable">mapperScanAttrs</span> <span class="operator">=</span> AnnotationAttributes</span><br><span class="line">        .fromMap(importingClassMetadata.getAnnotationAttributes(MapperScan.class.getName()));</span><br><span class="line">    <span class="keyword">if</span> (mapperScanAttrs != <span class="literal">null</span>) &#123;</span><br><span class="line">        registerBeanDefinitions(importingClassMetadata, mapperScanAttrs, registry,</span><br><span class="line">            generateBaseBeanName(importingClassMetadata, <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在底层构造了一个 <code>MapperScannerConfigurer</code> Bean Definitnion，并注册到容器。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">registerBeanDefinitions</span><span class="params">(AnnotationMetadata annoMeta, AnnotationAttributes annoAttrs, BeanDefinitionRegistry registry, String beanName)</span> &#123;</span><br><span class="line">    <span class="comment">// 构造 MapperScannerConfigurer Bean Definition</span></span><br><span class="line">    <span class="type">BeanDefinitionBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> BeanDefinitionBuilder.genericBeanDefinition(MapperScannerConfigurer.class);</span><br><span class="line">    builder.addPropertyValue(<span class="string">&quot;processPropertyPlaceHolders&quot;</span>, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">    Class&lt;? <span class="keyword">extends</span> <span class="title class_">Annotation</span>&gt; annotationClass = annoAttrs.getClass(<span class="string">&quot;annotationClass&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (!Annotation.class.equals(annotationClass)) &#123;</span><br><span class="line">        builder.addPropertyValue(<span class="string">&quot;annotationClass&quot;</span>, annotationClass);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Class&lt;?&gt; markerInterface = annoAttrs.getClass(<span class="string">&quot;markerInterface&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (!Class.class.equals(markerInterface)) &#123;</span><br><span class="line">        builder.addPropertyValue(<span class="string">&quot;markerInterface&quot;</span>, markerInterface);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Class&lt;? <span class="keyword">extends</span> <span class="title class_">BeanNameGenerator</span>&gt; generatorClass = annoAttrs.getClass(<span class="string">&quot;nameGenerator&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (!BeanNameGenerator.class.equals(generatorClass)) &#123;</span><br><span class="line">        builder.addPropertyValue(<span class="string">&quot;nameGenerator&quot;</span>, BeanUtils.instantiateClass(generatorClass));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Class&lt;? <span class="keyword">extends</span> <span class="title class_">MapperFactoryBean</span>&gt; mapperFactoryBeanClass = annoAttrs.getClass(<span class="string">&quot;factoryBean&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (!MapperFactoryBean.class.equals(mapperFactoryBeanClass)) &#123;</span><br><span class="line">        builder.addPropertyValue(<span class="string">&quot;mapperFactoryBeanClass&quot;</span>, mapperFactoryBeanClass);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">String</span> <span class="variable">sqlSessionTemplateRef</span> <span class="operator">=</span> annoAttrs.getString(<span class="string">&quot;sqlSessionTemplateRef&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (StringUtils.hasText(sqlSessionTemplateRef)) &#123;</span><br><span class="line">        builder.addPropertyValue(<span class="string">&quot;sqlSessionTemplateBeanName&quot;</span>, annoAttrs.getString(<span class="string">&quot;sqlSessionTemplateRef&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">String</span> <span class="variable">sqlSessionFactoryRef</span> <span class="operator">=</span> annoAttrs.getString(<span class="string">&quot;sqlSessionFactoryRef&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (StringUtils.hasText(sqlSessionFactoryRef)) &#123;</span><br><span class="line">        builder.addPropertyValue(<span class="string">&quot;sqlSessionFactoryBeanName&quot;</span>, annoAttrs.getString(<span class="string">&quot;sqlSessionFactoryRef&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 收集 basePackage</span></span><br><span class="line">    List&lt;String&gt; basePackages = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    basePackages.addAll(</span><br><span class="line">        Arrays.stream(annoAttrs.getStringArray(<span class="string">&quot;value&quot;</span>)).filter(StringUtils::hasText).collect(Collectors.toList()));</span><br><span class="line"></span><br><span class="line">    basePackages.addAll(Arrays.stream(annoAttrs.getStringArray(<span class="string">&quot;basePackages&quot;</span>)).filter(StringUtils::hasText)</span><br><span class="line">        .collect(Collectors.toList()));</span><br><span class="line"></span><br><span class="line">    basePackages.addAll(Arrays.stream(annoAttrs.getClassArray(<span class="string">&quot;basePackageClasses&quot;</span>)).map(ClassUtils::getPackageName)</span><br><span class="line">        .collect(Collectors.toList()));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (basePackages.isEmpty()) &#123;</span><br><span class="line">        basePackages.add(getDefaultBasePackage(annoMeta));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">String</span> <span class="variable">lazyInitialization</span> <span class="operator">=</span> annoAttrs.getString(<span class="string">&quot;lazyInitialization&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (StringUtils.hasText(lazyInitialization)) &#123;</span><br><span class="line">        builder.addPropertyValue(<span class="string">&quot;lazyInitialization&quot;</span>, lazyInitialization);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">String</span> <span class="variable">defaultScope</span> <span class="operator">=</span> annoAttrs.getString(<span class="string">&quot;defaultScope&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (!AbstractBeanDefinition.SCOPE_DEFAULT.equals(defaultScope)) &#123;</span><br><span class="line">        builder.addPropertyValue(<span class="string">&quot;defaultScope&quot;</span>, defaultScope);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置 basePackage 属性，用逗号(,)分隔</span></span><br><span class="line">    builder.addPropertyValue(<span class="string">&quot;basePackage&quot;</span>, StringUtils.collectionToCommaDelimitedString(basePackages));</span><br><span class="line"></span><br><span class="line">    registry.registerBeanDefinition(beanName, builder.getBeanDefinition());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>MapperScannerConfigurer</code> 是 <code>BeanDefinitionRegistryPostProcessor</code> 的实现类，也就说其调用时机在 refresh 方法的 <code>invokeBeanFactoryPostProcessors</code> 中，它执行了类路径扫描，并注册了相关的 Mapper，关键方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">postProcessBeanDefinitionRegistry</span><span class="params">(BeanDefinitionRegistry registry)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.processPropertyPlaceHolders) &#123;</span><br><span class="line">        processPropertyPlaceHolders();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 创建扫描器</span></span><br><span class="line">    <span class="type">ClassPathMapperScanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathMapperScanner</span>(registry);</span><br><span class="line">    scanner.setAddToConfig(<span class="built_in">this</span>.addToConfig);</span><br><span class="line">    scanner.setAnnotationClass(<span class="built_in">this</span>.annotationClass);</span><br><span class="line">    scanner.setMarkerInterface(<span class="built_in">this</span>.markerInterface);</span><br><span class="line">    scanner.setSqlSessionFactory(<span class="built_in">this</span>.sqlSessionFactory);</span><br><span class="line">    scanner.setSqlSessionTemplate(<span class="built_in">this</span>.sqlSessionTemplate);</span><br><span class="line">    scanner.setSqlSessionFactoryBeanName(<span class="built_in">this</span>.sqlSessionFactoryBeanName);</span><br><span class="line">    scanner.setSqlSessionTemplateBeanName(<span class="built_in">this</span>.sqlSessionTemplateBeanName);</span><br><span class="line">    scanner.setResourceLoader(<span class="built_in">this</span>.applicationContext);</span><br><span class="line">    scanner.setBeanNameGenerator(<span class="built_in">this</span>.nameGenerator);</span><br><span class="line">    scanner.setMapperFactoryBeanClass(<span class="built_in">this</span>.mapperFactoryBeanClass);</span><br><span class="line">    <span class="keyword">if</span> (StringUtils.hasText(lazyInitialization)) &#123;</span><br><span class="line">        scanner.setLazyInitialization(Boolean.valueOf(lazyInitialization));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (StringUtils.hasText(defaultScope)) &#123;</span><br><span class="line">        scanner.setDefaultScope(defaultScope);</span><br><span class="line">    &#125;</span><br><span class="line">    scanner.registerFilters();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这里将之前用逗号(,)分隔的 basePackage 字符串分解成 String[]</span></span><br><span class="line">    scanner.scan(</span><br><span class="line">        StringUtils.tokenizeToStringArray(<span class="built_in">this</span>.basePackage, ConfigurableApplicationContext.CONFIG_LOCATION_DELIMITERS));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>ClassPathBeanDefinitionScanner</code> 的 scan 方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">scan</span><span class="params">(String... basePackages)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">beanCountAtScanStart</span> <span class="operator">=</span> <span class="built_in">this</span>.registry.getBeanDefinitionCount();</span><br><span class="line"></span><br><span class="line">    doScan(basePackages);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Register annotation config processors, if necessary.</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.includeAnnotationConfig) &#123;</span><br><span class="line">        AnnotationConfigUtils.registerAnnotationConfigProcessors(<span class="built_in">this</span>.registry);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (<span class="built_in">this</span>.registry.getBeanDefinitionCount() - beanCountAtScanStart);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>ClassPathBeanDefinitionScanner</code> 的 doScan 方法如下，它返回扫描到的所有 <code>BeanDefinitionHolder</code> 的集合：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> Set&lt;BeanDefinitionHolder&gt; <span class="title function_">doScan</span><span class="params">(String... basePackages)</span> &#123;</span><br><span class="line">    Assert.notEmpty(basePackages, <span class="string">&quot;At least one base package must be specified&quot;</span>);</span><br><span class="line">    Set&lt;BeanDefinitionHolder&gt; beanDefinitions = <span class="keyword">new</span> <span class="title class_">LinkedHashSet</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (String basePackage : basePackages) &#123;</span><br><span class="line">        Set&lt;BeanDefinition&gt; candidates = findCandidateComponents(basePackage);</span><br><span class="line">        <span class="keyword">for</span> (BeanDefinition candidate : candidates) &#123;</span><br><span class="line">            <span class="type">ScopeMetadata</span> <span class="variable">scopeMetadata</span> <span class="operator">=</span> <span class="built_in">this</span>.scopeMetadataResolver.resolveScopeMetadata(candidate);</span><br><span class="line">            candidate.setScope(scopeMetadata.getScopeName());</span><br><span class="line">            <span class="type">String</span> <span class="variable">beanName</span> <span class="operator">=</span> <span class="built_in">this</span>.beanNameGenerator.generateBeanName(candidate, <span class="built_in">this</span>.registry);</span><br><span class="line">            <span class="keyword">if</span> (candidate <span class="keyword">instanceof</span> AbstractBeanDefinition) &#123;</span><br><span class="line">                postProcessBeanDefinition((AbstractBeanDefinition) candidate, beanName);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (candidate <span class="keyword">instanceof</span> AnnotatedBeanDefinition) &#123;</span><br><span class="line">                AnnotationConfigUtils.processCommonDefinitionAnnotations((AnnotatedBeanDefinition) candidate);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (checkCandidate(beanName, candidate)) &#123;</span><br><span class="line">                <span class="type">BeanDefinitionHolder</span> <span class="variable">definitionHolder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BeanDefinitionHolder</span>(candidate, beanName);</span><br><span class="line">                definitionHolder =</span><br><span class="line">                        AnnotationConfigUtils.applyScopedProxyMode(scopeMetadata, definitionHolder, <span class="built_in">this</span>.registry);</span><br><span class="line">                beanDefinitions.add(definitionHolder);</span><br><span class="line">                registerBeanDefinition(definitionHolder, <span class="built_in">this</span>.registry);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> beanDefinitions;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>MyBatis 覆盖了原来的 <code>doScan</code> 方法，因为我们不能把扫描到的 <code>Mapper</code> 接口交给 Spring 容器，否则后续的实例化将无法进行。因此，MyBatis 在调用 <code>super.doScan()</code> 方法得到扫描到的 <code>Set&lt;BeanDefinitionHolder&gt;</code> 之后又进行后置处理：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Set&lt;BeanDefinitionHolder&gt; <span class="title function_">doScan</span><span class="params">(String... basePackages)</span> &#123;</span><br><span class="line">    <span class="comment">// 调用 Spring 内置提供的 doScan 方法</span></span><br><span class="line">    Set&lt;BeanDefinitionHolder&gt; beanDefinitions = <span class="built_in">super</span>.doScan(basePackages);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (beanDefinitions.isEmpty()) &#123;</span><br><span class="line">        LOGGER.warn(() -&gt; <span class="string">&quot;No MyBatis mapper was found in &#x27;&quot;</span> + Arrays.toString(basePackages)</span><br><span class="line">            + <span class="string">&quot;&#x27; package. Please check your configuration.&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 后置处理</span></span><br><span class="line">        processBeanDefinitions(beanDefinitions);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> beanDefinitions;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>MyBatis 的 <code>ClassPathMapperScanner</code> 后置处理方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">processBeanDefinitions</span><span class="params">(Set&lt;BeanDefinitionHolder&gt; beanDefinitions)</span> &#123; AbstractBeanDefinition definition;</span><br><span class="line">    <span class="type">BeanDefinitionRegistry</span> <span class="variable">registry</span> <span class="operator">=</span> getRegistry();</span><br><span class="line">    <span class="keyword">for</span> (BeanDefinitionHolder holder : beanDefinitions) &#123;</span><br><span class="line">        definition = (AbstractBeanDefinition) holder.getBeanDefinition();</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">scopedProxy</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (ScopedProxyFactoryBean.class.getName().equals(definition.getBeanClassName())) &#123;</span><br><span class="line">            definition = (AbstractBeanDefinition) Optional</span><br><span class="line">                .ofNullable(((RootBeanDefinition) definition).getDecoratedDefinition())</span><br><span class="line">                .map(BeanDefinitionHolder::getBeanDefinition).orElseThrow(() -&gt; <span class="keyword">new</span> <span class="title class_">IllegalStateException</span>(</span><br><span class="line">                    <span class="string">&quot;The target bean definition of scoped proxy bean not found. Root bean definition[&quot;</span> + holder + <span class="string">&quot;]&quot;</span>));</span><br><span class="line">            scopedProxy = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 扫描到的 Mapper 接口，因此这里获取到的应该是形如 UserMapper 之类的</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">beanClassName</span> <span class="operator">=</span> definition.getBeanClassName();</span><br><span class="line">        LOGGER.debug(() -&gt; <span class="string">&quot;Creating MapperFactoryBean with name &#x27;&quot;</span> + holder.getBeanName() + <span class="string">&quot;&#x27; and &#x27;&quot;</span> + beanClassName</span><br><span class="line">            + <span class="string">&quot;&#x27; mapperInterface&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Mapper 接口是 Bean 原始的类型，但是实际类型是 MapperFactoryBean</span></span><br><span class="line">        <span class="comment">// 将原始类型（Mapper）作为构造器参数传入</span></span><br><span class="line">        definition.getConstructorArgumentValues().addGenericArgumentValue(beanClassName); <span class="comment">// issue #59</span></span><br><span class="line">        <span class="comment">// 将 BeanClass 强制修改为 MapperFactoryBean 类型</span></span><br><span class="line">        definition.setBeanClass(<span class="built_in">this</span>.mapperFactoryBeanClass);</span><br><span class="line"></span><br><span class="line">        definition.getPropertyValues().add(<span class="string">&quot;addToConfig&quot;</span>, <span class="built_in">this</span>.addToConfig);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Attribute for MockitoPostProcessor</span></span><br><span class="line">        <span class="comment">// https://github.com/mybatis/spring-boot-starter/issues/475</span></span><br><span class="line">        definition.setAttribute(FACTORY_BEAN_OBJECT_TYPE, beanClassName);</span><br><span class="line"></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">explicitFactoryUsed</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.hasText(<span class="built_in">this</span>.sqlSessionFactoryBeanName)) &#123;</span><br><span class="line">        definition.getPropertyValues().add(<span class="string">&quot;sqlSessionFactory&quot;</span>,</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">RuntimeBeanReference</span>(<span class="built_in">this</span>.sqlSessionFactoryBeanName));</span><br><span class="line">        explicitFactoryUsed = <span class="literal">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.sqlSessionFactory != <span class="literal">null</span>) &#123;</span><br><span class="line">        definition.getPropertyValues().add(<span class="string">&quot;sqlSessionFactory&quot;</span>, <span class="built_in">this</span>.sqlSessionFactory);</span><br><span class="line">        explicitFactoryUsed = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (StringUtils.hasText(<span class="built_in">this</span>.sqlSessionTemplateBeanName)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (explicitFactoryUsed) &#123;</span><br><span class="line">            LOGGER.warn(</span><br><span class="line">                () -&gt; <span class="string">&quot;Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        definition.getPropertyValues().add(<span class="string">&quot;sqlSessionTemplate&quot;</span>,</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">RuntimeBeanReference</span>(<span class="built_in">this</span>.sqlSessionTemplateBeanName));</span><br><span class="line">        explicitFactoryUsed = <span class="literal">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.sqlSessionTemplate != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (explicitFactoryUsed) &#123;</span><br><span class="line">            LOGGER.warn(</span><br><span class="line">                () -&gt; <span class="string">&quot;Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        definition.getPropertyValues().add(<span class="string">&quot;sqlSessionTemplate&quot;</span>, <span class="built_in">this</span>.sqlSessionTemplate);</span><br><span class="line">        explicitFactoryUsed = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!explicitFactoryUsed) &#123;</span><br><span class="line">        LOGGER.debug(() -&gt; <span class="string">&quot;Enabling autowire by type for MapperFactoryBean with name &#x27;&quot;</span> + holder.getBeanName() + <span class="string">&quot;&#x27;.&quot;</span>);</span><br><span class="line">        definition.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        definition.setLazyInit(lazyInitialization);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (scopedProxy) &#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (ConfigurableBeanFactory.SCOPE_SINGLETON.equals(definition.getScope()) &amp;&amp; defaultScope != <span class="literal">null</span>) &#123;</span><br><span class="line">        definition.setScope(defaultScope);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!definition.isSingleton()) &#123;</span><br><span class="line">        <span class="type">BeanDefinitionHolder</span> <span class="variable">proxyHolder</span> <span class="operator">=</span> ScopedProxyUtils.createScopedProxy(holder, registry, <span class="literal">true</span>);</span><br><span class="line">        <span class="keyword">if</span> (registry.containsBeanDefinition(proxyHolder.getBeanName())) &#123;</span><br><span class="line">            registry.removeBeanDefinition(proxyHolder.getBeanName());</span><br><span class="line">        &#125;</span><br><span class="line">        registry.registerBeanDefinition(proxyHolder.getBeanName(), proxyHolder.getBeanDefinition());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#MyBatis" >
+    <span class="tag-code">MyBatis</span>
+  </a>
+
+  <a href="/tags#Spring Boot" >
+    <span class="tag-code">Spring Boot</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/15/Spring-Cloud/Spring-Cloud-Gateway/">
+        <span class="nav-arrow">← </span>
+        
+          Spring Cloud Gateway
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/15/MyBatis/MyBatis-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91%E7%AC%94%E8%AE%B0/">
+        
+          MyBatis 官方文档翻译笔记
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Spring-Boot-%E6%95%B4%E5%90%88-MyBatis-%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86"><span class="toc-nav-text">Spring Boot 整合 MyBatis 启动原理</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Spring-Boot-%E5%8A%A0%E8%BD%BD-Mapper"><span class="toc-nav-text">Spring Boot 加载 Mapper</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/15/Spring-Boot/Spring-Boot-整合-MyBatis-启动原理/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "jiangchunbo";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "Spring Boot 整合 MyBatis 启动原理",
+        owner: "jiangchunbo",
+        repo: "jiangchunbo.github.io",
+        oauth: {
+          client_id: "8ff18c626ce6de443832",
+          client_secret: "ccbfc51ce15c59b57e0fe4a4dea81060976bbde3"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      InnoDB 日志 | Hexo
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+    
+<script src="/js/gitment.js"></script>
+
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>InnoDB 日志</h2>
+  <p class="post-date">2022-07-11</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p><a target="_blank" rel="noopener" href="http://blog.itpub.net/7728585/viewspace-2284045/">解析 roll_pointer</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/427911093">庖丁解牛 </a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/453169285">InnoDB之UNDO LOG介绍</a></p>
+<h1 id="Undo-Logs"><a href="#Undo-Logs" class="headerlink" title="Undo Logs"></a>Undo Logs</h1><p>Undo Log 是一条或者多条 Undo Log Record 的集合，每一条 Undo Log Record 都与一个读写事务相关。每条 Undo Log 记录包含了有关如何撤销事务最新更改的信息<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.0/en/innodb-undo-logs.html">[?]</a>。</p>
+<h2 id="1-Undo-Tablespaces"><a href="#1-Undo-Tablespaces" class="headerlink" title="1. Undo Tablespaces"></a>1. Undo Tablespaces</h2><p>Undo Tablesapces 包含许多 Undo Log。</p>
+<blockquote>
+<p>MySQL 最多支持 127 个 Undo Tablespace。默认为 2 个。</p>
+</blockquote>
+<p>InnoDB 是一个多版本的存储引擎。它可以保留有关更改行的旧版本的信息，以支持事务功能，例如并发和回滚。此信息以一个称为回滚段的数据结构，存储于 undo 表空间。回滚段驻留在 undo 表空间和全局临时表空间中<a href="s">[1]</a>。</p>
+<img src="https://cannedbread-1302516612.cos.ap-shanghai.myqcloud.com/undo-tablespace.png">
+
+
+<h2 id="2-Rollback-Segment"><a href="#2-Rollback-Segment" class="headerlink" title="2. Rollback Segment"></a>2. Rollback Segment</h2><p>InnoDB 在 Undo Tablespace 中使用 Rollback Segment 来组织 Undo Log，最多支持 128 个 Rollback Segment。</p>
+<p>其中第 0 号、33-127号针对普通表设计，1-32 号针对临时表设计。</p>
+<blockquote>
+<p>一个事务可能即操作了临时表，也操作了物理表，因此，一个事务是可以使用多个 Rollback Segment。</p>
+</blockquote>
+<h2 id="3-Rollback-Segment-Array-Header"><a href="#3-Rollback-Segment-Array-Header" class="headerlink" title="3. Rollback Segment Array Header"></a>3. Rollback Segment Array Header</h2><p>Undo Tablespace 文件中的第 3 个 Page 固定作为这 128 个 Rollback Segment 的目录，即 Rollback Segment Array Header</p>
+<h2 id="4-Rollback-Segment-Header"><a href="#4-Rollback-Segment-Header" class="headerlink" title="4. Rollback Segment Header"></a>4. Rollback Segment Header</h2><p>通过 Rollback Segment Header 来管理 Rollback Segment，Rollback Segment Header 通常在 Rollback Segment 第 1 页。</p>
+<img src="https://cannedbread-1302516612.cos.ap-shanghai.myqcloud.com/rollback_segment_header.png" width="300">
+
+<table>
+<thead>
+<tr>
+<th><div style="width:200px">字段</div></th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Max Size</td>
+<td>参数名 TRX_RSEG_MAX_SIZE， 回滚段可用的最大 Page 数</td>
+</tr>
+<tr>
+<td>History Size</td>
+<td>参数名 TRX_RSEG_HISTORY_SIZE，History List 包含的 Page 数</td>
+</tr>
+<tr>
+<td>History List Base Node</td>
+<td>参数名 TRX_RSEG_HISTORY</td>
+</tr>
+</tbody></table>
+<p>History List 把所有已经提交，但还没有被 purge 的事务的 Undo Log 连接起来，purge 线程可以通过此 List 对已经没有事务使用的 Undo Log 进行 purge。</p>
+<p>每个事务在需要记录 Undo Log 时都会申请 1 个或者 2 个 Slot（INSERT 和 UPDATE 分开），同时把事务的第一个 Undo Page 放入对应 Slot 中</p>
+<h3 id="5-Undo-Page"><a href="#5-Undo-Page" class="headerlink" title="5. Undo Page"></a>5. Undo Page</h3><p>Undo Page 一般可以分为两种：Header Page 和 Normal Page。</p>
+<img src="https://cannedbread-1302516612.cos.ap-shanghai.myqcloud.com/undo-page.png">
+
+
+<p>Undo Header Page 是事务需要写 Undo Log 时申请的第一个 Undo Page</p>
+<p>Undo Header Page 是当活跃事务产生的 Undo Record 超过 Undo Header Page 容量后，单独分配的 Undo Page</p>
+<h3 id="6-Undo-Page-Header"><a href="#6-Undo-Page-Header" class="headerlink" title="6. Undo Page Header"></a>6. Undo Page Header</h3><img src="https://cannedbread-1302516612.cos.ap-shanghai.myqcloud.com/undo-page-header.png" width="400">
+
+<table>
+<thead>
+<tr>
+<th><div style="width:200px">字段</div></th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Undo Page Type</td>
+<td>TRX_UNDO_PAGE_TYPE，使用该页事务的类型<br>可选值: TRX_UNDO_INSERT、TRX_UNDO_UPDATE</td>
+</tr>
+<tr>
+<td>Latest Log Record Offset</td>
+<td>最新事务开始记录 Undo Log 的位置</td>
+</tr>
+<tr>
+<td>Free Space Offset</td>
+<td>页内空闲空间起始地址，在此之后可记录 Undo Log</td>
+</tr>
+<tr>
+<td>Undo Page List Node</td>
+<td>undo page list节点，可以把同一个事务所用到的所有undo page双向串联起来</td>
+</tr>
+</tbody></table>
+<h3 id="6-Undo-Segment"><a href="#6-Undo-Segment" class="headerlink" title="6. Undo Segment"></a>6. Undo Segment</h3><p>InnoDB 中的 Undo Tablespace 中准备了大量的 Undo Segment 槽位，默认按照 1024 一组划分为 Rollback Segment。</p>
+<blockquote>
+<p>每个 Undo Tablespace 最多会包含128 个 Rollback Segment。1 个 Undo Slot 对应 1 个 Undo Segment</p>
+</blockquote>
+<p>每个写事务开始写操作之前都需要持有一个 Undo Segment。在任何时刻，每个 Undo Segment 都是被一个事务独占的。</p>
+<p>对于较大的 Undo Log 随着不断地写入，按需分配足够多的 Undo Page 分散承载。</p>
+<p>每个 Undo Segment  至少持有 1 个 Undo Page，每个 Undo Page 会在开头 38 - 56 字节记录 Undo Page Header。</p>
+<blockquote>
+<p>Rollback Segment 中 Undo Slot 具体的数值是 $\frac {Page Size}{16}$，见<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.0/en/innodb-undo-logs.html">15.6.6 Undo Logs</a>。因为默认 Page Size &#x3D; 16 KB，因此默认以 1024 一组划分为一个 Rollback Segment。</p>
+</blockquote>
+<h3 id="7-Undo-Segment-Header"><a href="#7-Undo-Segment-Header" class="headerlink" title="7. Undo Segment Header"></a>7. Undo Segment Header</h3><p>Undo Segment 中的第 1 个 Undo Page 还会在 56~86 字节记录 Undo Segment Header。</p>
+<img src="https://cannedbread-1302516612.cos.ap-shanghai.myqcloud.com/undo-segment-header.png" style="width: 400px">
+
+<table>
+<thead>
+<tr>
+<th><div style="width:200px">字段</div></th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>State</td>
+<td>TRX_UNDO_STATE，Undo Segment 的状态</td>
+</tr>
+<tr>
+<td>Last Log Offset</td>
+<td>TRX_UNDO_LAST_LOG，当前页最后一个 Undo Log Header 的位置</td>
+</tr>
+<tr>
+<td>Undo Segment FSEG Entry</td>
+<td>TRX_UNDO_FSEG_HEADER，segment对应的inode的（space_id，page_no，offset等）</td>
+</tr>
+<tr>
+<td>Undo Segment Page List Base Node</td>
+<td>TRX_UNDO_PAGE_LIST,undo page list的Base Node，对于同一个事务下的undo header page和undo normal page构成双向链表</td>
+</tr>
+</tbody></table>
+<p>TRX_UNDO_PAGE_LIST：对于一般事务来说，不会出现一页写不下的情况，所以，对于大多数事务该链表长度是 1。</p>
+<p>在事务结束 (commit &#x2F; rollback) 的时候，会依次检查一些条件：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// trx_undo_set_state_at_finish()</span></span><br><span class="line"><span class="keyword">if</span> (undo-&gt;size == <span class="number">1</span> &amp;&amp; mach_read_from_2(page_hdr + TRX_UNDO_PAGE_FREE) &lt; </span><br><span class="line">TRX_UNDO_PAGE_REUSE_LIMIT) &#123;</span><br><span class="line">    <span class="comment">// 如果占用 Page == 1，而且本页使用空间偏移量小于 3 / 4</span></span><br><span class="line">    <span class="comment">// 那么，标记为 TRX_UNDO_CACHED</span></span><br><span class="line">    state = TRX_UNDO_CACHED;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (undo-&gt;type == TRX_UNDO_INSERT) &#123;</span><br><span class="line">    <span class="comment">// 如果类型为 INSERT</span></span><br><span class="line">    <span class="comment">// 那么，标记为 TRX_UNDO_TO_FREE</span></span><br><span class="line">    state = TRX_UNDO_TO_FREE;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 最后就是类型为 UPDATE 而且占用空间较多</span></span><br><span class="line">    state = TRX_UNDO_TO_PURGE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于标记为 <code>TRX_UNDO_CACHED</code> 的 Undo Segment 会在 <code>trx_undo_insert_cleanup</code> &#x2F; <code>trx_undo_update_cleanup</code> 中添加到 insert cached list &#x2F; update cached list 头部。</p>
+<p>对于 INSERT 类型的清理在 <code>trx_commit_in_memory()</code> 会直接释放掉标记为 <code>TRX_UNDO_TO_FREE</code> 的 Undo Segment。</p>
+<p>UPDATE 类型的 Undo Segment 会等待 Purge 完毕回收。</p>
+<h3 id="8-Undo-Log-Header"><a href="#8-Undo-Log-Header" class="headerlink" title="8. Undo Log Header"></a>8. Undo Log Header</h3><p>每个写事务会修改一些数据记录，对应产生一些 Undo Log Record。这些 Undo Log Record 连接在一起形成该事务的 Undo Log。这些 Undo Log Record 开头存在一个 Undo Log Header 记录一些信息。</p>
+<img src="https://cannedbread-1302516612.cos.ap-shanghai.myqcloud.com/undo_log_header.png" width="300">
+
+
+<table>
+<thead>
+<tr>
+<th align="left">字段</th>
+<th align="left">占用</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Transaction ID</td>
+<td align="left">8</td>
+<td align="left">事务 ID</td>
+</tr>
+<tr>
+<td align="left">Delete Mark</td>
+<td align="left">2</td>
+<td align="left">表示该 Undo Log 是否存在 TRX_UNDO_DEL_MARK_REC 类型的 Undo Log Record，避免 Purge 时不必要的扫描</td>
+</tr>
+<tr>
+<td align="left">Log Start Offset</td>
+<td align="left">2</td>
+<td align="left">记录 Undo Log Header 的结束位置，便于之后 Header 增加内容时的兼容</td>
+</tr>
+<tr>
+<td align="left">Next Undo Log</td>
+<td align="left">2</td>
+<td align="left">后一个 Undo Log</td>
+</tr>
+<tr>
+<td align="left">Prev Undo</td>
+<td align="left">2</td>
+<td align="left">前一个 Undo Log</td>
+</tr>
+</tbody></table>
+<h3 id="8-Undo-Log-Record-结构"><a href="#8-Undo-Log-Record-结构" class="headerlink" title="8. Undo Log Record 结构"></a>8. Undo Log Record 结构</h3><p>主要分为两大类：</p>
+<ul>
+<li>insert undo log record</li>
+<li>update undo log record<br>其中，update undo log record 还有其他更多的类别</li>
+</ul>
+<h4 id="8-1-Insert-Undo-Log-Record"><a href="#8-1-Insert-Undo-Log-Record" class="headerlink" title="8.1. Insert Undo Log Record"></a>8.1. Insert Undo Log Record</h4><p>TRX_UNDO_INSERT_REC</p>
+<table>
+<thead>
+<tr>
+<th align="left">TRX_UNDO_INSERT_REC</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">next (2)</td>
+<td align="left">下一个 undo log 的位置</td>
+</tr>
+<tr>
+<td align="left">type_cmpl (1)</td>
+<td align="left">Undo 类型，TRX_UNDO_INSERT_REC: 11</td>
+</tr>
+<tr>
+<td align="left">Undo Number</td>
+<td align="left">在一个事务中从 0 开始递增</td>
+</tr>
+<tr>
+<td align="left">Table ID</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Key Field 1 Length</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Key Field 1 Content</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">…</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Key Field n Length</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Key Field n Content</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">start</td>
+<td align="left">undo 开始的位置</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>INSERT 操作的 undo log record 在事务提交后就可以删除</p>
+</blockquote>
+<h4 id="8-2-Update-Undo-Log-Record"><a href="#8-2-Update-Undo-Log-Record" class="headerlink" title="8.2. Update Undo Log Record"></a>8.2. Update Undo Log Record</h4><p>该类别的 Undo Log Record 可以再分为三种：</p>
+<ul>
+<li>TRX_UNDO_DEL_MARK_REC</li>
+<li>TRX_UNDO_UPD_DEL_REC</li>
+<li>TRX_UNDO_UPD_EXIST_REC</li>
+</ul>
+<p>TRX_UNDO_UPD_EXIST_REC</p>
+<table>
+<thead>
+<tr>
+<th align="left"><div style="width: 200px">字段</div></th>
+<th align="left">占用</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">end of record</td>
+<td align="left">2</td>
+<td align="left">本页中，该记录的末尾偏移量。只有当记录完全写完才能写入，事先不知道大小。</td>
+</tr>
+<tr>
+<td align="left">type_cmpl</td>
+<td align="left">1</td>
+<td align="left">TRX_UNDO_UPD_EXIST_REC</td>
+</tr>
+<tr>
+<td align="left">undo_no</td>
+<td align="left"></td>
+<td align="left">在一个事务中从 0 开始递增</td>
+</tr>
+<tr>
+<td align="left">table id</td>
+<td align="left"></td>
+<td align="left">表 ID</td>
+</tr>
+<tr>
+<td align="left">info bits</td>
+<td align="left">1</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">trx_id</td>
+<td align="left">压缩</td>
+<td align="left">旧记录的 trx_id</td>
+</tr>
+<tr>
+<td align="left">roll_pointer</td>
+<td align="left">压缩</td>
+<td align="left">旧记录的 roll_pointer</td>
+</tr>
+<tr>
+<td align="left">clustered index 1 length</td>
+<td align="left"></td>
+<td align="left">聚簇索引 1 长度</td>
+</tr>
+<tr>
+<td align="left">clustered index 1 value</td>
+<td align="left"></td>
+<td align="left">聚簇索引 1 值</td>
+</tr>
+<tr>
+<td align="left">…</td>
+<td align="left">…</td>
+<td align="left">…</td>
+</tr>
+<tr>
+<td align="left">clustered index n length</td>
+<td align="left"></td>
+<td align="left">聚簇索引 n 长度</td>
+</tr>
+<tr>
+<td align="left">clustered index n value</td>
+<td align="left"></td>
+<td align="left">聚簇索引 n 值</td>
+</tr>
+<tr>
+<td align="left">n_updated</td>
+<td align="left"></td>
+<td align="left">共有多少个列被更新了</td>
+</tr>
+<tr>
+<td align="left">len of index_col_info</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">索引列各列信息</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">start of record</td>
+<td align="left">2</td>
+<td align="left">本页中，该记录的起始偏移量</td>
+</tr>
+</tbody></table>
+<p>TRX_UNDO_DEL_MARK_REC</p>
+<table>
+<thead>
+<tr>
+<th align="left"><div style="width: 200px">字段</div></th>
+<th align="left">占用</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">end of record (2)</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Type and Flags (1)</td>
+<td align="left"></td>
+<td align="left">TRX_UNDO_DEL_MARK_REC</td>
+</tr>
+<tr>
+<td align="left">Undo Number</td>
+<td align="left"></td>
+<td align="left">在一个事务中从 0 开始递增</td>
+</tr>
+<tr>
+<td align="left">Table ID</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Info Bits</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">trx_id</td>
+<td align="left"></td>
+<td align="left">旧记录的 trx_id</td>
+</tr>
+<tr>
+<td align="left">roll_pointer</td>
+<td align="left"></td>
+<td align="left">旧记录的 roll_pointer</td>
+</tr>
+<tr>
+<td align="left">clustered index 1 length</td>
+<td align="left"></td>
+<td align="left">聚簇索引 1 长度</td>
+</tr>
+<tr>
+<td align="left">clustered index 1 value</td>
+<td align="left"></td>
+<td align="left">聚簇索引 1 值</td>
+</tr>
+<tr>
+<td align="left">…</td>
+<td align="left">…</td>
+<td align="left">…</td>
+</tr>
+<tr>
+<td align="left">clustered index n length</td>
+<td align="left"></td>
+<td align="left">聚簇索引 n 长度</td>
+</tr>
+<tr>
+<td align="left">clustered index n value</td>
+<td align="left"></td>
+<td align="left">聚簇索引 n 值</td>
+</tr>
+<tr>
+<td align="left">start of record</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">事务中 DELETE 仅将记录的 deleted_flag 标识设置为 1</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">当对每一条数据记录进行 delete mark 操作前，需要把该数据记录的 trx_id 和 roll_pointer 的旧值记录到 undo log record，再将 trx_id 和 roll_pointer 更新。</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>撤销日志是为了实现事务原子性而出现的产物。事务处理过程中，如果出现了错误或者用户执行了 rollback 语句，MySQL 可以利用 undo log 中的信息将数据恢复到事务开始之前的状态<br>撤销日志在 MySQL InnoDB 存储引擎中还用来实现多版本并发控制。</p>
+</blockquote>
+<p>在全局临时表空间中的 Undo Log 用于事务修改用户定义的临时表中的数据。这些 Undo Log 不会记录 Redo Log，因为崩溃恢复不需要它们。它们仅在服务器运行时用于回滚。这种类型的 Undo Log 通过避免 Redo 日志 I&#x2F;O 对性能有帮助。<br>每个 undo 表空间和全局临时表空间最多支持 128 个回滚段。<code>innodb_rollback_segments</code> 变量定义了回滚段的数量。<br>事务最多分配 4 个 undo 日志，每个对应下面的操作类型：</p>
+<ol>
+<li><code>INSERT</code> 用户定义的表</li>
+<li><code>UPDATE</code> 和 <code>DELETE</code> 用户定义的表</li>
+<li><code>INSERT</code> 用户定义的临时表</li>
+<li><code>UPDATE</code> 和 <code>DELETE</code> 用户定义的临时表<br>根据需要分配 undo 日志。例如，执行常规表和临时表上的 <code>INSERT</code>，<code>UPDATE</code>，以及 <code>DELETE</code> 操作的事务需要完全分配 4 个 undo 日志；仅在常规表上执行 <code>INSERT</code> 操作的事务只需要 1 个 undo 日志。</li>
+</ol>
+<ul>
+<li>如果每个事务执行 <code>INSERT</code> 或者 <code>UPDATE</code> 或者 <code>DELETE</code> 操作之一，那么 InnoDB 可以支持的并发独写事务数是：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(innodb_page_size / 16) * innodb_rollback_segments * number of undo tablespaces</span><br></pre></td></tr></table></figure></li>
+<li>如果每个事务执行 <code>INSERT</code> 加上 <code>UPDATE</code> 或者 <code>DELETE</code> 操作之一，那么 InnoDB 可以支持的并发独写事务数是：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(innodb_page_size / 16 / 2) * innodb_rollback_segments * number of undo tablespaces</span><br></pre></td></tr></table></figure></li>
+<li>如果每个事务都在临时表上执行 <code>INSERT</code> 操作，那么 InnoDB 可以支持的并发独写事务数是：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(innodb_page_size / 16) * innodb_rollback_segments</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Undo-Log-分配"><a href="#Undo-Log-分配" class="headerlink" title="Undo Log 分配"></a>Undo Log 分配</h3><p>当开启一个事务的时候，会调用 <code>trx_assign_rseg_durable</code> 分配一个 Rollback Segment。<br>只读事务</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">trx_assign_rseg_temp();</span><br><span class="line">-&gt; get_next_temp_rseg();</span><br><span class="line">-&gt; trx_sys-&gt;tmp_rsegs</span><br></pre></td></tr></table></figure>
+<p>读写事务</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">trx_assign_rseg_durable() </span><br><span class="line">-&gt; get_next_redo_rseg()</span><br><span class="line">    -&gt;get_next_redo_rseg_from_trx_sys() -&gt; (trx_sys-&gt;rsegs)</span><br><span class="line">      get_next_redo_rseg_from_undo_spaces() -&gt; (undo_space-&gt;rsegs())</span><br></pre></td></tr></table></figure>
+<p>当 InnoDB 没有配置独立 Undo Tablespace 时， trx_sys-&gt;regs 为读写事务分配回滚段；否则从 undo_spaces-&gt;regs() 分配回滚段<br>当第一次真正产生修改需要写 Undo Log Record 的时候，调用 <code>trx_undo_assign_undo</code> 来获得一个 Undo Segment</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">trx_undo_assign_undo(*trx. *undo_ptr, type) &#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     尝试获取缓存中可用的 Undo Log</span></span><br><span class="line"><span class="comment">     1. 对于 type == TRX_UNDO_INSERT</span></span><br><span class="line"><span class="comment">          从 rseg-&gt;insert_undo_cached 链表上获取 Undo Log 对象，并从链表移除</span></span><br><span class="line"><span class="comment">          之后调用 trx_undo_insert_header_reuse 重新初始化 Undo Page Header</span></span><br><span class="line"><span class="comment">     2. 对于 type == TRX_UNDO_UPDATE</span></span><br><span class="line"><span class="comment">          从 rseg-&gt;update_undo_cached 链表上获取 Undo Log 对象，并从链表移除</span></span><br><span class="line"><span class="comment">          之后调用 trx_undo_header_create 创建新的 Undo Log Header</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">          </span><br><span class="line">    undo = trx_undo_reuse_cached();</span><br><span class="line">    <span class="keyword">if</span> (undo == nullptr) &#123;</span><br><span class="line"><span class="comment">// 如果没有缓存的 Undo Log 对象，调用 trx_undo_create 从回滚段上分配一个空闲的 Undo Slot</span></span><br><span class="line">        trx_undo_create();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Undo-Log-写入"><a href="#Undo-Log-写入" class="headerlink" title="Undo Log 写入"></a>Undo Log 写入</h3><h4 id="1-分配回滚段"><a href="#1-分配回滚段" class="headerlink" title="1. 分配回滚段"></a>1. 分配回滚段</h4><p>事务从调用 <code>trx_start_low</code> 函数开始。</p>
+<p>当该事务被判定为读写模式时，会分配 TRX_ID 以及回滚段。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 来自 trx_start_low 片段</span></span><br><span class="line"><span class="keyword">if</span> (!trx-&gt;read_only &amp;&amp;</span><br><span class="line">      (trx-&gt;mysql_thd == nullptr || read_write || trx-&gt;ddl_operation)) &#123;</span><br><span class="line">    <span class="comment">// 分配 Rollback Segment</span></span><br><span class="line">    trx_assign_rseg_durable(trx);</span><br><span class="line">    <span class="comment">// 分配 TRX_ID</span></span><br><span class="line">    trx-&gt;id = trx_sys_allocate_trx_id();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>当写事务开始时，会先调用 <code>trx_assign_rseg_durable</code>  分配一个 Rollback Segment。</p>
+<p>分配策略：依次尝试下一个活跃的 Rollback Segment。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/ Assign a durable rollback segment to a transaction in a round-robin</span><br><span class="line">fashion.</span><br><span class="line">@param[in,out]	trx	transaction that involves a durable write. */</span><br><span class="line"><span class="type">void</span> <span class="title function_">trx_assign_rseg_durable</span><span class="params">(<span class="type">trx_t</span> *trx)</span> &#123;</span><br><span class="line">  ut_ad(trx-&gt;rsegs.m_redo.rseg == nullptr);</span><br><span class="line"></span><br><span class="line">  trx-&gt;rsegs.m_redo.rseg = srv_read_only_mode ? nullptr : get_next_redo_rseg();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-使用回滚段"><a href="#2-使用回滚段" class="headerlink" title="2. 使用回滚段"></a>2. 使用回滚段</h4><p>当第一次真正产生修改需要写 Undo Record 的时候，会从 <code>trx_undo_report_row_operation</code> 进入，接着调用 <code>trx_undo_assign_undo</code> 获得一个 Undo Segment。优先复用 <code>trx_rseg_t</code> 上 Cached List 中的 trx_undo_t，也就是已经分配出来但没有被正在使用的 Undo Segment。</p>
+<p>如果没有缓存的 Undo Segment，才调用 <code>trx_undo_create</code> 创建新的 Undo Segment，<code>trx_undo_create</code> 会轮询选择当前 Rollback Segment 中可用的 Slot，申请新的 Undo Page，初始化 Undo Page Header，Undo Segment Header</p>
+<h4 id="3-写入"><a href="#3-写入" class="headerlink" title="3. 写入"></a>3. 写入</h4><p>对于 INSERT UNDO LOG 写入的入口函数 <code>trx_undo_page_report_insert</code></p>
+<p>对于 UPDATE UNDO LOG 写入的入口函数 <code>trx_undo_page_report_modify</code></p>
+<p>在写入过程中，可能出现 Undo Page 空间不足的情况，当出现这种情况，会调用 <code>trx_undo_erase_page_end</code> 来清除刚刚写入的区域，然后调用 <code>trx_undo_add_page</code> 申请一个新的 Undo Page 加入到 Undo Page List，同时 undo-&gt;last_page_no 指向新的 Undo Page，重新尝试写入。</p>
+<h1 id="表空间"><a href="#表空间" class="headerlink" title="表空间"></a>表空间</h1><h2 id="系统表空间"><a href="#系统表空间" class="headerlink" title="系统表空间"></a>系统表空间</h2><p>The System Tablespace</p>
+<p>系统表空间是更改缓冲区的存储区域。如果在系统表空间中创建表，而不是每张表一个文件或者常规表空间，它也可能包含表和索引数据。在过于的版本中，系统表空间包含 InnoDB 的数据字典。在 MySQL 8.0 中，InnoDB 将元数据存储在数据字典中。<br>系统表空间可以有一个或者多个数据文件。默认地，会在数据文件夹下创建一个系统表空间数据文件，名为 <code>ibdata</code>。系统表空间的大小和数量由 innodb_data_file_path 启动项定义。</p>
+<h2 id="File-Per-Table-Tablespaces"><a href="#File-Per-Table-Tablespaces" class="headerlink" title="File-Per-Table Tablespaces"></a>File-Per-Table Tablespaces</h2><p>对于单个 InnoDB 表，file-per-table 表空间包含了该表的数据以及索引，并存储于文件系统的单个文件中</p>
+<h1 id="Redo-Log-重做日志用来实现事务的持久性"><a href="#Redo-Log-重做日志用来实现事务的持久性" class="headerlink" title="Redo Log 重做日志用来实现事务的持久性"></a>Redo Log 重做日志用来实现事务的持久性</h1><p>Redo Log 是在崩溃期间使用的基于磁盘的数据结构，以纠正不完整事务写入的数据。<br>在正常操作期间，Redo Log 将那些来自于 SQL 语句或者低级 API 调用的表数据修改操作请求进行编码。<br>在初始化并接受连接之前，那些由于无法预期的关闭导致未能将数据文件更新的修改操作会被重新执行。</p>
+<blockquote>
+<p>重做日志用来实现事务的持久性<br>默认地，Redo Log 在物理上表现为磁盘上两个名为 <code>ib_logfile0</code> 和 <code>ib_logfile1</code> 的文件。MySQL 以循环的方式写入 Redo Log 文件。根据受影响的记录，Redo Log 将它们编码；这些数据统称为 redo。</p>
+</blockquote>
+<h2 id="Changing-the-Number-or-Size-of-Redo-Log-Files"><a href="#Changing-the-Number-or-Size-of-Redo-Log-Files" class="headerlink" title="Changing the Number or Size of Redo Log Files"></a>Changing the Number or Size of Redo Log Files</h2><p>如果要修改 Redo Log 的大小数量，需要执行以下步骤：</p>
+<ol>
+<li>停止 MySQL Server 并确保它没有错误关闭</li>
+<li>编辑 my.cnf 更改日志文件配置。要更改日志文件大小，配置 <code>innodb_log_file_size</code>。为了增加日志文件的数量，需配置 <code>innodb_log_files_in_group</code></li>
+<li>再次启动 MySQL 服务<h2 id="Group-Commit-for-Redo-Log-Flushing"><a href="#Group-Commit-for-Redo-Log-Flushing" class="headerlink" title="Group Commit for Redo Log Flushing"></a>Group Commit for Redo Log Flushing</h2>与其他符合 ACID 数据库引擎一样，InnoDB 在提交事务之前会刷写（flush） Redo Log。InnoDB 使用组提交功能，将多个 flush 请求组合在一起，以避免为每个提交进行一次 flush 操作。使用组提交，InnoDB 向日志文件发出单个的写入，用于为同一时间的多个用户事务执行提交动作，这可以显著提高吞吐量。<h2 id="Redo-Log-Archiving"><a href="#Redo-Log-Archiving" class="headerlink" title="Redo Log Archiving"></a>Redo Log Archiving</h2>复制 Redo Log 记录的备份工具有时候可能会在进行备份操作时无法跟上 Redo Log 的生成速度，导致由于这些记录被覆盖而导致 Redo Log 记录丢失。在备份操作期间，存在着显著的 MySQL 服务活动，并且 Redo Log 文件存储介质比备份存储介质更快的速度运行时，最常常发生此问题。在 MySQL 8.0.17 中引入的重做记录归档功能，通过在 Redo Log 文件之外将 Redo Log 记录顺序写入归档文件来解决此事。<h2 id="Performance-Considerations"><a href="#Performance-Considerations" class="headerlink" title="Performance Considerations"></a>Performance Considerations</h2><img src="https://img-blog.csdnimg.cn/55d9b5977dcd478b9035dc0faee7a8fc.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA572Q6KOF6Z2i5YyF,size_20,color_FFFFFF,t_70,g_se,x_16" alt="请添加图片描述"></li>
+</ol>
+<h1 id="Undo-Tablespaces"><a href="#Undo-Tablespaces" class="headerlink" title="Undo Tablespaces"></a>Undo Tablespaces</h1><p>撤销表空间包含 undo 日志，这些记录是包含有关如何撤销事务的最新的更改的信息。<br>InnoDB 是一个多版本的存储引擎。它可以保留有关更改行的旧版本的信息，以支持事务功能，例如并发和回滚。此信息以一个称为回滚段的数据结构，存储于 undo 表空间。回滚段驻留在 undo 表空间和全局临时表空间中。</p>
+<h2 id="Default-Undo-Tablespaces"><a href="#Default-Undo-Tablespaces" class="headerlink" title="Default Undo Tablespaces"></a>Default Undo Tablespaces</h2><p>初始化 MySQL 实例的时候，会创建两个默认的 undo 表空间。<br>默认 undo 表空间的创建位置由 innodb_undo_directory 变量定义。如果 innodb_undo_directory 变量未定义，则再数据目录中创建默认的 undo 表空间。默认 undo 表空间数据文件名为 <code>undo_001</code> 和 <code>undo_002</code>。数据字典中定义的相应的 undo 表空间名称是 innodb_undo_001 和 innodb_undo_002</p>
+<h2 id="Undo-Tablespace-Size"><a href="#Undo-Tablespace-Size" class="headerlink" title="Undo Tablespace Size"></a>Undo Tablespace Size</h2><p>在 MySQL 8.0.23 之前，undo 表空间的大小取决于 innodb_page_size。对于默认的 16K 页大小，初始 undo 表空间是 10MB。</p>
+<h2 id="Dropping-Undo-Tablespaces"><a href="#Dropping-Undo-Tablespaces" class="headerlink" title="Dropping Undo Tablespaces"></a>Dropping Undo Tablespaces</h2><p>MySQL 8.0.14 可以使用 <code>DROP UNDO TABLESPACES</code> 语法在运行时删除使用 <code>CREATE UNDO TABLESPACES</code> 语法创建的表空间。</p>
+<h2 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h2><p>ReadView，每个事务在读取数据的时候都会被分配一个视图，通过视图就可以判断其他事务对数据的可见性。</p>
+<p>分配：通过 <code>trx_assign_read_view()</code> 分配视图</p>
+<p>回收：事务结束时，会通过 <code>view_close()</code> 对其视图进行回收。</p>
+<p><code>m_low_limit_id</code>：读取行为不应该看到 <code>trx_id</code> &gt;&#x3D; <code>m_low_limit_id</code> 的事务，即高水位。分配时取 <code>trx_sys::max_trx_id</code>，即当前还没有被分配的事务最大 ID</p>
+<p><code>m_up_limit_id</code>：读取行为应该可以看到所有 trx_id &lt; <code>m_up_limit_id</code> 的事务，即低水位。低水位，如果m_ids不为空，取其最小值，否则取trx_sys::max_trx_id，即与高水位相等。</p>
+<blockquote>
+<p>关于 <code>m_low_limit_id</code> 和 <code>m_up_limit_id</code> 的解释以及高水位和低水位的比喻均来自于源码注释。</p>
+</blockquote>
+<p><code>m_ids</code>：在此视图初始化时，通过 <code>copy_trx_ids()</code> 从 <code>trx_sys::rw_trx_ids</code> 拷贝一份活跃事务ID(不包含当前事务ID)。</p>
+</section>
+    <!-- Tags START -->
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/10/Spring-Core/Spring-%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96/">
+        <span class="nav-arrow">← </span>
+        
+          Spring 循环依赖
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/12/Nginx-%E5%AE%98%E6%96%B9%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+          Nginx 官方学习笔记
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-nav-text">参考文献</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Undo-Logs"><span class="toc-nav-text">Undo Logs</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-Undo-Tablespaces"><span class="toc-nav-text">1. Undo Tablespaces</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-Rollback-Segment"><span class="toc-nav-text">2. Rollback Segment</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3-Rollback-Segment-Array-Header"><span class="toc-nav-text">3. Rollback Segment Array Header</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4-Rollback-Segment-Header"><span class="toc-nav-text">4. Rollback Segment Header</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#5-Undo-Page"><span class="toc-nav-text">5. Undo Page</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#6-Undo-Page-Header"><span class="toc-nav-text">6. Undo Page Header</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#6-Undo-Segment"><span class="toc-nav-text">6. Undo Segment</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#7-Undo-Segment-Header"><span class="toc-nav-text">7. Undo Segment Header</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#8-Undo-Log-Header"><span class="toc-nav-text">8. Undo Log Header</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#8-Undo-Log-Record-%E7%BB%93%E6%9E%84"><span class="toc-nav-text">8. Undo Log Record 结构</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#8-1-Insert-Undo-Log-Record"><span class="toc-nav-text">8.1. Insert Undo Log Record</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#8-2-Update-Undo-Log-Record"><span class="toc-nav-text">8.2. Update Undo Log Record</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Undo-Log-%E5%88%86%E9%85%8D"><span class="toc-nav-text">Undo Log 分配</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Undo-Log-%E5%86%99%E5%85%A5"><span class="toc-nav-text">Undo Log 写入</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#1-%E5%88%86%E9%85%8D%E5%9B%9E%E6%BB%9A%E6%AE%B5"><span class="toc-nav-text">1. 分配回滚段</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#2-%E4%BD%BF%E7%94%A8%E5%9B%9E%E6%BB%9A%E6%AE%B5"><span class="toc-nav-text">2. 使用回滚段</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#3-%E5%86%99%E5%85%A5"><span class="toc-nav-text">3. 写入</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E8%A1%A8%E7%A9%BA%E9%97%B4"><span class="toc-nav-text">表空间</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%A1%A8%E7%A9%BA%E9%97%B4"><span class="toc-nav-text">系统表空间</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#File-Per-Table-Tablespaces"><span class="toc-nav-text">File-Per-Table Tablespaces</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Redo-Log-%E9%87%8D%E5%81%9A%E6%97%A5%E5%BF%97%E7%94%A8%E6%9D%A5%E5%AE%9E%E7%8E%B0%E4%BA%8B%E5%8A%A1%E7%9A%84%E6%8C%81%E4%B9%85%E6%80%A7"><span class="toc-nav-text">Redo Log 重做日志用来实现事务的持久性</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Changing-the-Number-or-Size-of-Redo-Log-Files"><span class="toc-nav-text">Changing the Number or Size of Redo Log Files</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Group-Commit-for-Redo-Log-Flushing"><span class="toc-nav-text">Group Commit for Redo Log Flushing</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Redo-Log-Archiving"><span class="toc-nav-text">Redo Log Archiving</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Performance-Considerations"><span class="toc-nav-text">Performance Considerations</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Undo-Tablespaces"><span class="toc-nav-text">Undo Tablespaces</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Default-Undo-Tablespaces"><span class="toc-nav-text">Default Undo Tablespaces</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Undo-Tablespace-Size"><span class="toc-nav-text">Undo Tablespace Size</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Dropping-Undo-Tablespaces"><span class="toc-nav-text">Dropping Undo Tablespaces</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#MVCC"><span class="toc-nav-text">MVCC</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/11/InnoDB 日志/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "jiangchunbo";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "InnoDB 日志",
+        owner: "jiangchunbo",
+        repo: "jiangchunbo.github.io",
+        oauth: {
+          client_id: "8ff18c626ce6de443832",
+          client_secret: "ccbfc51ce15c59b57e0fe4a4dea81060976bbde3"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

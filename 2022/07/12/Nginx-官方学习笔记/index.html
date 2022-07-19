@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Nginx 官方学习笔记 | Hexo
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+    
+<script src="/js/gitment.js"></script>
+
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Nginx 官方学习笔记</h2>
+  <p class="post-date">2022-07-12</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Nginx-官方学习笔记"><a href="#Nginx-官方学习笔记" class="headerlink" title="Nginx 官方学习笔记"></a>Nginx 官方学习笔记</h1><h2 id="Module-参考"><a href="#Module-参考" class="headerlink" title="Module 参考"></a>Module 参考</h2><h3 id="ngx-http-core-module"><a href="#ngx-http-core-module" class="headerlink" title="ngx_http_core_module"></a><a target="_blank" rel="noopener" href="https://nginx.org/en/docs/http/ngx_http_core_module.html">ngx_http_core_module</a></h3><blockquote>
+<p>语法：server_name name …;<br>默认：server_name “”;<br>上下文：server</p>
+</blockquote>
+<p>设置虚拟主机名，例如：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">server_name</span> example.com www.example.com;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第一个名字成为主服务名。</p>
+<p>服务名可以包含一个星号（”*”）替换名字的第一个部分或者最后一个部分：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">server_name</span> example.com <span class="regexp">*.example.com</span> <span class="regexp">www.example.*</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样的名称称为通配符名。</p>
+<p>上面提到的前两个名称可以合并为一个：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">server_name</span> .example.com;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也可以在服务名称中使用正则表达式，并在名字前面使用波浪号（”~”）：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">server_name</span> www.example.com ~^www\d+\.example\.com$;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>正则表达式中有名捕获会创建变量（0.8.25），之后可以在其他指令中使用：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">server_name</span> ~^(www\.)?(?&lt;domain&gt;.+)$;</span><br><span class="line"></span><br><span class="line">    <span class="section">location</span> / &#123;</span><br><span class="line">        <span class="attribute">root</span> /sites/<span class="variable">$domain</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">server_name</span> _;</span><br><span class="line"></span><br><span class="line">    <span class="section">location</span> / &#123;</span><br><span class="line">        <span class="attribute">root</span> /sites/default;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>允许该服务在没有 “Host” 头部字段的情况下为给定的 address:port 对处理请求。</p>
+<blockquote>
+<p>在 0.8.48 之前，默认使用机器的主机名。</p>
+</blockquote>
+<h3 id="ngx-http-log-module"><a href="#ngx-http-log-module" class="headerlink" title="ngx_http_log_module"></a><a target="_blank" rel="noopener" href="https://nginx.org/en/docs/http/ngx_http_log_module.html">ngx_http_log_module</a></h3><p><code>ngx_http_log_module</code> 模块以指定格式写入请求日志</p>
+<h4 id="Example-Configuration"><a href="#Example-Configuration" class="headerlink" title="Example Configuration"></a>Example Configuration</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">log_format compression &#x27;$remote_addr - $remote_user <span class="selector-attr">[$time_local]</span> &#x27;</span><br><span class="line">                       &#x27;&quot;$request&quot; $status $bytes_sent &#x27;</span><br><span class="line">                       &#x27;&quot;$http_referer&quot; &quot;$http_user_agent&quot; &quot;$gzip_ratio&quot;&#x27;;</span><br><span class="line"></span><br><span class="line">access_log /spool/logs/nginx-access<span class="selector-class">.log</span> compression buffer=<span class="number">32</span>k;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Directives"><a href="#Directives" class="headerlink" title="Directives"></a>Directives</h4><h5 id="access-log"><a href="#access-log" class="headerlink" title="access_log"></a>access_log</h5><p>语法：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">access_log <span class="selector-attr">[path [buffer=size]</span> <span class="selector-attr">[gzip[=level]</span>] <span class="selector-attr">[flush=time]</span> <span class="selector-attr">[if=condition]</span>];</span><br><span class="line">access_log off;</span><br></pre></td></tr></table></figure>
+<p>默认值:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">access_log logs/access<span class="selector-class">.log</span> combined;</span><br></pre></td></tr></table></figure>
+<p>上下文：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http, server, location, if in location, limit_except</span><br></pre></td></tr></table></figure>
+
+<p>为缓冲日志写入设置 path，format，以及配置。可以在同一配置级别上指定几个日志。可以在第一个参数中指定 “<code>syslog:</code>“ 前缀来配置日志记录到 syslog。特殊值 <code>off</code> 取消当前级别上所有的 access_log 指令。如果没有指定 format，那么就会使用预定义的 “combined”。</p>
+<p>如果使用 <code>buffer</code> 或者 <code>gzip</code> 参数，那么写入日志将会缓冲。</p>
+<p>当开启缓冲时，以下几种时机将会把数据写入文件：</p>
+<ul>
+<li>如果下一行日志放不下缓冲区；</li>
+<li>如果缓冲数据比 <code>flush</code> 参数指定的还要旧；</li>
+<li>当工作进程重新打开日志文件，或者工作进程关闭</li>
+</ul>
+<p>如果使用 <code>gzip</code> 参数，则在写入文件之前压缩缓冲区的数据。压缩的级别可以设置在 1（最快，压缩率低）到 9 （最慢，压缩率高）之间。默认情况下，缓冲区大小为 64K 字节，压缩级别为 1。由于数据在原子块中压缩，日志文件可以通过 “<code>zcat</code>“ 解压缩或读取。</p>
+<p>例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">access_log /path/to/log.gz combined gzip flush=5m;</span><br></pre></td></tr></table></figure>
+
+<p>文件路径可以包含变量（0.7.6+），但是此类日志有一些约束：</p>
+<ul>
+<li>由 worker process 使用的用户凭据应该有权限使用此类日志在文件夹创建文件</li>
+<li>不可以使用缓冲写</li>
+<li>为每个日志写入打开并关闭文件。但是，由于可以将频繁使用的文件描述符存储到缓存中，在由 open_log_file_cache 指令的 valid 参数指定的时间内，旧文件的写入可以继续。</li>
+<li>在每个日志写入过程中，请检查请求的 root 目录是否存在，如果不存在，日志不会创建。因此，指定 root 和 access_log 以相同的配置级别是一个好主意：</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    root       /spool/vhost/data/$host;</span><br><span class="line">    access_log /spool/vhost/logs/$host;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>if</code> 参数可以开启有条件的日志记录。如果 <code>condition</code> 等于 0 或者一个空字符串，则不会记录请求。在下面的示例中，请求码为 2xx 以及 3xx 不会被记录：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">map $status $loggable &#123;</span><br><span class="line">    ~^<span class="selector-attr">[23]</span>  <span class="number">0</span>;</span><br><span class="line">    default <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">access_log /path/<span class="selector-tag">to</span>/access<span class="selector-class">.log</span> combined if=$loggable;</span><br></pre></td></tr></table></figure>
+
+<h5 id="log-format"><a href="#log-format" class="headerlink" title="log_format"></a>log_format</h5><p>日志格式可以包含一些通用的变量，以及一些仅仅存在于日志写入时的变量：</p>
+<p>$bytes_sent 客户端发送的字节数</p>
+<p>$connection 连接序列号</p>
+<p>$connection_requests 通过一个连接发起的请求的当前序号</p>
+<p>$msec 日志写入的时间，以秒为单位，精确到毫秒</p>
+<p>$pipe 如果请求是管道，则是 “p”，否则为 “.”</p>
+<p>$request_length 请求长度（包含请求行，头部，以及请求体）</p>
+<p>$request_time 请求处理时间，以秒为单位，精确到毫秒，从客户端读取第一个字节，并在最后一个字节发送给客户端之后写入日志所用时间</p>
+<p>$status 响应状态码</p>
+<p>$time_iso8601 以 ISO 8601 标准格式的本地时间。类似 <code>2022-07-12T15:05:16+08:00</code></p>
+<p>$time_local 以通用日志格式的本地时间。类似 <code>12/Jul/2022:15:05:16 +0800</code></p>
+<p>配置始终包含预定义的 “<code>combined</code>“ 格式：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">log_format combined &#x27;$remote_addr - $remote_user <span class="selector-attr">[$time_local]</span> &#x27;</span><br><span class="line">                    &#x27;&quot;$request&quot; $status $body_bytes_sent &#x27;</span><br><span class="line">                    &#x27;&quot;$http_referer&quot; &quot;$http_user_agent&quot;&#x27;;</span><br></pre></td></tr></table></figure>
+
+
+<h5 id="open-log-file-cache"><a href="#open-log-file-cache" class="headerlink" title="open_log_file_cache"></a>open_log_file_cache</h5><p>定义一个缓冲，该缓冲存储了名称包含变量的频繁使用的日志文件描述符。该指令具有如下参数：</p>
+<p>max</p>
+<p>inactive</p>
+<p>min_uses</p>
+<p>valid</p>
+<p>设置应该检查仍然存在相同名称的文件的时间，默认情况下，为 60 秒</p>
+<p>off<br>禁用缓存</p>
+</section>
+    <!-- Tags START -->
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/11/InnoDB%20%E6%97%A5%E5%BF%97/">
+        <span class="nav-arrow">← </span>
+        
+          InnoDB 日志
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/12/Spring-Cloud/Spring-Cloud-Netflix/">
+        
+          Spring Cloud Netflix
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Nginx-%E5%AE%98%E6%96%B9%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-nav-text">Nginx 官方学习笔记</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Module-%E5%8F%82%E8%80%83"><span class="toc-nav-text">Module 参考</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#ngx-http-core-module"><span class="toc-nav-text">ngx_http_core_module</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#ngx-http-log-module"><span class="toc-nav-text">ngx_http_log_module</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Example-Configuration"><span class="toc-nav-text">Example Configuration</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Directives"><span class="toc-nav-text">Directives</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#access-log"><span class="toc-nav-text">access_log</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#log-format"><span class="toc-nav-text">log_format</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#open-log-file-cache"><span class="toc-nav-text">open_log_file_cache</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/12/Nginx-官方学习笔记/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "jiangchunbo";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "Nginx 官方学习笔记",
+        owner: "jiangchunbo",
+        repo: "jiangchunbo.github.io",
+        oauth: {
+          client_id: "8ff18c626ce6de443832",
+          client_secret: "ccbfc51ce15c59b57e0fe4a4dea81060976bbde3"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Spring Cloud Gateway | Hexo
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+    
+<script src="/js/gitment.js"></script>
+
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Spring Cloud Gateway</h2>
+  <p class="post-date">2022-07-15</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Spring-Cloud-Gateway"><a href="#Spring-Cloud-Gateway" class="headerlink" title="Spring Cloud Gateway"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/">Spring Cloud Gateway</a></h1><h2 id="1-How-to-Include-Spring-Cloud-Gateway"><a href="#1-How-to-Include-Spring-Cloud-Gateway" class="headerlink" title="1. How to Include Spring Cloud Gateway"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/#gateway-starter">1. How to Include Spring Cloud Gateway</a></h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-gateway<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果你包含了 starter，但是你不想启用网关，则可以设置 <code>spring.cloud.gateway.enabled=false</code></p>
+<h2 id="2-Glossary"><a href="#2-Glossary" class="headerlink" title="2. Glossary"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/#glossary">2. Glossary</a></h2><ul>
+<li><strong>Route</strong>: 网关的基本构建。它由 ID，目标 URI，谓词集合，以及过滤器集合定义。如果聚合谓词为 true，则匹配路由。</li>
+<li><strong>Predicate</strong>: 这是 Java 8 Function Predicate。输入类型是 <code>Spring Framework ServerWebExchange</code>。这使你可以匹配来自 HTTP 请求中的任何东西，例如 Header 或者参数。</li>
+<li><strong>Filter</strong>: 这些是一些 <code>GatewayFilter</code> 实例，它们由特定的工厂构建出来。在这里，你可以在发送下游请求之前或之后修改请求和响应。</li>
+</ul>
+<h2 id="4-Configuring-Route-Predicate-Factories-and-Gateway-Filter-Factories"><a href="#4-Configuring-Route-Predicate-Factories-and-Gateway-Filter-Factories" class="headerlink" title="4. Configuring Route Predicate Factories and Gateway Filter Factories"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/#configuring-route-predicate-factories-and-gateway-filter-factories">4. Configuring Route Predicate Factories and Gateway Filter Factories</a></h2><p>配置谓词和过滤器有两种方式：快捷方式和完全扩展参数。下面大多数示例都是用快捷方式。</p>
+<h3 id="4-1-Shortcut-Configuration"><a href="#4-1-Shortcut-Configuration" class="headerlink" title="4.1. Shortcut Configuration"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/#shortcut-configuration">4.1. Shortcut Configuration</a></h3><p>快捷方式配置由过滤器名称识别，跟着一个等号（<code>=</code>），后面跟着由逗号（<code>,</code>）分割的参数值。</p>
+<p><strong>application.yml</strong></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">after_route</span></span><br><span class="line">        <span class="attr">uri:</span> <span class="string">https://example.org</span></span><br><span class="line">        <span class="attr">predicates:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">Cookie=mycookie,mycookievalue</span></span><br></pre></td></tr></table></figure>
+<p>上面的样例定义了具有两个参数的 <code>Cookie</code> 路由谓词工厂，参数分别是，cookie name <code>mycookie</code>，以及要匹配 <code>mycookievalue</code> 的值。</p>
+<h1 id="5-Route-Predicate-Factories"><a href="#5-Route-Predicate-Factories" class="headerlink" title="5. Route Predicate Factories"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/#gateway-request-predicates-factories">5. Route Predicate Factories</a></h1><p>Spring Cloud Gateway 包含许多内置的路由谓词工厂，所有这些谓词匹配不同的 HTTP 请求属性</p>
+<h2 id="5-1-The-After-Route-Predicate-Factory"><a href="#5-1-The-After-Route-Predicate-Factory" class="headerlink" title="5.1. The After Route Predicate Factory"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/#the-after-route-predicate-factory">5.1. The After Route Predicate Factory</a></h2><p><code>After</code> 路由谓词工厂携带一个参数，即一个 <code>datetime</code>（其实是 Java 的 <code>ZonedDateTime</code>）。该谓词匹配发生在指定时间之后的请求。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">after_route</span></span><br><span class="line">        <span class="attr">uri:</span> <span class="string">http://www.baidu.com</span></span><br><span class="line">        <span class="attr">predicates:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">After=2021-06-03T10:00:00.000+08:00</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="5-2-The-Before-Route-Predicate-Factory"><a href="#5-2-The-Before-Route-Predicate-Factory" class="headerlink" title="5.2. The Before Route Predicate Factory"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/#the-before-route-predicate-factory">5.2. The Before Route Predicate Factory</a></h2><p><code>Before</code> 路由谓词工厂携带一个参数，即一个 <code>datetime</code>（其实是 Java 的 <code>ZonedDateTime</code>）。该谓词匹配发生在指定时间之前的请求。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">before_route</span></span><br><span class="line">        <span class="attr">uri:</span> <span class="string">http://www.baidu.com</span></span><br><span class="line">        <span class="attr">predicates:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">Before=2021-06-03T10:00:00.000+08:00</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5-3-The-Between-Route-Predicate-Factory"><a href="#5-3-The-Between-Route-Predicate-Factory" class="headerlink" title="5.3. The Between Route Predicate Factory"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/#the-between-route-predicate-factory">5.3. The Between Route Predicate Factory</a></h2><p><code>Between</code> 路由谓词工厂携带两个参数，<code>datetime1</code> 和 <code>datetime2</code>，他们都是 Java 的 <code>ZonedDateTime</code> 对象。该谓词匹配发生在 <code>datetime1</code> 之后，以及 <code>datetime2</code> 之前的请求。<code>datetime2</code> 参数必须在 <code>datetime1</code> 之后。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">method_route</span></span><br><span class="line">        <span class="attr">uri:</span> <span class="string">http://www.baidu.com</span></span><br><span class="line">        <span class="attr">predicates:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">Between=2017-01-20T17:42:47.789-07:00[America/Denver],</span> <span class="number">2017-01-21T17:42:47.789-07:00</span>[<span class="string">America/Denver</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-4-The-Cookie-Route-Predicate-Factory"><a href="#5-4-The-Cookie-Route-Predicate-Factory" class="headerlink" title="5.4. The Cookie Route Predicate Factory"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/#the-cookie-route-predicate-factory">5.4. The Cookie Route Predicate Factory</a></h2><p><code>Cookie</code> 路由谓词工厂携带两个参数，<code>name</code> 和 <code>regexp</code>（本质是 Java 的正则表达式）。该谓词匹配具有给定名称，并且值匹配正则表达式的 cookie。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">method_route</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">https://www.baidu.com</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Cookie=x-token,</span> <span class="string">\w+</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5-5-The-Header-Route-Predicate-Factory"><a href="#5-5-The-Header-Route-Predicate-Factory" class="headerlink" title="5.5. The Header Route Predicate Factory"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/#the-header-route-predicate-factory">5.5. The Header Route Predicate Factory</a></h2><p><code>Header</code> 路由谓词工厂携带两个参数，<code>name</code> 和 <code>regexp</code>（本质是 Java 的正则表达式）。该谓词匹配具有给定名称，并且值匹配正则表达式的 header。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">method_route</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">http://www.baidu.com</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Header=X-Request-Id,</span> <span class="string">\d+</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="5-6-The-Host-Route-Predicate-Factory"><a href="#5-6-The-Host-Route-Predicate-Factory" class="headerlink" title="5.6. The Host Route Predicate Factory"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/#the-host-route-predicate-factory">5.6. The Host Route Predicate Factory</a></h2><p><code>Header</code> 路由谓词工厂携带一个参数：主机名 <code>patterns</code> 列表。模式是一种 Ant 风格的带有 <code>.</code> 作为分隔符的模式。该谓词匹配模式中的的 <code>Host</code> 头部。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">method_route</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">http://www.baidu.com</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Header=X-Request-Id,</span> <span class="string">\d+</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>消息头部的字段名是大小写不敏感的，也就是头部 X-Request-Id，也可以传递 x-request-id<br>RFC 2616 <a target="_blank" rel="noopener" href="https://www.rfc-editor.org/rfc/inline-errata/rfc2616.html%EF%BC%8C%E6%9F%A5%E8%AF%A2">https://www.rfc-editor.org/rfc/inline-errata/rfc2616.html，查询</a> (“:”) 关键字附近文字可以找到：Field names are case-insensitive.</p>
+</blockquote>
+<h2 id="5-7-The-Method-Route-Predicate-Factory"><a href="#5-7-The-Method-Route-Predicate-Factory" class="headerlink" title="5.7. The Method Route Predicate Factory"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/#the-method-route-predicate-factory">5.7. The Method Route Predicate Factory</a></h2><p><code>Method</code> 路由谓词工厂携带一个参数 <code>methods</code>，该参数是一个或者多个参数：待匹配的 HTTP 方法。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">method_route</span></span><br><span class="line">        <span class="attr">uri:</span> <span class="string">http://www.baidu.com</span></span><br><span class="line">        <span class="attr">predicates:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">Method=GET,POST</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5-8-The-Path-Route-Predicate-Factory"><a href="#5-8-The-Path-Route-Predicate-Factory" class="headerlink" title="5.8. The Path Route Predicate Factory"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/#the-path-route-predicate-factory">5.8. The Path Route Predicate Factory</a></h2><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">method_route</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">http://localhost:8080</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/echo/&#123;segment&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="5-9-The-Query-Route-Predicate-Factory"><a href="#5-9-The-Query-Route-Predicate-Factory" class="headerlink" title="5.9. The Query Route Predicate Factory"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/#the-query-route-predicate-factory">5.9. The Query Route Predicate Factory</a></h2><p><code>Query</code> 路由谓词工厂携带两个参数，一个必需的 <code>param</code> 和一个可选的 <code>regexp</code>（本质是 Java 的正则表达式）。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">method_route</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">https://www.baidu.com</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Query=id</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5-10-The-RemoteAddr-Route-Predicate-Factory"><a href="#5-10-The-RemoteAddr-Route-Predicate-Factory" class="headerlink" title="5.10. The RemoteAddr Route Predicate Factory"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/#the-remoteaddr-route-predicate-factory">5.10. The RemoteAddr Route Predicate Factory</a></h2><p><code>RemoteAddr</code> 路由谓词工厂携带一个 <code>sources</code> 列表，这是 CIDR 符号字符串，例如 <code>192.168.0.1/16</code>，此处 <code>192.168.0.1</code> 是 IP 地址，16 是子网掩码。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">remoteaddr_route</span></span><br><span class="line">        <span class="attr">uri:</span> <span class="string">http://www.baidu.com</span></span><br><span class="line">        <span class="attr">predicates:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">RemoteAddr=192.168.0.187/24</span></span><br></pre></td></tr></table></figure></section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Spring Cloud" >
+    <span class="tag-code">Spring Cloud</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/15/Hystrix-%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/">
+        <span class="nav-arrow">← </span>
+        
+          Hystrix 配置实践
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/15/Spring-Boot/Spring-Boot-%E6%95%B4%E5%90%88-MyBatis-%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86/">
+        
+          Spring Boot 整合 MyBatis 启动原理
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Spring-Cloud-Gateway"><span class="toc-nav-text">Spring Cloud Gateway</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-How-to-Include-Spring-Cloud-Gateway"><span class="toc-nav-text">1. How to Include Spring Cloud Gateway</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-Glossary"><span class="toc-nav-text">2. Glossary</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4-Configuring-Route-Predicate-Factories-and-Gateway-Filter-Factories"><span class="toc-nav-text">4. Configuring Route Predicate Factories and Gateway Filter Factories</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#4-1-Shortcut-Configuration"><span class="toc-nav-text">4.1. Shortcut Configuration</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#5-Route-Predicate-Factories"><span class="toc-nav-text">5. Route Predicate Factories</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5-1-The-After-Route-Predicate-Factory"><span class="toc-nav-text">5.1. The After Route Predicate Factory</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5-2-The-Before-Route-Predicate-Factory"><span class="toc-nav-text">5.2. The Before Route Predicate Factory</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5-3-The-Between-Route-Predicate-Factory"><span class="toc-nav-text">5.3. The Between Route Predicate Factory</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5-4-The-Cookie-Route-Predicate-Factory"><span class="toc-nav-text">5.4. The Cookie Route Predicate Factory</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5-5-The-Header-Route-Predicate-Factory"><span class="toc-nav-text">5.5. The Header Route Predicate Factory</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5-6-The-Host-Route-Predicate-Factory"><span class="toc-nav-text">5.6. The Host Route Predicate Factory</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5-7-The-Method-Route-Predicate-Factory"><span class="toc-nav-text">5.7. The Method Route Predicate Factory</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5-8-The-Path-Route-Predicate-Factory"><span class="toc-nav-text">5.8. The Path Route Predicate Factory</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5-9-The-Query-Route-Predicate-Factory"><span class="toc-nav-text">5.9. The Query Route Predicate Factory</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5-10-The-RemoteAddr-Route-Predicate-Factory"><span class="toc-nav-text">5.10. The RemoteAddr Route Predicate Factory</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/15/Spring-Cloud/Spring-Cloud-Gateway/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "jiangchunbo";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "Spring Cloud Gateway",
+        owner: "jiangchunbo",
+        repo: "jiangchunbo.github.io",
+        oauth: {
+          client_id: "8ff18c626ce6de443832",
+          client_secret: "ccbfc51ce15c59b57e0fe4a4dea81060976bbde3"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

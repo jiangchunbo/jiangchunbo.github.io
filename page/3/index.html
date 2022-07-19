@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Hexo
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+    
+<script src="/js/gitment.js"></script>
+
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link active">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link mobile-active">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <main class="app-body">
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/12/Nginx-%E5%AE%98%E6%96%B9%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Nginx 官方学习笔记</a>
+      </h2>
+      <p class="article-date">July 12, 2022</p>
+      
+      <div class="article-summary">
+        
+          Nginx 官方学习笔记Module 参考ngx_http_core_module
+语法：server_name name …;默认：server_name “”;上下文：server
+
+设置虚拟主机名，例如：
+123server &#123;    server_name example. ...
+        
+      </div>
+      <a class="more" href="/2022/07/12/Nginx-%E5%AE%98%E6%96%B9%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/11/InnoDB%20%E6%97%A5%E5%BF%97/">InnoDB 日志</a>
+      </h2>
+      <p class="article-date">July 11, 2022</p>
+      
+      <div class="article-summary">
+        
+          参考文献解析 roll_pointer
+庖丁解牛 
+InnoDB之UNDO LOG介绍
+Undo LogsUndo Log 是一条或者多条 Undo Log Record 的集合，每一条 Undo Log Record 都与一个读写事务相关。每条 Undo Log 记录包含了有关如何撤销事务 ...
+        
+      </div>
+      <a class="more" href="/2022/07/11/InnoDB%20%E6%97%A5%E5%BF%97/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/10/Spring-Core/Spring-%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96/">Spring 循环依赖</a>
+      </h2>
+      <p class="article-date">July 10, 2022</p>
+      
+        
+  <a href="/tags#Spring Framework" >
+    <span class="tag-code">Spring Framework</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Spring 循环依赖三级缓存singletonObjectsearlySingletonObjectssingletonFactories
+对于 earlySingletonObjects 的使用场景存在于多循环依赖，比如 beanA 依赖于 beanB 和 beanC，beanB 和 b ...
+        
+      </div>
+      <a class="more" href="/2022/07/10/Spring-Core/Spring-%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/10/Security/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86%E7%AC%94%E8%AE%B0/">加密解密笔记</a>
+      </h2>
+      <p class="article-date">July 10, 2022</p>
+      
+        
+  <a href="/tags#crpto" >
+    <span class="tag-code">crpto</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          加密解密笔记密码技术
+原文：或者叫明文，就是被隐藏的文字。
+加密法：指隐藏原文的法则。
+密文：或者叫伪文，指对原文按照加密法处理过后生成的可公开传递的文字。
+密钥：在加密法中起决定性的因素，可能是数字、词汇，也可能是一些字母，或者这些东西的组合。
+
+1. 对称加密算法对称加密是指加密和解密使 ...
+        
+      </div>
+      <a class="more" href="/2022/07/10/Security/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86%E7%AC%94%E8%AE%B0/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/08/Shiro/Shiro-BasicHttpAuthenticationFilter-%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B/">Shiro BasicHttpAuthenticationFilter 认证流程</a>
+      </h2>
+      <p class="article-date">July 8, 2022</p>
+      
+        
+  <a href="/tags#Shiro" >
+    <span class="tag-code">Shiro</span>
+  </a>
+
+  <a href="/tags#Security" >
+    <span class="tag-code">Security</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Shiro BasicHttpAuthenticationFilter 认证流程分析以 Shiro 1.8.0 为例子，其中新增了一些新的组件，譬如 HttpAuthenticationFilter之前使用的 1.4.1 并不存在 HttpAuthenticationFilter 组件
+1. ...
+        
+      </div>
+      <a class="more" href="/2022/07/08/Shiro/Shiro-BasicHttpAuthenticationFilter-%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/07/Spring-Boot/Spring-Boot-Features/">Spring Boot Features</a>
+      </h2>
+      <p class="article-date">July 7, 2022</p>
+      
+        
+  <a href="/tags#Spring Boot" >
+    <span class="tag-code">Spring Boot</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Spring Boot Features1. SpringApplicationSpringApplication 类提供了一种简单的方式来引导 Spring 应用程序从 main 方法中启动。在许多情况下，你可以委托给静态的 SpringApplication.run 方法，就像下面的例子 ...
+        
+      </div>
+      <a class="more" href="/2022/07/07/Spring-Boot/Spring-Boot-Features/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/06/29/Python-%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Python 爬虫学习笔记</a>
+      </h2>
+      <p class="article-date">June 29, 2022</p>
+      
+      <div class="article-summary">
+        
+          Python 爬虫1. urllib1.1. 参考文档https://docs.python.org/3/howto/urllib2.html
+1.2. 抓取 url123import urllib.requestwith urllib.request.urlopen(&#x27;http: ...
+        
+      </div>
+      <a class="more" href="/2022/06/29/Python-%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/05/24/%E5%90%84%E7%B1%BB%E5%9C%BA%E6%99%AF%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0/">各类场景请求参数</a>
+      </h2>
+      <p class="article-date">May 24, 2022</p>
+      
+      <div class="article-summary">
+        
+          
+身份证号码
+
+存在 X 这种非数字的符号，需要注意用户可能会小写
+
+        
+      </div>
+      <a class="more" href="/2022/05/24/%E5%90%84%E7%B1%BB%E5%9C%BA%E6%99%AF%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/05/09/Spring-Web-Servlet/Spring-Framework-Web-Servlet/">Spring Framework Web Servlet</a>
+      </h2>
+      <p class="article-date">May 9, 2022</p>
+      
+        
+  <a href="/tags#Spring Framework" >
+    <span class="tag-code">Spring Framework</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Web on Servlet Stack1. Spring Web MVCSpring Web MVC 是基于 Servlet API 的原始 Web 框架，从很早的时候就包含在 Spring Framework 之中。正式名称 —— Spring Web MVC，来源于它的源模块名称（sp ...
+        
+      </div>
+      <a class="more" href="/2022/05/09/Spring-Web-Servlet/Spring-Framework-Web-Servlet/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/05/09/Spring-Core/Spring-Framework-Core/">Spring Framework Core</a>
+      </h2>
+      <p class="article-date">May 9, 2022</p>
+      
+        
+  <a href="/tags#Spring Framework" >
+    <span class="tag-code">Spring Framework</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Core1. The IoC Container这一章主要讲述 Spring 的 IoC 容器，也就是 Inversion of Control container。
+1.1. Introduction to the Spring IoC Container and Beans本章涵盖了控制 ...
+        
+      </div>
+      <a class="more" href="/2022/05/09/Spring-Core/Spring-Framework-Core/">Read more</a>
+    </article>
+  
+
+  
+    <div class="guide-pager">
+  
+    <a href="/page/2/"><span class="page-arrow">← </span>Prev</a>
+  
+  
+    <a href="/page/4/">Next<span class="page-arrow"> →</span></a>
+  
+</div>
+  
+</main>
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

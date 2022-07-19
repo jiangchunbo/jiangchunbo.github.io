@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Spring Cloud Netflix | Hexo
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+    
+<script src="/js/gitment.js"></script>
+
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Spring Cloud Netflix</h2>
+  <p class="post-date">2022-07-12</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Spring-Cloud-Netflix"><a href="#Spring-Cloud-Netflix" class="headerlink" title="Spring Cloud Netflix"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.10.RELEASE/reference/html/">Spring Cloud Netflix</a></h1><h2 id="1-Service-Discovery-Eureka-Clients"><a href="#1-Service-Discovery-Eureka-Clients" class="headerlink" title="1. Service Discovery: Eureka Clients"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#service-discovery-eureka-clients">1. Service Discovery: Eureka Clients</a></h2><p>服务发现是微服务架构的关键原则之一。手工配置每个客户端或基于某种约定是非常脆弱的。Eureka 是 Netflix 服务发现服务端和客户端。服务可以被配置和部署，变得高可用，每个服务都会复制其他已经注册服务的状态。</p>
+<h3 id="1-1-How-to-Include-Eureka-Client"><a href="#1-1-How-to-Include-Eureka-Client" class="headerlink" title="1.1. How to Include Eureka Client"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#netflix-eureka-client-starter">1.1. How to Include Eureka Client</a></h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-Registering-with-Eureka"><a href="#1-2-Registering-with-Eureka" class="headerlink" title="1.2. Registering with Eureka"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#registering-with-eureka">1.2. Registering with Eureka</a></h3><p>当 Eureka Client 注册 Eureka Server 时，它会提供自己的元数据，比如：主机，端口，健康指示器 URL，主页等详细信息。Eureka Server 接收属于某个服务的每个实例的心跳消息。如果心跳在可配置的时间表上失败，则通常从注册表中删除实例。</p>
+<p>以下实例展示了最小的 Eureka Client 应用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">home</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello world&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">SpringApplicationBuilder</span>(Application.class).web(<span class="literal">true</span>).run(args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>请注意，前面的示例展示了一个普通的 Spring Boot 应用。通过包含 <code>spring-cloud-starter-netflix-eureka-client</code> 于类路径，你的应用会自动注册到 Eureka Server。需要配置的就是定位 Eureka Server，如下示例所示：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">serviceUrl:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://localhost:8761/eureka/</span></span><br></pre></td></tr></table></figure>
+
+<p>在前面的示例中，<code>defaultZone</code> 是一个魔术字符串备用值，它为任何没有表示首选项的客户端提供服务 URL（换句话说，这是一个有用的默认值）。</p>
+<blockquote>
+<p><code>defaultZone</code> 属性是大小写敏感，并且需要驼峰格式，因为 <code>serviceUrl</code> 属性是一个 <code>Map&lt;String, String&gt;</code>。因此，<code>defaultZone</code> 属性不遵循通常的 Spring Boot 蛇形约定 <code>default-zone</code>。</p>
+</blockquote>
+<p>默认的应用名（即，服务 ID），虚拟机主机名，以及非安全端口（从 <code>Environment</code> 中获取）分别是 <code>$&#123;spring.application.name&#125;</code>，<code>$&#123;spring.application.name&#125;</code>，以及 <code>$&#123;server.port&#125;</code>。</p>
+<h3 id="1-3-Authenticating-with-the-Eureka-Server"><a href="#1-3-Authenticating-with-the-Eureka-Server" class="headerlink" title="1.3. Authenticating with the Eureka Server"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#authenticating-with-the-eureka-server">1.3. Authenticating with the Eureka Server</a></h3><p>如果 eureka.client.serviceUrl.defaultZone 之一有凭证嵌入其中，则会自动把 HTTP basic 认证添加到 eureka 客户端。</p>
+<p><strong>注意</strong> 这里并不是给 URL 添加凭证，只是激活 HTTP basic 用于请求的认证。</p>
+<h3 id="1-4-Status-Page-and-Health-Indicator"><a href="#1-4-Status-Page-and-Health-Indicator" class="headerlink" title="1.4. Status Page and Health Indicator"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#status-page-and-health-indicator">1.4. Status Page and Health Indicator</a></h3><h3 id="1-5-Registering-a-Secure-Application"><a href="#1-5-Registering-a-Secure-Application" class="headerlink" title="1.5. Registering a Secure Application"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#registering-a-secure-application">1.5. Registering a Secure Application</a></h3><p>如果你的应用希望通过 HTTPS 连接，你可以在 <code>EurekaInstanceConfig</code> 设置两个标记：</p>
+<ul>
+<li><code>eureka.instance.[nonSecurePortEnabled]=[false]</code></li>
+<li><code>eureka.instance.[securePortEnabled]=[true]</code></li>
+</ul>
+<h3 id="1-6-Eureka’s-Health-Checks"><a href="#1-6-Eureka’s-Health-Checks" class="headerlink" title="1.6. Eureka’s Health Checks"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#eurekas-health-checks">1.6. Eureka’s Health Checks</a></h3><h3 id="1-7-Eureka-Metadata-for-Instances-and-Clients"><a href="#1-7-Eureka-Metadata-for-Instances-and-Clients" class="headerlink" title="1.7. Eureka Metadata for Instances and Clients"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#eureka-metadata-for-instances-and-clients">1.7. Eureka Metadata for Instances and Clients</a></h3><h4 id="1-7-1-Using-Eureka-on-Cloud-Foundry"><a href="#1-7-1-Using-Eureka-on-Cloud-Foundry" class="headerlink" title="1.7.1. Using Eureka on Cloud Foundry"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#using-eureka-on-cloud-foundry">1.7.1. Using Eureka on Cloud Foundry</a></h4><h4 id="1-7-2-Using-Eureka-on-AWS"><a href="#1-7-2-Using-Eureka-on-AWS" class="headerlink" title="1.7.2. Using Eureka on AWS"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#using-eureka-on-aws">1.7.2. Using Eureka on AWS</a></h4><p>如果你计划将应用程序部署到 AWS 云上，则必须将 Eureka 实例配置为 AWS-aware。你可以通过自定义 <code>EurekaInstanceConfigBean</code> 来做到这一点，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@Profile(&quot;!default&quot;)</span></span><br><span class="line"><span class="keyword">public</span> EurekaInstanceConfigBean <span class="title function_">eurekaInstanceConfig</span><span class="params">(InetUtils inetUtils)</span> &#123;</span><br><span class="line">  <span class="type">EurekaInstanceConfigBean</span> <span class="variable">b</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">EurekaInstanceConfigBean</span>(inetUtils);</span><br><span class="line">  <span class="type">AmazonInfo</span> <span class="variable">info</span> <span class="operator">=</span> AmazonInfo.Builder.newBuilder().autoBuild(<span class="string">&quot;eureka&quot;</span>);</span><br><span class="line">  b.setDataCenterInfo(info);</span><br><span class="line">  <span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-7-3-Changing-the-Eureka-Instance-ID"><a href="#1-7-3-Changing-the-Eureka-Instance-ID" class="headerlink" title="1.7.3. Changing the Eureka Instance ID"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#changing-the-eureka-instance-id">1.7.3. Changing the Eureka Instance ID</a></h3><p>一般地，NetFlix Eureka 实例以 host name 注册为其主机名。Spring Cloud Eureka 提供了一个明确的默认值：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;spring.cloud.client.hostname&#125;:$&#123;spring.application.name&#125;:$&#123;spring.application.instance_id:$&#123;server.port&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>例如：<code>myhost:myappname:8080</code></p>
+<p>在 Spring Cloud 中，你可以通过提供唯一标识符 <code>eureka.instance.instanceId</code> 来覆盖该值：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">instance:</span></span><br><span class="line">    <span class="attr">instanceId:</span> <span class="string">$&#123;spring.application.name&#125;:$&#123;vcap.application.instance_id:$&#123;spring.application.instance_id:$&#123;random.value&#125;&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-8-Using-the-EurekaClient"><a href="#1-8-Using-the-EurekaClient" class="headerlink" title="1.8. Using the EurekaClient"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#using-the-eurekaclient">1.8. Using the EurekaClient</a></h3><p>一旦你拥有一个发现客户端的应用程序，你可以使用它从 Eureka Server 发现服务实例。这样做的一种方法是使用本地 <code>com.netflix.discovery.EurekaClient</code></p>
+<h2 id="1-9-Alternatives-to-the-Native-Netflix-EurekaClient"><a href="#1-9-Alternatives-to-the-Native-Netflix-EurekaClient" class="headerlink" title="1.9. Alternatives to the Native Netflix EurekaClient"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#alternatives-to-the-native-netflix-eurekaclient">1.9. Alternatives to the Native Netflix EurekaClient</a></h2><p>你无需使用原生的 NetFlix 的 <code>EurekaClient</code>。而且，在某种形式的包装之后通常会更容易使用它。通过逻辑 eureka 服务标识符（VIPs）而不是物理 URL，Spring Cloud 支持 Feign（一个 REST 客户端构建器）以及 Spring RestTemplate。</p>
+<h2 id="1-10-Why-Is-It-so-Slow-to-Register-a-Service"><a href="#1-10-Why-Is-It-so-Slow-to-Register-a-Service" class="headerlink" title="1.10. Why Is It so Slow to Register a Service?"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#why-is-it-so-slow-to-register-a-service">1.10. Why Is It so Slow to Register a Service?</a></h2><p>作为一个实例，还涉及到向注册中心（通过 client 的 serviceUrl）的定期心跳，默认时间为 30 秒。一个服务，直到该实例，注册中心，客户端缓存中都有相同的元数据（因此需要 3 个心跳），客户端才能发现其不可用。你可以通过设置 <code>eureka.instance.leaseRenewalIntervalInSeconds</code> 来更改周期。将其设置为小于 30 的值，可以加快客户端连接到其他服务的进程。在生产中，由于注册中心的内部计算对租赁续期做了假设，因此最好坚持使用默认值。</p>
+<h1 id="2-Service-Discovery-Eureka-Server"><a href="#2-Service-Discovery-Eureka-Server" class="headerlink" title="2. Service Discovery: Eureka Server"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#spring-cloud-eureka-server">2. Service Discovery: Eureka Server</a></h1><p><a target="_blank" rel="noopener" href="https://gitee.com/jiang_chun_bo/cannedbread-parent/tree/master/cannedbread-eureka-server">参考配置</a></p>
+<h2 id="2-1-How-to-Include-Eureka-Server"><a href="#2-1-How-to-Include-Eureka-Server" class="headerlink" title="2.1. How to Include Eureka Server"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#netflix-eureka-server-starter">2.1. How to Include Eureka Server</a></h2><p>要在你的项目中包含 Eureka Server，请使用 group ID 为 <code>org.springframework.cloud</code> 以及 artifact ID 为 <code>spring-cloud-starter-netflix-eureka-server</code> 的 starter。参见 <a target="_blank" rel="noopener" href="https://projects.spring.io/spring-cloud/">Spring Cloud Project page</a></p>
+<h2 id="2-2-How-to-Run-a-Eureka-Server"><a href="#2-2-How-to-Run-a-Eureka-Server" class="headerlink" title="2.2. How to Run a Eureka Server"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#spring-cloud-running-eureka-server">2.2. How to Run a Eureka Server</a></h2><p>服务端有一个主页和 HTTP API （在 &#x2F;eureka&#x2F;* 下）。</p>
+<p>&amp;nbsp;</p>
+<h2 id="2-3-High-Availability-Zones-and-Regions"><a href="#2-3-High-Availability-Zones-and-Regions" class="headerlink" title="2.3. High Availability, Zones and Regions"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#spring-cloud-eureka-server-zones-and-regions">2.3. High Availability, Zones and Regions</a></h2><p>Eureka 服务端并没有后端存储，但是注册表中的服务实例都必须发送心跳，来保持它们的注册最新（这可以在内存中完成）。客户端还有一个内存中的 Eureka 注册缓存，因此对于每个服务的请求，不必跳转到注册表。</p>
+<p>默认情况下，每个 Eureka 服务端也是 Eureka 客户端，至少需要一个服务 URL 来定位对等体。如果没有提供服务 URL，服务跑起来并开始工作，就会填充大量的噪音到日志中（无法与对等体注册的异常）。</p>
+<p>&amp;nbsp;</p>
+<h2 id="2-4-Standalone-Mode"><a href="#2-4-Standalone-Mode" class="headerlink" title="2.4. Standalone Mode"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#spring-cloud-eureka-server-standalone-mode">2.4. Standalone Mode</a></h2><p>双缓存和心跳机制，两者组合可以让独立 Eureka Server 对于失败具有相当的弹性，只要有某种监视器或者弹性的运行时间保持存活。在独立模式下，你可能更希望关闭客户端行为，避免不断尝试并无法达到对等体的错误。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8761</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">instance:</span></span><br><span class="line">    <span class="attr">hostname:</span> <span class="string">localhost</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">registerWithEureka:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">fetchRegistry:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">serviceUrl:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;/eureka/</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong> serviceUrl 需要指向本地实例相同的主机。</p>
+<h2 id="2-5-Peer-Awareness"><a href="#2-5-Peer-Awareness" class="headerlink" title="2.5. Peer Awareness"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#spring-cloud-eureka-server-peer-awareness">2.5. Peer Awareness</a></h2><p>通过运行多个实例，并让他们互相注册，eureka 可以变得更具有弹性和可用性。实际上，这是默认的行为，所以你只需要向对等体添加有效的 serviceUrl 即可。</p>
+<p>为了在单个主机上体验对等感知，可以操作 <code>/etc/hosts</code> 文件来解析主机名。实际上，如果运行在一台已知主机名的机器上时，没有必要配置 <code>eureka.instance.hostname</code>。默认地，会使用 <code>java.net.InetAddress</code> 寻找。</p>
+<p>你可以向一个系统添加多个对等体，只要它们通过至少边缘彼此连接，它们之间就会同步注册信息。如果对等体物理分离，那么系统原则上存在脑裂的问题。</p>
+<h2 id="2-6-When-to-Prefer-IP-Address"><a href="#2-6-When-to-Prefer-IP-Address" class="headerlink" title="2.6. When to Prefer IP Address"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#spring-cloud-eureka-server-prefer-ip-address">2.6. When to Prefer IP Address</a></h2><p>在某些情况下，eureka 更偏向于建议使用服务的 IP 而不是主机名。设置 <code>eureka.instance.preferIpAddress</code> 为 true，那么当应用注册到 eureka 时，将会使用 IP 地址而不是主机名。</p>
+<blockquote>
+<p>如果 Java 无法确定 hostname，那么就会发送 IP 地址给 eureka。</p>
+</blockquote>
+<h2 id="2-8-Disabling-Ribbon-with-Eureka-Server-and-Client-starters"><a href="#2-8-Disabling-Ribbon-with-Eureka-Server-and-Client-starters" class="headerlink" title="2.8. Disabling Ribbon with Eureka Server and Client starters"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#disabling-ribbon-with-eureka-server-and-client-starters">2.8. Disabling Ribbon with Eureka Server and Client starters</a></h2><p><code>spring-cloud-starter-netflix-eureka-server</code> 和 <code>spring-cloud-starter-netflix-eureka-client</code> y与 <code>spring-cloud-starter-netflix-ribbon</code> 一起出现。由于 Ribbon 负载均衡处于维护模式，因此我们建议切换使用 Spring Cloud LoadBalancer，也包含在 Eureka starter 中。</p>
+<p>为此，你可以将 <code>spring.cloud.loadbalancer.ribbon.enabled</code> 属性设置为 <code>false</code>。</p>
+<p>然后，你还可以从构建文件中地 Eureka starter 中排除 ribbon 相关的依赖，像这样：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-ribbon<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.netflix.ribbon<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>ribbon-eureka<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Circuit-Breaker-Spring-Cloud-Circuit-Breaker-With-Hystrix"><a href="#3-Circuit-Breaker-Spring-Cloud-Circuit-Breaker-With-Hystrix" class="headerlink" title="3. Circuit Breaker: Spring Cloud Circuit Breaker With Hystrix"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#circuit-breaker-spring-cloud-circuit-breaker-with-hystrix">3. Circuit Breaker: Spring Cloud Circuit Breaker With Hystrix</a></h2><h3 id="3-1-Disabling-Spring-Cloud-Circuit-Breaker-Hystrix"><a href="#3-1-Disabling-Spring-Cloud-Circuit-Breaker-Hystrix" class="headerlink" title="3.1. Disabling Spring Cloud Circuit Breaker Hystrix"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#disabling-spring-cloud-circuit-breaker-hystrix">3.1. Disabling Spring Cloud Circuit Breaker Hystrix</a></h3><p>你可以通过设置 <code>spring.cloud.circuitbreaker.hystrix.enabled</code> 为 <code>false</code> 来禁用自动配置。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring.cloud.circuitbreaker.hystrix.enabled=<span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-Configuring-Hystrix-Circuit-Breakers"><a href="#3-2-Configuring-Hystrix-Circuit-Breakers" class="headerlink" title="3.2. Configuring Hystrix Circuit Breakers"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#configuring-hystrix-circuit-breakers">3.2. Configuring Hystrix Circuit Breakers</a></h3><h4 id="3-2-1-Default-Configuration"><a href="#3-2-1-Default-Configuration" class="headerlink" title="3.2.1. Default Configuration"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#default-configuration">3.2.1. Default Configuration</a></h4><p>为了给您所有的断路器提供默认配置，请创建传递一个 <code>HystrixCircuitBreakerFactory</code> 或者 <code>ReactiveHystrixCircuitBreakerFactory</code> 的 <code>Customize</code> Bean。<code>configureDefault</code> 方法可用于提供默认配置。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> Customizer&lt;HystrixCircuitBreakerFactory&gt; <span class="title function_">defaultConfig</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> factory -&gt; factory.configureDefault(id -&gt; HystrixCommand.Setter</span><br><span class="line">            .withGroupKey(HystrixCommandGroupKey.Factory.asKey(id))</span><br><span class="line">            .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()</span><br><span class="line">            .withExecutionTimeoutInMilliseconds(<span class="number">4000</span>)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Reactive-Example"><a href="#Reactive-Example" class="headerlink" title="Reactive Example"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.10.RELEASE/reference/html/#reactive-example">Reactive Example</a></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> Customizer&lt;ReactiveHystrixCircuitBreakerFactory&gt; <span class="title function_">defaultConfig</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> factory -&gt; factory.configureDefault(id -&gt; HystrixObservableCommand.Setter</span><br><span class="line">            .withGroupKey(HystrixCommandGroupKey.Factory.asKey(id))</span><br><span class="line">            .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()</span><br><span class="line">                    .withExecutionTimeoutInMilliseconds(<span class="number">4000</span>)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-2-Specific-Circuit-Breaker-Configuration"><a href="#3-2-2-Specific-Circuit-Breaker-Configuration" class="headerlink" title="3.2.2. Specific Circuit Breaker Configuration"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.10.RELEASE/reference/html/#specific-circuit-breaker-configuration">3.2.2. Specific Circuit Breaker Configuration</a></h4><p>类似于提供默认配置，您可以传递一个 <code>HystrixCircuitBreakerFactory</code> 创建一个 <code>Customize</code> Bean。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> Customizer&lt;HystrixCircuitBreakerFactory&gt; <span class="title function_">customizer</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> factory -&gt; factory.configure(builder -&gt; builder.commandProperties(</span><br><span class="line">                    HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(<span class="number">2000</span>)), <span class="string">&quot;foo&quot;</span>, <span class="string">&quot;bar&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Reactive-Example-1"><a href="#Reactive-Example-1" class="headerlink" title="Reactive Example"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.10.RELEASE/reference/html/#reactive-example-2">Reactive Example</a></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> Customizer&lt;ReactiveHystrixCircuitBreakerFactory&gt; <span class="title function_">customizer</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> factory -&gt; factory.configure(builder -&gt; builder.commandProperties(</span><br><span class="line">                    HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(<span class="number">2000</span>)), <span class="string">&quot;foo&quot;</span>, <span class="string">&quot;bar&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-Circuit-Breaker-Hystrix-Clients"><a href="#4-Circuit-Breaker-Hystrix-Clients" class="headerlink" title="4. Circuit Breaker: Hystrix Clients"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#circuit-breaker-hystrix-clients">4. Circuit Breaker: Hystrix Clients</a></h2><p>Netflix 已经创建了一个名为 Hystrix 的库，该库实现了 <a target="_blank" rel="noopener" href="https://martinfowler.com/bliki/CircuitBreaker.html">circuit breaker pattern</a>（熔断器模式）。在微服务体系结构中，通常具有多层服务调用，如下示例所示：</p>
+<img src="https://raw.githubusercontent.com/spring-cloud/spring-cloud-netflix/main/docs/src/main/asciidoc/images/Hystrix.png">
+
+<p><strong>Figure 1. Microservice Graph</strong></p>
+<p>较低级别的服务失败可能导致级联失败，直至用户。当对特定服务调用超过 <code>circuitBreaker.requestVolumeThreshold</code>（默认是 20 次请求），并且，在一个由 <code>metrics.rollingStats.timeInMilliseconds</code> 定义滑动窗口（默认为 10 秒）内，失败百分比大于 <code>circuitBreaker.errorThresholdPercentage</code>（默认 &gt;50%）， 熔断器会打开，并且不进行调用。在出错并且熔断器打开的情况下，开发者可以提供一个 fallback。</p>
+<img src="https://raw.githubusercontent.com/spring-cloud/spring-cloud-netflix/main/docs/src/main/asciidoc/images/HystrixFallback.png">
+
+<p><strong>Figure 2. Hystrix fallback prevents cascading failures</strong></p>
+<h2 id="4-1-How-to-Include-Hystrix"><a href="#4-1-How-to-Include-Hystrix" class="headerlink" title="4.1. How to Include Hystrix"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#how-to-include-hystrix">4.1. How to Include Hystrix</a></h2><p>若要在你的项目中包含 Hystrix，请使用 group ID 为 <code>org.springframework.cloud</code>，artifact ID 为 <code>spring-cloud-starter-netflix-hystrix</code> 的 starter。</p>
+<p>下面示例展示了一个极简的带有 Hystrix 熔断器的 Eureka 服务：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableCircuitBreaker</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">SpringApplicationBuilder</span>(Application.class).web(<span class="literal">true</span>).run(args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StoreIntegration</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@HystrixCommand(fallbackMethod = &quot;defaultStores&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">getStores</span><span class="params">(Map&lt;String, Object&gt; parameters)</span> &#123;</span><br><span class="line">        <span class="comment">//do stuff that might fail</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">defaultStores</span><span class="params">(Map&lt;String, Object&gt; parameters)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="comment">/* something useful */</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><code>@HystrixCommand</code> 由名为 <a target="_blank" rel="noopener" href="https://github.com/Netflix/Hystrix/tree/master/hystrix-contrib/hystrix-javanica">“javanica”</a> 的 Netflix contrib 库提供。Spring Cloud 以代理的方式包装具有该注解的 Spring Bean，用于连接到 Hystrix 熔断器。熔断器计算何时打开和关闭回路，以及在失败的情况下做什么。</p>
+<p>要配置 <code>@HystrixCommand</code>，你可以以 <code>@HystrixProperty</code> 注解列表的形式使用 <code>commandProperties</code> 属性。有关更多详情，请参见<a target="_blank" rel="noopener" href="https://github.com/Netflix/Hystrix/tree/master/hystrix-contrib/hystrix-javanica#configuration">此处</a>。有关可用属性的详细信息，参见 <a target="_blank" rel="noopener" href="https://github.com/Netflix/Hystrix/wiki/Configuration">Hystrix wiki</a></p>
+<h2 id="4-2-Propagating-the-Security-Context-or-Using-Spring-Scopes"><a href="#4-2-Propagating-the-Security-Context-or-Using-Spring-Scopes" class="headerlink" title="4.2. Propagating the Security Context or Using Spring Scopes"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#netflix-hystrix-starter">4.2. Propagating the Security Context or Using Spring Scopes</a></h2><p>如果你希望一些线程的本地上下文传播到 <code>@HystrixCommand</code>，默认声明并不起作用，因为它在线程池中执行命令（在超时情况下）。你可以通过配置或者直接在注解上，请求 Hystrix 使用不同的 “Isolation Strategy”，切换 Hystrix 使用相同的线程作为调用者。以下示例演示了在注解中设置线程：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@HystrixCommand(fallbackMethod = &quot;stubMyService&quot;,</span></span><br><span class="line"><span class="meta">    commandProperties = &#123;</span></span><br><span class="line"><span class="meta">      @HystrixProperty(name=&quot;execution.isolation.strategy&quot;, value=&quot;SEMAPHORE&quot;)</span></span><br><span class="line"><span class="meta">    &#125;</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-Health-Indicator"><a href="#4-3-Health-Indicator" class="headerlink" title="4.3. Health Indicator"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#health-indicator">4.3. Health Indicator</a></h3><p>连接熔断器的状态也可以暴露在调用应用的 <code>/health</code> 端点上，如下示例所示：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;hystrix&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;openCircuitBreakers&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">            <span class="string">&quot;StoreIntegration::getStoresByLocationLink&quot;</span></span><br><span class="line">        <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;status&quot;</span><span class="punctuation">:</span> <span class="string">&quot;CIRCUIT_OPEN&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;status&quot;</span><span class="punctuation">:</span> <span class="string">&quot;UP&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-4-Hystrix-Metrics-Stream"><a href="#4-4-Hystrix-Metrics-Stream" class="headerlink" title="4.4. Hystrix Metrics Stream"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.10.RELEASE/reference/html/#hystrix-metrics-stream">4.4. Hystrix Metrics Stream</a></h3><p>若要启动 Hystrix metrics stream，请包含关于 <code>spring-boot-starter-actuator</code> 的依赖，并设置 <code>management.endpoints.web.exposure.include=hystrix.stream</code>。这样做会暴露 <code>/actuator/hystrix.stream</code> 作为管理端点，如下示例所示：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5-Circuit-Breaker-Hystrix-Dashboard"><a href="#5-Circuit-Breaker-Hystrix-Dashboard" class="headerlink" title="5. Circuit Breaker: Hystrix Dashboard"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#circuit-breaker-hystrix-dashboard">5. Circuit Breaker: Hystrix Dashboard</a></h2><p>只需要引入以下依赖即可：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-hystrix-dashboard<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>配置类添加以下注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableHystrixDashboard</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="6-Hystrix-Timeouts-And-Ribbon-Clients"><a href="#6-Hystrix-Timeouts-And-Ribbon-Clients" class="headerlink" title="6. Hystrix Timeouts And Ribbon Clients"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#hystrix-timeouts-and-ribbon-clients">6. Hystrix Timeouts And Ribbon Clients</a></h2><p>当使用 Hystrix command 包装你希望的 Ribbon 客户端时，确保你的 Hystrix 配置的 timeout 比 Ribbon 配置的 timeout 更长，包括任何可能的重试。例如，如果你的 Ribbon 连接 timeout 是 1 秒，并且 Ribbon 客户端可能重试请求 3 次，那么你的 Hystrix 超时时间应该略高于 3 秒。</p>
+<blockquote>
+<p><strong>作者的话</strong> 如果上述示例配置低于 3 秒，那么 Ribbon 可能还未完成 3 次重试就已经结束，并不满足配置预期。</p>
+</blockquote>
+<h3 id="6-1-How-to-Include-the-Hystrix-Dashboard"><a href="#6-1-How-to-Include-the-Hystrix-Dashboard" class="headerlink" title="6.1. How to Include the Hystrix Dashboard"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.10.RELEASE/reference/html/#netflix-hystrix-dashboard-starter">6.1. How to Include the Hystrix Dashboard</a></h3><p>若要在你的项目包含 Hystrix Dashboard，请使用 group ID 为 <code>org.springframework.cloud</code>，artifact ID 为 <code>spring-cloud-starter-netflix-hystrix-dashboard</code> 的 starter。</p>
+<p>若要运行 Hystrix Dashboard，请使用 <code>@EnableHystrixDashboard</code> 注解你的 Spring Boot 主类。然后访问 <code>/hystrix</code>，并将 dashboard 指向一个实例在 Hystrix 客户端应用中的 <code>/hystrix.stream</code> 端点。</p>
+<h2 id="7-Client-Side-Load-Balancer-Ribbon"><a href="#7-Client-Side-Load-Balancer-Ribbon" class="headerlink" title="7. Client Side Load Balancer: Ribbon"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#spring-cloud-ribbon">7. Client Side Load Balancer: Ribbon</a></h2><p>Ribbon 是一个客户端的负载均衡，可以对 HTTP 和 TCP 客户端行为进行大量控制。Feign 已经使用了 Ribbon，因此，如果你使用 <code>@FeignClient</code>，这部分也会使用。</p>
+<blockquote>
+<p>Ribbon 是一个进程内 LB</p>
+</blockquote>
+<p>Ribbon 的核心概念是有名客户端。每个负载均衡器都是组件集合的一部分，组件们在一起工作，按需要连接到远程服务器，并且整体有一个名字，这是你作为开发者赋予的名字。根据需要，Spring Cloud 通过使用 <code>RibbonClientConfiguration</code> 以 <code>ApplicationContext</code> 为每个有名客户端创建一个新的整体。这包含一个 <code>ILoadBalancer</code>，一个 <code>RestClient</code>，以及一个 <code>ServerListFiter</code>。</p>
+<h3 id="7-1-How-to-Include-Ribbon"><a href="#7-1-How-to-Include-Ribbon" class="headerlink" title="7.1. How to Include Ribbon"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#netflix-ribbon-starter">7.1. How to Include Ribbon</a></h3><p>要在你的项目使用 ribbon，请使用 group ID 为 <code>org.springframework.cloud</code>，artifact ID 为 <code>spring-cloud-starter-netflix-ribbon</code> 的 starter。有关使用当前 Spring Cloud Release Train 设置你的构建系统详情见 <a target="_blank" rel="noopener" href="https://projects.spring.io/spring-cloud/">Spring Cloud Project page</a></p>
+<blockquote>
+<p>如果你依赖了 eureka，则 ribbon 也会同时引入，无需显式引入</p>
+</blockquote>
+<h3 id="7-2-Customizing-the-Ribbon-Client"><a href="#7-2-Customizing-the-Ribbon-Client" class="headerlink" title="7.2. Customizing the Ribbon Client"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#customizing-the-ribbon-client">7.2. Customizing the Ribbon Client</a></h3><p>你可以通过使用 <code>&lt;client&gt;.ribbon.*</code> 之中的外部属性配置 Ribbon 客户端的一些部分，这类似于使用原生的 Netflix API，但你可以使用 Spring Boot 配置文件。原生选项可以在 <a target="_blank" rel="noopener" href="https://github.com/Netflix/ribbon/blob/master/ribbon-core/src/main/java/com/netflix/client/config/CommonClientConfigKey.java"><code>CommonClientConfigKey</code></a>  （ribbon-core 的一部分）以静态字段查看。</p>
+<p>Spring Cloud 还让你通过使用 <code>@RibbonClient</code> 声明额外配置（除了 <code>RibbonClientConfiguration</code>）来完全控制客户端，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@RibbonClient(name = &quot;custom&quot;, configuration = CustomConfiguration.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestConfiguration</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个案例中，客户端由已经存在于 <code>RibbonClientConfiguration</code> 的组件，以及在 <code>CustomConfiguration</code> （后者通常覆盖前者）中的一些组成。</p>
+<blockquote>
+<p><code>CustomConfiguration</code> 类必须是 <code>@Configuration</code> 类，但是注意，不要放在主应用上下文的 <code>@ComponentScan</code> 中。否则，它将被所有的 <code>@RibbonClients</code> 共享。如果你使用 <code>@ComponentScan</code>（或者 <code>@SpringBootApplication</code>），你需要采取一些方法以避免将其包括在内（例如，你可以将其放入分开的，不重叠的包中，或者在 <code>@ComponentScan</code> 中指定要明确扫描的包）。</p>
+</blockquote>
+<h3 id="7-3-Customizing-the-Default-for-All-Ribbon-Clients"><a href="#7-3-Customizing-the-Default-for-All-Ribbon-Clients" class="headerlink" title="7.3. Customizing the Default for All Ribbon Clients"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#customizing-the-default-for-all-ribbon-clients">7.3. Customizing the Default for All Ribbon Clients</a></h3><p>可以通过使用 <code>@RibbonClients</code> 注解，注册一个默认的配置，为所有的 Ribbon 客户端提供默认配置，如下示例所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RibbonClients(defaultConfiguration = DefaultRibbonConfig.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RibbonClientDefaultConfigurationTestsConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">BazServiceList</span> <span class="keyword">extends</span> <span class="title class_">ConfigurationBasedServerList</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">BazServiceList</span><span class="params">(IClientConfig config)</span> &#123;</span><br><span class="line">            <span class="built_in">super</span>.initWithNiwsConfig(config);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration(proxyBeanMethods = false)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DefaultRibbonConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> IRule <span class="title function_">ribbonRule</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BestAvailableRule</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> IPing <span class="title function_">ribbonPing</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">PingUrl</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> ServerList&lt;Server&gt; <span class="title function_">ribbonServerList</span><span class="params">(IClientConfig config)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RibbonClientDefaultConfigurationTestsConfig</span>.BazServiceList(config);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> ServerListSubsetFilter <span class="title function_">serverListFilter</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">ServerListSubsetFilter</span> <span class="variable">filter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerListSubsetFilter</span>();</span><br><span class="line">        <span class="keyword">return</span> filter;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-4-Customizing-the-Ribbon-Client-by-Setting-Properties"><a href="#7-4-Customizing-the-Ribbon-Client-by-Setting-Properties" class="headerlink" title="7.4. Customizing the Ribbon Client by Setting Properties"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#customizing-the-ribbon-client-by-setting-properties">7.4. Customizing the Ribbon Client by Setting Properties</a></h3><p>从 1.2.0 开始，Spring Cloud Netflix 现在支持通过设置兼容 <a target="_blank" rel="noopener" href="https://github.com/Netflix/ribbon/wiki/Working-with-load-balancers#components-of-load-balancer">Ribbon documentation</a> 属性来定制化 Ribbon 客户端。</p>
+<p>这使你可以在不同环境中更改启动时行为。</p>
+<p>下面的列表展示了支持的属性：</p>
+<ul>
+<li><code>&lt;clientName&gt;.ribbon.NFLoadBalancerClassName</code>：应该实现了 <code>ILoadBalancer</code></li>
+<li><code>&lt;clientName&gt;.ribbon.NFLoadBalancerRuleClassName</code>：应该实现了 <code>IRule</code></li>
+<li><code>&lt;clientName&gt;.ribbon.NFLoadBalancerPingClassName</code>：应该实现了 <code>IPing</code></li>
+<li><code>&lt;clientName&gt;.ribbon.NIWSServerListClassName</code>：应该实现了 <code>ServerList</code></li>
+<li><code>&lt;clientName&gt;.ribbon.NIWSServerListFilterClassName</code>：应该实现了 <code>ServerListFilter</code></li>
+</ul>
+<blockquote>
+<p>这些属性中定义的类，相较于使用 <code>@RibbonClient(configuration=MyRibbonConfig.class)</code> 定义的 Bean，以及由 Spring Cloud Netflix 提供的默认值，具有更高优先级</p>
+</blockquote>
+<p>要设置名为 <code>users</code> 的服务名的 <code>IRule</code></p>
+<h3 id="7-6-Example-How-to-Use-Ribbon-Without-Eureka"><a href="#7-6-Example-How-to-Use-Ribbon-Without-Eureka" class="headerlink" title="7.6. Example: How to Use Ribbon Without Eureka"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#spring-cloud-ribbon-without-eureka">7.6. Example: How to Use Ribbon Without Eureka</a></h3><p>Eureka 是一种便捷的方式，它抽象化远程服务的发现，因此你不必在客户端中进行硬编码。但是，如果你不想使用 Eureka，Ribbon 和 Feign 也可以工作。假设你已经声明了 “stores” 的 <code>@RibbonClient</code>，并且 Eureka 没有使用（甚至不在类路径）。Ribbon 客户端默认到配置好的服务列表。你可以按如下方式提供配置：</p>
+<p><strong>application.yml</strong></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">stores:</span></span><br><span class="line">  <span class="attr">ribbon:</span></span><br><span class="line">    <span class="attr">listOfServers:</span> <span class="string">example.com,google.com</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-7-Example-Disable-Eureka-Use-in-Ribbon"><a href="#7-7-Example-Disable-Eureka-Use-in-Ribbon" class="headerlink" title="7.7. Example: Disable Eureka Use in Ribbon"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#example-disable-eureka-use-in-ribbon">7.7. Example: Disable Eureka Use in Ribbon</a></h3><p>将 <code>ribbon.eureka.enabled</code> 属性设置为 <code>false</code>，显式地禁用 Ribbon 中 Eureka 的使用，如下示例所示：</p>
+<p><strong>application.yml</strong></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ribbon:</span></span><br><span class="line">  <span class="attr">eureka:</span></span><br><span class="line">   <span class="attr">enabled:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="7-8-Using-the-Ribbon-API-Directly"><a href="#7-8-Using-the-Ribbon-API-Directly" class="headerlink" title="7.8. Using the Ribbon API Directly"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#using-the-ribbon-api-directly">7.8. Using the Ribbon API Directly</a></h3><p>你也可以直接使用 <code>LoadBalanceClient</code>，如下示例所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> LoadBalancerClient loadBalancer;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doStuff</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">ServiceInstance</span> <span class="variable">instance</span> <span class="operator">=</span> loadBalancer.choose(<span class="string">&quot;stores&quot;</span>);</span><br><span class="line">        <span class="type">URI</span> <span class="variable">storesUri</span> <span class="operator">=</span> URI.create(String.format(<span class="string">&quot;https://%s:%s&quot;</span>, instance.getHost(), instance.getPort()));</span><br><span class="line">        <span class="comment">// ... do something with the URI</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Spring Cloud" >
+    <span class="tag-code">Spring Cloud</span>
+  </a>
+
+  <a href="/tags#Netflix" >
+    <span class="tag-code">Netflix</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/12/Nginx-%E5%AE%98%E6%96%B9%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        <span class="nav-arrow">← </span>
+        
+          Nginx 官方学习笔记
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/12/Eureka-%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/">
+        
+          Eureka 配置实践
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Spring-Cloud-Netflix"><span class="toc-nav-text">Spring Cloud Netflix</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-Service-Discovery-Eureka-Clients"><span class="toc-nav-text">1. Service Discovery: Eureka Clients</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-1-How-to-Include-Eureka-Client"><span class="toc-nav-text">1.1. How to Include Eureka Client</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-2-Registering-with-Eureka"><span class="toc-nav-text">1.2. Registering with Eureka</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-3-Authenticating-with-the-Eureka-Server"><span class="toc-nav-text">1.3. Authenticating with the Eureka Server</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-4-Status-Page-and-Health-Indicator"><span class="toc-nav-text">1.4. Status Page and Health Indicator</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-5-Registering-a-Secure-Application"><span class="toc-nav-text">1.5. Registering a Secure Application</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-6-Eureka%E2%80%99s-Health-Checks"><span class="toc-nav-text">1.6. Eureka’s Health Checks</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-7-Eureka-Metadata-for-Instances-and-Clients"><span class="toc-nav-text">1.7. Eureka Metadata for Instances and Clients</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#1-7-1-Using-Eureka-on-Cloud-Foundry"><span class="toc-nav-text">1.7.1. Using Eureka on Cloud Foundry</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#1-7-2-Using-Eureka-on-AWS"><span class="toc-nav-text">1.7.2. Using Eureka on AWS</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-7-3-Changing-the-Eureka-Instance-ID"><span class="toc-nav-text">1.7.3. Changing the Eureka Instance ID</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-8-Using-the-EurekaClient"><span class="toc-nav-text">1.8. Using the EurekaClient</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-9-Alternatives-to-the-Native-Netflix-EurekaClient"><span class="toc-nav-text">1.9. Alternatives to the Native Netflix EurekaClient</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-10-Why-Is-It-so-Slow-to-Register-a-Service"><span class="toc-nav-text">1.10. Why Is It so Slow to Register a Service?</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#2-Service-Discovery-Eureka-Server"><span class="toc-nav-text">2. Service Discovery: Eureka Server</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-1-How-to-Include-Eureka-Server"><span class="toc-nav-text">2.1. How to Include Eureka Server</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-2-How-to-Run-a-Eureka-Server"><span class="toc-nav-text">2.2. How to Run a Eureka Server</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-3-High-Availability-Zones-and-Regions"><span class="toc-nav-text">2.3. High Availability, Zones and Regions</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-4-Standalone-Mode"><span class="toc-nav-text">2.4. Standalone Mode</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-5-Peer-Awareness"><span class="toc-nav-text">2.5. Peer Awareness</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-6-When-to-Prefer-IP-Address"><span class="toc-nav-text">2.6. When to Prefer IP Address</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-8-Disabling-Ribbon-with-Eureka-Server-and-Client-starters"><span class="toc-nav-text">2.8. Disabling Ribbon with Eureka Server and Client starters</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3-Circuit-Breaker-Spring-Cloud-Circuit-Breaker-With-Hystrix"><span class="toc-nav-text">3. Circuit Breaker: Spring Cloud Circuit Breaker With Hystrix</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#3-1-Disabling-Spring-Cloud-Circuit-Breaker-Hystrix"><span class="toc-nav-text">3.1. Disabling Spring Cloud Circuit Breaker Hystrix</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#3-2-Configuring-Hystrix-Circuit-Breakers"><span class="toc-nav-text">3.2. Configuring Hystrix Circuit Breakers</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#3-2-1-Default-Configuration"><span class="toc-nav-text">3.2.1. Default Configuration</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Reactive-Example"><span class="toc-nav-text">Reactive Example</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#3-2-2-Specific-Circuit-Breaker-Configuration"><span class="toc-nav-text">3.2.2. Specific Circuit Breaker Configuration</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Reactive-Example-1"><span class="toc-nav-text">Reactive Example</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4-Circuit-Breaker-Hystrix-Clients"><span class="toc-nav-text">4. Circuit Breaker: Hystrix Clients</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4-1-How-to-Include-Hystrix"><span class="toc-nav-text">4.1. How to Include Hystrix</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4-2-Propagating-the-Security-Context-or-Using-Spring-Scopes"><span class="toc-nav-text">4.2. Propagating the Security Context or Using Spring Scopes</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#4-3-Health-Indicator"><span class="toc-nav-text">4.3. Health Indicator</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#4-4-Hystrix-Metrics-Stream"><span class="toc-nav-text">4.4. Hystrix Metrics Stream</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5-Circuit-Breaker-Hystrix-Dashboard"><span class="toc-nav-text">5. Circuit Breaker: Hystrix Dashboard</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#6-Hystrix-Timeouts-And-Ribbon-Clients"><span class="toc-nav-text">6. Hystrix Timeouts And Ribbon Clients</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#6-1-How-to-Include-the-Hystrix-Dashboard"><span class="toc-nav-text">6.1. How to Include the Hystrix Dashboard</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#7-Client-Side-Load-Balancer-Ribbon"><span class="toc-nav-text">7. Client Side Load Balancer: Ribbon</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#7-1-How-to-Include-Ribbon"><span class="toc-nav-text">7.1. How to Include Ribbon</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#7-2-Customizing-the-Ribbon-Client"><span class="toc-nav-text">7.2. Customizing the Ribbon Client</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#7-3-Customizing-the-Default-for-All-Ribbon-Clients"><span class="toc-nav-text">7.3. Customizing the Default for All Ribbon Clients</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#7-4-Customizing-the-Ribbon-Client-by-Setting-Properties"><span class="toc-nav-text">7.4. Customizing the Ribbon Client by Setting Properties</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#7-6-Example-How-to-Use-Ribbon-Without-Eureka"><span class="toc-nav-text">7.6. Example: How to Use Ribbon Without Eureka</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#7-7-Example-Disable-Eureka-Use-in-Ribbon"><span class="toc-nav-text">7.7. Example: Disable Eureka Use in Ribbon</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#7-8-Using-the-Ribbon-API-Directly"><span class="toc-nav-text">7.8. Using the Ribbon API Directly</span></a></li></ol></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/12/Spring-Cloud/Spring-Cloud-Netflix/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "jiangchunbo";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "Spring Cloud Netflix",
+        owner: "jiangchunbo",
+        repo: "jiangchunbo.github.io",
+        oauth: {
+          client_id: "8ff18c626ce6de443832",
+          client_secret: "ccbfc51ce15c59b57e0fe4a4dea81060976bbde3"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>
