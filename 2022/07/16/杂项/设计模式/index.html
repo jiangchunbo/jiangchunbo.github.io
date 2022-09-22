@@ -20,10 +20,6 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
-    
-<link rel="stylesheet" href="/css/plugins/gitment.css">
-
-  
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
@@ -32,10 +28,6 @@
 <script src="/js/qrious.js"></script>
 
   
-  
-    
-<script src="/js/gitment.js"></script>
-
   
   
   
@@ -210,7 +202,74 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><h2 id="Proxy-模式"><a href="#Proxy-模式" class="headerlink" title="Proxy 模式"></a>Proxy 模式</h2><h3 id="Proxy-模式中的角色"><a href="#Proxy-模式中的角色" class="headerlink" title="Proxy 模式中的角色"></a>Proxy 模式中的角色</h3><p>在 Proxy 模式中一般有以下角色：</p>
+    <section class="markdown-content"><h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>图解设计模式</p>
+<h2 id="1-Iterator-模式"><a href="#1-Iterator-模式" class="headerlink" title="1. Iterator 模式"></a>1. Iterator 模式</h2><h2 id="2-Adapter-模式"><a href="#2-Adapter-模式" class="headerlink" title="2. Adapter 模式"></a>2. Adapter 模式</h2><p>Adapter 模式也被称为 Wrapper 模式。</p>
+<h3 id="Adapter-模式角色"><a href="#Adapter-模式角色" class="headerlink" title="Adapter 模式角色"></a>Adapter 模式角色</h3><ul>
+<li>Target</li>
+</ul>
+<p>该角色负责定义所需的方法。</p>
+<ul>
+<li>Adaptee（被适配者）</li>
+</ul>
+<p>Adaptee 是一个持有既定方法的角色</p>
+<ul>
+<li>Adapter（适配器）</li>
+</ul>
+<p>Adapter 模式的主人公。使用 Adaptee 的方法来满足 Target 的需求。在类适配器模式中，Adapter 通过继承来使用 Adaptee；在对象适配器模式中，Adapter 通过委托来使用 Adaptee 角色。</p>
+<p>适配器和被适配者并不需要继承相同的抽象类或接口。</p>
+<blockquote>
+<p>如果在类适配器模式中，会让适配器实现被适配者，但似乎不如对象适配器的委托优雅。</p>
+</blockquote>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><table>
+<thead>
+<tr>
+<th align="left">适配器</th>
+<th align="left">被适配者</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>InputStreamReader</code></td>
+<td align="left"><code>InputStream</code> 系列</td>
+</tr>
+<tr>
+<td align="left"><code>OutputStreamWriter</code></td>
+<td align="left"><code>OutputStream</code> 系列</td>
+</tr>
+<tr>
+<td align="left"><code>FutureTask</code></td>
+<td align="left"><code>Runnable</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>由于 <code>InputStream</code> 和 <code>OutputStream</code> 只能输入&#x2F;输出字节，需要经过一个适配过程，将字节转换为字符，这就是适配器模式。</p>
+</blockquote>
+<h2 id="7-Abstract-Factory-模式"><a href="#7-Abstract-Factory-模式" class="headerlink" title="7. Abstract Factory 模式"></a>7. Abstract Factory 模式</h2><p>父类决定实例的生成方式，但不决定所要生成的具体的类，具体的处理全部交给子类负责。</p>
+<p><code>FileSystemProvider.newInputStream</code> 用于生成文件  <code>InputStream</code>，底层依赖于 <code>FileSystemProvider</code>，可能是 <code>WindowsFileSystem</code> 也可能是 <code>ZipFileSystem</code>。类似 <code>Abstract Factory</code> 的变体。</p>
+<h2 id="11-Decorator-模式"><a href="#11-Decorator-模式" class="headerlink" title="11. Decorator 模式"></a>11. Decorator 模式</h2><p>装饰器（Decorator）模式 可以在不改变原有对象的情况下拓展其功能。</p>
+<h3 id="Decorator-模式中的角色"><a href="#Decorator-模式中的角色" class="headerlink" title="Decorator 模式中的角色"></a>Decorator 模式中的角色</h3><ul>
+<li>Component</li>
+</ul>
+<p>增加功能时的核心角色</p>
+<ul>
+<li>ConcreteComponent</li>
+</ul>
+<p>实现了 Component 角色所定义的接口</p>
+<ul>
+<li>Decorator</li>
+</ul>
+<p>该角色具有与 Component 相同的接口，内部保存了被装饰的对象。</p>
+<ul>
+<li>ConcreteDecorator</li>
+</ul>
+<p>具体的 Decorator 角色</p>
+<p>以 Java IO 库来说，<code>InputStream</code> 和 <code>OutputStream</code> 扮演 Component 角色。</p>
+<p><code>FilterInputStream</code> 和 <code>FilterOutputStream</code> 扮演 Decorator</p>
+<p>对于字节流来说， <code>FilterInputStream</code> （对应输入流）和 <code>FilterOutputStream</code>（对应输出流）是装饰器模式的核心，分别用于增强 <code>InputStream</code> 和<code>OutputStream</code> 子类对象的功能。</p>
+<p>我们常见的 <code>BufferedInputStream</code>、<code>DataInputStream</code> 等等都是<code>FilterInputStream</code> 的子类，<code>BufferedOutputStream</code>、<code>DataOutputStream</code> 等等都是 <code>FilterOutputStream</code> 的子类。</p>
+<p>从 <code>BufferedInputStream</code> 的构造器参数也可以知道，传入一个 <code>InputStream</code> 对象，进而装饰。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">BufferedInputStream</span><span class="params">(InputStream in, <span class="type">int</span> size)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(in);</span><br><span class="line">    <span class="keyword">if</span> (size &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;Buffer size &lt;= 0&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    buf = <span class="keyword">new</span> <span class="title class_">byte</span>[size];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="21-Proxy-模式"><a href="#21-Proxy-模式" class="headerlink" title="21. Proxy 模式"></a>21. Proxy 模式</h2><h3 id="Proxy-模式中的角色"><a href="#Proxy-模式中的角色" class="headerlink" title="Proxy 模式中的角色"></a>Proxy 模式中的角色</h3><p>在 Proxy 模式中一般有以下角色：</p>
 <ul>
 <li>Subject（主体）</li>
 </ul>
@@ -223,13 +282,6 @@
 <li>RealSubject（实际主体）</li>
 </ul>
 <p>RealSubject 会在 Proxy 无法胜任工作时出场。它也会实现 Subject 接口。</p>
-<p>下面这段示例程序实现了一个 “带有名字的打印机”</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Printable</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">setPrinterName</span><span class="params">(String name)</span>;</span><br><span class="line"></span><br><span class="line">    String <span class="title function_">getPrinterName</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">print</span><span class="params">(String string)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Printer</span> <span class="keyword">implements</span> <span class="title class_">Printable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Printer</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        heavyJob(<span class="string">&quot;正在生成 Printer 示例 (&quot;</span> + name + <span class="string">&quot;)&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPrinterName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getPrinterName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">print</span><span class="params">(String string)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;===&quot;</span> + <span class="built_in">this</span>.name + <span class="string">&quot;===&quot;</span>);</span><br><span class="line">        System.out.println(string);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">heavyJob</span><span class="params">(String msg)</span> &#123;</span><br><span class="line">        System.out.println(msg);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.print(<span class="string">&quot;.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;结束。&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PrinterProxy</span> <span class="keyword">implements</span> <span class="title class_">Printable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> Printer real;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PrinterProxy</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PrinterProxy</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPrinterName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.real != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="built_in">this</span>.real.setPrinterName(name);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getPrinterName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">print</span><span class="params">(String string)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.ensure();</span><br><span class="line">        real.print(string);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">ensure</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.real == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (<span class="built_in">this</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="built_in">this</span>.real == <span class="literal">null</span>) &#123;</span><br><span class="line">                    <span class="built_in">this</span>.real = <span class="keyword">new</span> <span class="title class_">Printer</span>(<span class="built_in">this</span>.name);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h3 id="Proxy-模式变体"><a href="#Proxy-模式变体" class="headerlink" title="Proxy 模式变体"></a>Proxy 模式变体</h3><ul>
 <li><p>Virtual Proxy（虚拟代理）<br>Virtual Proxy 就是上面呈现的 Proxy 模式。当真正需要 RealSubject 时，才生成和初始化实例。</p>
 </li>
@@ -303,9 +355,15 @@
     
     <!-- 二维码 END -->
     
-      <!-- Gitment START -->
-      <div id="comments"></div>
-      <!-- Gitment END -->
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo="JiangChunbo/jiangchunbo.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>
+      <!-- Utterances END -->
     
   </article>
   <!-- Article END -->
@@ -315,7 +373,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-nav-text">设计模式</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Proxy-%E6%A8%A1%E5%BC%8F"><span class="toc-nav-text">Proxy 模式</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Proxy-%E6%A8%A1%E5%BC%8F%E4%B8%AD%E7%9A%84%E8%A7%92%E8%89%B2"><span class="toc-nav-text">Proxy 模式中的角色</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Proxy-%E6%A8%A1%E5%BC%8F%E5%8F%98%E4%BD%93"><span class="toc-nav-text">Proxy 模式变体</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-nav-text">设计模式</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%8F%82%E8%80%83"><span class="toc-nav-text">参考</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-Iterator-%E6%A8%A1%E5%BC%8F"><span class="toc-nav-text">1. Iterator 模式</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-Adapter-%E6%A8%A1%E5%BC%8F"><span class="toc-nav-text">2. Adapter 模式</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Adapter-%E6%A8%A1%E5%BC%8F%E8%A7%92%E8%89%B2"><span class="toc-nav-text">Adapter 模式角色</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-nav-text">例子</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#7-Abstract-Factory-%E6%A8%A1%E5%BC%8F"><span class="toc-nav-text">7. Abstract Factory 模式</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#11-Decorator-%E6%A8%A1%E5%BC%8F"><span class="toc-nav-text">11. Decorator 模式</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Decorator-%E6%A8%A1%E5%BC%8F%E4%B8%AD%E7%9A%84%E8%A7%92%E8%89%B2"><span class="toc-nav-text">Decorator 模式中的角色</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#21-Proxy-%E6%A8%A1%E5%BC%8F"><span class="toc-nav-text">21. Proxy 模式</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Proxy-%E6%A8%A1%E5%BC%8F%E4%B8%AD%E7%9A%84%E8%A7%92%E8%89%B2"><span class="toc-nav-text">Proxy 模式中的角色</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Proxy-%E6%A8%A1%E5%BC%8F%E5%8F%98%E4%BD%93"><span class="toc-nav-text">Proxy 模式变体</span></a></li></ol></li></ol></li></ol>
     
   </div>
 </aside>
@@ -382,34 +440,6 @@
   </script>
 
 
-
-  <script>
-    var gitmentConfig = "jiangchunbo";
-    if (gitmentConfig !== 'undefined') {
-      var gitment = new Gitment({
-        id: "设计模式",
-        owner: "jiangchunbo",
-        repo: "jiangchunbo.github.io",
-        oauth: {
-          client_id: "8ff18c626ce6de443832",
-          client_secret: "ccbfc51ce15c59b57e0fe4a4dea81060976bbde3"
-        },
-        theme: {
-          render(state, instance) {
-            const container = document.createElement('div')
-            container.lang = "en-US"
-            container.className = 'gitment-container gitment-root-container'
-            container.appendChild(instance.renderHeader(state, instance))
-            container.appendChild(instance.renderEditor(state, instance))
-            container.appendChild(instance.renderComments(state, instance))
-            container.appendChild(instance.renderFooter(state, instance))
-            return container;
-          }
-        }
-      })
-      gitment.render(document.getElementById('comments'))
-    }
-  </script>
 
 
 

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      RFC 6749 | 🥫🍞
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="🥫🍞" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>🥫🍞</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>RFC 6749</h2>
+  <p class="post-date">2022-07-26</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><p>1.1. Roles 角色</p>
+<p>OAuth 定义了四个角色：</p>
+<ul>
+<li>resource owner 资源拥有者:</li>
+</ul>
+<p>一个实体，其能够授予受保护的资源的访问权限。当 resource owner 是一个人，他被称之为一个终端用户。</p>
+<ul>
+<li>resource server 资源服务器</li>
+</ul>
+<p>一个服务，其托管受保护的资源，能够接受并响应使用 access token 进行受保护资源的请求。</p>
+<ul>
+<li>client 客户端</li>
+</ul>
+<p>一个应用，代表资源拥有者发出受保护资源的请求，并使用其授权。术语 “client” 并不表示任何特别的实现特征（例如，不论该应用在服务器，桌面，或者其他设备上执行）。</p>
+<ul>
+<li>authorization server</li>
+</ul>
+<p>一个服务，在成功认证了  并获得了授权之后，颁发 access_token 给 client。</p>
+<p>OAuth 定义了四种授予类型:</p>
+<ul>
+<li>authorization code，授权码</li>
+<li>implicit，隐藏式</li>
+<li>resource owner password credentials，密码</li>
+<li>client credentials，凭证式</li>
+</ul>
+<h2 id="authorization-code"><a href="#authorization-code" class="headerlink" title="authorization code"></a>authorization code</h2><blockquote>
+<p>企业微信的授权与 code 很类似，但有所不同。企业微信 code 并不是换取 access_token，而是换取 userid。也就是，一般的 OAuth2，code 与 user 有关联，code 换取的 access_token 与 user 也有关联，用户可以通过 access_token 访问自己权限下的信息。 </p>
+</blockquote>
+<h2 id="resource-owner-password-credentials，密码"><a href="#resource-owner-password-credentials，密码" class="headerlink" title="resource owner password credentials，密码"></a>resource owner password credentials，密码</h2><p>A 网站直接要求用户提供 B 网站的用户名和密码。拿到之后，A 直接向 B 请求令牌。</p>
+<h2 id="client-credentials，客户端凭证式"><a href="#client-credentials，客户端凭证式" class="headerlink" title="client credentials，客户端凭证式"></a>client credentials，客户端凭证式</h2><p>适用于没有前端的命令行应用。</p>
+<p>这种方式给出的令牌，是针对第三方应用的，而不是针对用户的，即有可能多个用户共享同一个令牌。</p>
+<p>企业微信的 access_token 获取类似于这种方式</p>
+<p>(A) client 通过将 resource owner 的 user-agent 重定向到 authorization 后端，开始流程。client 包含它的 client identifier，requested scope，local state，以及一个 redirection uri，一旦授权（或者拒绝）该访问，授权服务器会把 user-agent 发回该 uri。</p>
+<blockquote>
+<p>client 可以认为是第三方应用的页面（上面具有一个授权按钮），用户点击该按钮，就会跳转到授权服务器，同时会附带一些参数。</p>
+</blockquote>
+<p>(B) 授权服务器认证 resource owner，并确定 resource owner 是授权还是拒绝 client 的范围请求。</p>
+<p>(C) 假设 resource owner 授权访问，授权服务器使用之前提供的 redirection uri 将 user-agent 重定向回 client。redirection uri 包含 authorization code 以及之前 client 提供的任何本地状态。</p>
+<blockquote>
+<p>code 的实现可以是 UUID、UUID+MD5 等</p>
+</blockquote>
+<p>(D) client 通过前面步骤获得的 authorization code 从授权服务器的 token 后端请求 access token。当发出请求时，client 使用授权服务器认证。client 包含 redirection URI ，用于获取进行验证的授权码。</p>
+<p>(E) 授权服务器认证客户端，验证授权码，确保接受到的 redirection URI  </p>
+<h1 id="10-Security-Considerations"><a href="#10-Security-Considerations" class="headerlink" title="10. Security Considerations"></a>10. Security Considerations</h1><h2 id="10-4-Refresh-Tokens"><a href="#10-4-Refresh-Tokens" class="headerlink" title="10.4. Refresh Tokens"></a>10.4. Refresh Tokens</h2><p>Authorization Server 可以（MAY）给 Web 应用客户端和本地应用客户端颁发 Refresh Token。</p>
+<p>Refresh Token 必须（MUST）在运输和存储的过程中保密，并且仅仅在 Authorization Server 和颁发了 Refresh Token 的客户端之间共享。Authorzation Server 必须（MUST） 维护 Refresh Token 和颁发了 Refresh Token 的客户端之间的绑定关系。Refresh Token 必须（MUST）只能使用 TLS 传输。??</p>
+<p>每当客户身份可以验证时，Authorzation Server 必须（MUST）验证 Refresh Token 和客户身份之间的绑定关系。当无法进行客户端认证时，Authorization Server 应当（SHOULD）调配其他方案，以检测 Refresh Token 滥用。</p>
+<p>例如，Authorization Server 可以使用 Refresh Token 循环，每个 access Token 刷新响应就在循环中颁发一个新的 Refresh Token。前一个 Refresh Token 失效，但是还会被 Authorization Server 保留。如果一个 Refresh Token 被渗透了，随后都被攻击者和合法客户端使用，其中一个会出现无效的 Refresh Token，它将告知授权服务器违规。</p>
+<p><em>授权服务器</em>必须确保 Refresh Token 不能被生成，篡改，或者猜测以生成有效的刷新令牌。</p>
+</section>
+    <!-- Tags START -->
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/25/Linux/yum-%E7%9A%84%E4%BD%BF%E7%94%A8/">
+        <span class="nav-arrow">← </span>
+        
+          yum 的使用
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/27/Spring-Framework/Spring-Framework-Integration/">
+        
+          Spring Framework Integration
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo="JiangChunbo/jiangchunbo.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#authorization-code"><span class="toc-nav-text">authorization code</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#resource-owner-password-credentials%EF%BC%8C%E5%AF%86%E7%A0%81"><span class="toc-nav-text">resource owner password credentials，密码</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#client-credentials%EF%BC%8C%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%87%AD%E8%AF%81%E5%BC%8F"><span class="toc-nav-text">client credentials，客户端凭证式</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#10-Security-Considerations"><span class="toc-nav-text">10. Security Considerations</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#10-4-Refresh-Tokens"><span class="toc-nav-text">10.4. Refresh Tokens</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/26/RFC/RFC-6749/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

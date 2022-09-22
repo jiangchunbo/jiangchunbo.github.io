@@ -20,10 +20,6 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
-    
-<link rel="stylesheet" href="/css/plugins/gitment.css">
-
-  
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
@@ -32,10 +28,6 @@
 <script src="/js/qrious.js"></script>
 
   
-  
-    
-<script src="/js/gitment.js"></script>
-
   
   
   
@@ -223,7 +215,7 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="/2022/05/09/Spring-Web-Servlet/Spring-Framework-Web-Servlet/">
+      <a class="nav-left" href="/2022/05/09/Spring-Framework/Spring-Framework-Web-Servlet/">
         <span class="nav-arrow">← </span>
         
           Spring Framework Web Servlet
@@ -270,9 +262,15 @@
     
     <!-- 二维码 END -->
     
-      <!-- Gitment START -->
-      <div id="comments"></div>
-      <!-- Gitment END -->
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo="JiangChunbo/jiangchunbo.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>
+      <!-- Utterances END -->
     
   </article>
   <!-- Article END -->
@@ -349,34 +347,6 @@
   </script>
 
 
-
-  <script>
-    var gitmentConfig = "jiangchunbo";
-    if (gitmentConfig !== 'undefined') {
-      var gitment = new Gitment({
-        id: "各类场景请求参数",
-        owner: "jiangchunbo",
-        repo: "jiangchunbo.github.io",
-        oauth: {
-          client_id: "8ff18c626ce6de443832",
-          client_secret: "ccbfc51ce15c59b57e0fe4a4dea81060976bbde3"
-        },
-        theme: {
-          render(state, instance) {
-            const container = document.createElement('div')
-            container.lang = "en-US"
-            container.className = 'gitment-container gitment-root-container'
-            container.appendChild(instance.renderHeader(state, instance))
-            container.appendChild(instance.renderEditor(state, instance))
-            container.appendChild(instance.renderComments(state, instance))
-            container.appendChild(instance.renderFooter(state, instance))
-            return container;
-          }
-        }
-      })
-      gitment.render(document.getElementById('comments'))
-    }
-  </script>
 
 
 

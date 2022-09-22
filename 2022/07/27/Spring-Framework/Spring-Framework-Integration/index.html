@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Spring Framework Integration | 🥫🍞
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="🥫🍞" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>🥫🍞</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Spring Framework Integration</h2>
+  <p class="post-date">2022-07-27</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Integration"><a href="#Integration" class="headerlink" title="Integration"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/integration.html#spring-integration">Integration</a></h1><hr>
+<h2 id="Message-Conversion"><a href="#Message-Conversion" class="headerlink" title="Message Conversion"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/current/reference/html/integration.html#rest-message-conversion">Message Conversion</a></h2><p>WebMvcConfigurationSupport 内含默认的 Converter</p>
+<p>BufferedImageHttpMessageConverter 返回图片</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(path = &quot;/image/&#123;id&#125;&quot;, produces = MediaType.IMAGE_JPEG_VALUE)</span></span><br><span class="line"><span class="keyword">public</span> BufferedImage <span class="title function_">getImage</span><span class="params">(<span class="meta">@PathVariable</span> Integer id)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="type">Weather</span> <span class="variable">weather</span> <span class="operator">=</span> weatherMapper.getById(id);</span><br><span class="line">    <span class="keyword">return</span> ImageIO.read(weather.getPicture());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="6-Mail"><a href="#6-Mail" class="headerlink" title="6. Mail"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/integration.html#mail">6. Mail</a></h2><p>Spring Boot 的使用方式：</p>
+<p>(1) 配置并将 <code>JavaMailSender</code> 注入到 IOC 容器，类似一个 Mail 工厂配置，可以 getSession，也可以 createMimeMessage</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JavaMailConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Bean(name = &quot;javaMailSender&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> JavaMailSenderImpl <span class="title function_">javaMailSender</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">JavaMailSenderImpl</span> <span class="variable">javaMailSender</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JavaMailSenderImpl</span>(); <span class="comment">// 唯一的实现</span></span><br><span class="line">        javaMailSender.setHost(<span class="string">&quot;smtp.qq.com&quot;</span>); <span class="comment">// 设置 SMTP 主机</span></span><br><span class="line">        javaMailSender.setUsername(<span class="string">&quot;945086245@qq.com&quot;</span>);</span><br><span class="line">        javaMailSender.setPassword(<span class="string">&quot;password&quot;</span>);</span><br><span class="line">        javaMailSender.setDefaultEncoding(<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> javaMailSender;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>(2) 使用 javaMailSender 发送。MimeMessageHelper 类似 Builder 设计，但是没有做链式调用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">MimeMessage</span> <span class="variable">mimeMessage</span> <span class="operator">=</span> javaMailSender.createMimeMessage();</span><br><span class="line"><span class="type">MimeMessageHelper</span> <span class="variable">mimeMessageHelper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MimeMessageHelper</span>(mimeMessage, <span class="literal">true</span>);</span><br><span class="line">mimeMessageHelper.setFrom(<span class="string">&quot;945086245@qq.com&quot;</span>); <span class="comment">// 发送人</span></span><br><span class="line">mimeMessageHelper.setTo(email); <span class="comment">// 接收人</span></span><br><span class="line">mimeMessageHelper.setSubject(<span class="string">&quot;验证码&quot;</span>);</span><br><span class="line">mimeMessageHelper.setText(<span class="string">&quot;您的验证码是: 9836, 如非本人操作请忽视。&quot;</span>);</span><br><span class="line">javaMailSender.send(mimeMessage);</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-Task-Execution-and-Scheduling"><a href="#7-Task-Execution-and-Scheduling" class="headerlink" title="7. Task Execution and Scheduling"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/integration.html#scheduling">7. Task Execution and Scheduling</a></h2><p>Spring Framework 分别使用 <code>TaskExecutor</code> 和 <code>TaskScheduler</code> 接口为异步执行和任务调度提供了抽象。Spring 还具有那些支持线程池的接口实现或在应用程序服务器环境中委托 CommonJ。最终，通用接口之间的这些实现的使用抽象出了 Java SE5，Java SE 6 以及 Java EE 环境的差异。</p>
+<p>Spring 还具有支持使用 <code>Timer</code> 调度的集成类，以及 Quartz Scheduler。你可以通过使用 <code>FactoryBean</code>，可选的分别对 <code>Timer</code> 或者 <code>Trigger</code> 实例的引用设置这两个调度器。此外，用于 Quartz 调度器和 <code>Timer</code> 的便利类是可用的，它让你调用现存的目标对象的方法（类似于普通的 <code>MethodInvokingFactoryBean</code> 操作）。</p>
+<h3 id="7-1-The-Spring-TaskExecutor-Abstraction"><a href="#7-1-The-Spring-TaskExecutor-Abstraction" class="headerlink" title="7.1. The Spring TaskExecutor Abstraction"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/integration.html#scheduling-task-executor">7.1. The Spring TaskExecutor Abstraction</a></h3><p>Executor 是 JDK 用于线程池概念的名称。之所以叫 “executor” 是因为实际上不能保证底层的实现就是池。一个 executor 可以是单线程，甚至是同步的。Spring 的抽象隐藏了 Java SE 和 Java EE 环境之间的实现细节。</p>
+<p>Spring 的 <code>TaskExecutor</code> 接口与 <code>java.util.concurrent.Executor</code> 接口相同。实际上，最初其主要存在的原因就是在使用线程池的时候抽象出对 Java 5 的需求。该接口只有一个方法（<code>execute(Runnable task)</code>），该方法接受给予线程池的语义和配置的任务。</p>
+<h4 id="7-1-1-TaskExecutor-Types"><a href="#7-1-1-TaskExecutor-Types" class="headerlink" title="7.1.1. TaskExecutor Types"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/integration.html#scheduling-task-executor-types">7.1.1. TaskExecutor Types</a></h4><p>Spring 包含了许多预置的 <code>TaskExecutor</code> 实现。很有可能，你永远不需要实现自己的类。Spring 提供的变体如下：</p>
+<ul>
+<li><p><code>SyncTaskExecutor</code>: 此实现不会异步运行调用。相反，每个调用都发生在调用线程中。它主要用于不需要多线程的情况，例如在简单的测试用例中。</p>
+</li>
+<li><p><code>ThreadPoolTaskExecutor</code>: 此实现最常用。它暴露了用于配置 <code>java.util.concurrent.ThreadPoolExecutor</code> 的 Bean 属性，并将其包装在 <code>TaskExecutor</code> 中。如果你需要适应其他类型的 <code>java.util.concurrent.Executor</code>，我们建议你改用 <code>ConcurrentTaskExecutor</code>。</p>
+</li>
+</ul>
+<h4 id="7-1-2-Using-a-TaskExecutor"><a href="#7-1-2-Using-a-TaskExecutor" class="headerlink" title="7.1.2. Using a TaskExecutor"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/integration.html#scheduling-task-executor-usage">7.1.2. Using a TaskExecutor</a></h4><p>Spring 的 <code>TaskExecutor</code> 实现被用作简单的 Java Bean。在下面的示例中，我们定义了一个使用 <code>ThreadPoolTaskExecutor</code> 的 Bean，异步地打印一组消息：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.core.task.TaskExecutor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TaskExecutorExample</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">class</span> <span class="title class_">MessagePrinterTask</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> String message;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">MessagePrinterTask</span><span class="params">(String message)</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.message = message;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">            System.out.println(message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> TaskExecutor taskExecutor;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TaskExecutorExample</span><span class="params">(TaskExecutor taskExecutor)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.taskExecutor = taskExecutor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">printMessages</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">25</span>; i++) &#123;</span><br><span class="line">            taskExecutor.execute(<span class="keyword">new</span> <span class="title class_">MessagePrinterTask</span>(<span class="string">&quot;Message&quot;</span> + i));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如你所见，你没有从池中检索线程并自己执行，而是将你的 <code>Runnable</code> 添加到队列中。然后 <code>TaskExecutor</code> 使用其内部规则来决定任务何时运行。</p>
+<p>为了配置 <code>TaskExecutor</code> 使用的规则，我们将公开简单的 Bean 属性：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;taskExecutor&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;corePoolSize&quot;</span> <span class="attr">value</span>=<span class="string">&quot;5&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;maxPoolSize&quot;</span> <span class="attr">value</span>=<span class="string">&quot;10&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;queueCapacity&quot;</span> <span class="attr">value</span>=<span class="string">&quot;25&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;taskExecutorExample&quot;</span> <span class="attr">class</span>=<span class="string">&quot;TaskExecutorExample&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">ref</span>=<span class="string">&quot;taskExecutor&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-2-The-Spring-TaskScheduler-Abstraction"><a href="#7-2-The-Spring-TaskScheduler-Abstraction" class="headerlink" title="7.2. The Spring TaskScheduler Abstraction"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/integration.html#scheduling-task-scheduler">7.2. The Spring TaskScheduler Abstraction</a></h3><p>除了 <code>TaskExecutor</code> 抽象外，</p>
+<h2 id="8-Cache-Abstraction"><a href="#8-Cache-Abstraction" class="headerlink" title="8. Cache Abstraction"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/integration.html#cache">8. Cache Abstraction</a></h2><h3 id="8-1-Understanding-the-Cache-Abstraction"><a href="#8-1-Understanding-the-Cache-Abstraction" class="headerlink" title="8.1. Understanding the Cache Abstraction"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/integration.html#cache-strategies">8.1. Understanding the Cache Abstraction</a></h3><p><strong>Buffer 和 Cache</strong></p>
+<p>一般地，buffer 可以翻译为缓冲区，用于高速与低速的实体之间的中间存储，缓冲区至少对知晓它的一方是可见的。</p>
+<p>cache 可以翻译为缓存，根据定义是隐藏的，任何一方都不知晓。</p>
+<p><strong>Spring 提供了一些缓存抽象的实现</strong>：</p>
+<ul>
+<li>SimpleCacheConfiguration</li>
+<li>EhCacheCacheConfiguration</li>
+<li>GenericCacheConfiguration</li>
+<li>RedisCacheConfiguration</li>
+<li>…</li>
+</ul>
+<p>SpringBoot <code>CacheAutoConfiguration</code> 中使用 <code>@Import</code> 导入了 <code>CacheConfigurationImportSelector.class</code>，其中导入了枚举类 <code>CacheType</code> 中所有的缓存类型。</p>
+<p><strong>SimpleCacheConfiguration</strong></p>
+<p>底层使用 <code>concurrentMap</code> 实现，见 <code>SimpleCacheConfiguration</code>  注入 <code>ConcurrentMapCacheManager</code>。<code>ConcurrentMapCacheManager </code> 属性 <code>dynamic</code> 可以配置 <code>cacheName</code> 是否可以动态生成，默认为 true。</p>
+<h3 id="8-2-Declarative-Annotation-based-Caching"><a href="#8-2-Declarative-Annotation-based-Caching" class="headerlink" title="8.2. Declarative Annotation-based Caching"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/integration.html#cache-annotations">8.2. Declarative Annotation-based Caching</a></h3><p>Spring 缓存抽象提供了一组 Java 注解：</p>
+<ul>
+<li><code>@Cacheable</code>：触发缓存填充</li>
+<li><code>@CacheEvict</code>：触发缓存驱逐</li>
+<li><code>@CachePut</code>：在不干扰方法执行的情况下更新缓存</li>
+<li><code>@Caching</code>：重新组合要应用于方法的多个缓存操作</li>
+<li><code>@CacheConfig</code>：在类级别共享一些常见的缓存相关设置</li>
+</ul>
+<h4 id="8-2-1-The-Cacheable-Annotation"><a href="#8-2-1-The-Cacheable-Annotation" class="headerlink" title="8.2.1. The @Cacheable Annotation"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/integration.html#cache-annotations-cacheable">8.2.1. The @Cacheable Annotation</a></h4><table>
+<thead>
+<tr>
+<th align="left">注解属性</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">value &#x2F; cacheNames</td>
+<td align="left">缓存的名字</td>
+</tr>
+<tr>
+<td align="left">key</td>
+<td align="left">缓存数据使用的 key，默认使用方法参数</td>
+</tr>
+<tr>
+<td align="left">keyGenerator</td>
+<td align="left">自定义 key 生成器，实现 KeyGenerator</td>
+</tr>
+<tr>
+<td align="left">cacheManager</td>
+<td align="left">指定缓存管理器</td>
+</tr>
+<tr>
+<td align="left">condition</td>
+<td align="left">指定符合条件的情况下才缓存</td>
+</tr>
+<tr>
+<td align="left">unless</td>
+<td align="left">缓存的否定条件</td>
+</tr>
+<tr>
+<td align="left">sync</td>
+<td align="left">是否使用异步模式</td>
+</tr>
+</tbody></table>
+<h5 id="Default-Key-Generation"><a href="#Default-Key-Generation" class="headerlink" title="Default Key Generation"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/integration.html#cache-annotations-cacheable-default-key">Default Key Generation</a></h5><p>key 默认采用 <code>SimpleKeyGenerator</code> 生成。以方法参数为标识。</p>
+<h5 id="Synchronized-Caching"><a href="#Synchronized-Caching" class="headerlink" title="Synchronized Caching"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/integration.html#cache-annotations-cacheable-synchronized">Synchronized Caching</a></h5><p>Spring Core 框架的 <code>CacheManager</code> 实现都支持 sync。其他缓存库未必。</p>
+<h5 id="Available-Caching-SpEL-Evaluation-Context"><a href="#Available-Caching-SpEL-Evaluation-Context" class="headerlink" title="Available Caching SpEL Evaluation Context"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/integration.html#cache-spel-context">Available Caching SpEL Evaluation Context</a></h5><p>Cache SpEL 可用元数据，具体见官方表。</p>
+<h4 id="8-2-2-The-CachePut-Annotation"><a href="#8-2-2-The-CachePut-Annotation" class="headerlink" title="8.2.2. The @CachePut Annotation"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/integration.html#cache-annotations-put">8.2.2. The @CachePut Annotation</a></h4><p>每次都调用方法，缓存结果。</p>
+<h4 id="8-2-3-The-CacheEvict-annotation"><a href="#8-2-3-The-CacheEvict-annotation" class="headerlink" title="8.2.3. The @CacheEvict annotation"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/integration.html#cache-annotations-evict">8.2.3. The @CacheEvict annotation</a></h4><p>清空缓存</p>
+<h4 id="8-2-6-Enabling-Caching-Annotations"><a href="#8-2-6-Enabling-Caching-Annotations" class="headerlink" title="8.2.6. Enabling Caching Annotations"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/integration.html#cache-annotation-enable">8.2.6. Enabling Caching Annotations</a></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableCaching</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AppConfig</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-3-JCache-JSR-107-Annotations"><a href="#8-3-JCache-JSR-107-Annotations" class="headerlink" title="8.3. JCache (JSR-107) Annotations"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/integration.html#cache-jsr-107">8.3. JCache (JSR-107) Annotations</a></h3><p>从 Spring 4.1 开始，Spring 缓存抽象完全支持 JCache 注解</p>
+<h4 id="8-3-1-Feature-Summary"><a href="#8-3-1-Feature-Summary" class="headerlink" title="8.3.1. Feature Summary"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/integration.html#cache-jsr-107-summary">8.3.1. Feature Summary</a></h4><table>
+<thead>
+<tr>
+<th align="left">Spring</th>
+<th align="left">JSR-107</th>
+<th align="left">备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">@Cacheable</td>
+<td align="left">@CacheResult</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">@CachePut</td>
+<td align="left">@CachePut</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">@CacheEvict</td>
+<td align="left">@CacheRemove</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">@CacheEvict(allEntries&#x3D;true)</td>
+<td align="left">@CacheRemoveAll</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">@CacheConfig</td>
+<td align="left">@CacheDefaults</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p>JCache 的 CacheResolver 概念上与 Spring CacheResolver 接口相同，只是 JCache 仅支持单个 Cache。默认，Simple 实现会根据注解上的名称检索要使用的 Cache，如果注解上没有指定名称，则会自动生成一个默认值。</p>
+<h4 id="8-3-2-Enabling-JSR-107-Support"><a href="#8-3-2-Enabling-JSR-107-Support" class="headerlink" title="8.3.2. Enabling JSR-107 Support"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/integration.html#enabling-jsr-107-support">8.3.2. Enabling JSR-107 Support</a></h4><p>如果类路径同时存在 JSR-107 API 和 spring-context-support，<code>@EnableCaching</code> 和 <code>cache:annotation-driven</code> 都会自启用 JCache。</p>
+</section>
+    <!-- Tags START -->
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/26/RFC/RFC-6749/">
+        <span class="nav-arrow">← </span>
+        
+          RFC 6749
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/27/Security/%E7%9F%AD%E4%BF%A1%E6%8E%A5%E5%8F%A3%E9%98%B2%E7%9B%97%E7%94%A8/">
+        
+          短信接口防盗用
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo="JiangChunbo/jiangchunbo.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Integration"><span class="toc-nav-text">Integration</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Message-Conversion"><span class="toc-nav-text">Message Conversion</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#6-Mail"><span class="toc-nav-text">6. Mail</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#7-Task-Execution-and-Scheduling"><span class="toc-nav-text">7. Task Execution and Scheduling</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#7-1-The-Spring-TaskExecutor-Abstraction"><span class="toc-nav-text">7.1. The Spring TaskExecutor Abstraction</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#7-1-1-TaskExecutor-Types"><span class="toc-nav-text">7.1.1. TaskExecutor Types</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#7-1-2-Using-a-TaskExecutor"><span class="toc-nav-text">7.1.2. Using a TaskExecutor</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#7-2-The-Spring-TaskScheduler-Abstraction"><span class="toc-nav-text">7.2. The Spring TaskScheduler Abstraction</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#8-Cache-Abstraction"><span class="toc-nav-text">8. Cache Abstraction</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#8-1-Understanding-the-Cache-Abstraction"><span class="toc-nav-text">8.1. Understanding the Cache Abstraction</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#8-2-Declarative-Annotation-based-Caching"><span class="toc-nav-text">8.2. Declarative Annotation-based Caching</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#8-2-1-The-Cacheable-Annotation"><span class="toc-nav-text">8.2.1. The @Cacheable Annotation</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Default-Key-Generation"><span class="toc-nav-text">Default Key Generation</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Synchronized-Caching"><span class="toc-nav-text">Synchronized Caching</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Available-Caching-SpEL-Evaluation-Context"><span class="toc-nav-text">Available Caching SpEL Evaluation Context</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#8-2-2-The-CachePut-Annotation"><span class="toc-nav-text">8.2.2. The @CachePut Annotation</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#8-2-3-The-CacheEvict-annotation"><span class="toc-nav-text">8.2.3. The @CacheEvict annotation</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#8-2-6-Enabling-Caching-Annotations"><span class="toc-nav-text">8.2.6. Enabling Caching Annotations</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#8-3-JCache-JSR-107-Annotations"><span class="toc-nav-text">8.3. JCache (JSR-107) Annotations</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#8-3-1-Feature-Summary"><span class="toc-nav-text">8.3.1. Feature Summary</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#8-3-2-Enabling-JSR-107-Support"><span class="toc-nav-text">8.3.2. Enabling JSR-107 Support</span></a></li></ol></li></ol></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/27/Spring-Framework/Spring-Framework-Integration/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

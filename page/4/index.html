@@ -20,10 +20,6 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
-    
-<link rel="stylesheet" href="/css/plugins/gitment.css">
-
-  
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
@@ -32,10 +28,6 @@
 <script src="/js/qrious.js"></script>
 
   
-  
-    
-<script src="/js/gitment.js"></script>
-
   
   
   
@@ -204,50 +196,235 @@
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="/2022/05/09/undo-%E5%88%86%E9%85%8D/">undo 分配</a>
+        <a href="/2022/07/22/%E9%9D%A2%E8%AF%95/MQ-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">MQ 学习笔记</a>
       </h2>
-      <p class="article-date">May 9, 2022</p>
+      <p class="article-date">July 22, 2022</p>
       
       <div class="article-summary">
         
-          分配临时回滚段和持久回滚段的函数名不同只在于末尾的单词不同：
-trx_assign_rseg_temp
-trx_assign_rseg_durable
-当一个事务被判定为读写模式时，会为其分配 trx_id 以及持久回滚段。
-分配临时回滚段是当调用 trx_undo_report_row_o ...
+          MQ 学习笔记1. 使用场景
+异步
+解耦
+削峰
+
+异步提高系统的响应速度、吞吐量。
+场景一 异步处理播放记录
+空中课堂有很多点播模块，如：名师讲堂、抗议助学、互动课堂、同步课堂、家长课堂、苏e优课等。
+通常这些模块需要：
+
+记录观看的用户信息
+自增对应模块表的观看量
+维护旧数据表的观看量（逻 ...
         
       </div>
-      <a class="more" href="/2022/05/09/undo-%E5%88%86%E9%85%8D/">Read more</a>
+      <a class="more" href="/2022/07/22/%E9%9D%A2%E8%AF%95/MQ-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Read more</a>
     </article>
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="/2022/05/02/undo-%E6%B8%85%E7%90%86/">undo 清理</a>
+        <a href="/2022/07/22/Spring-Framework/AbstractContext-refresh-%E6%96%B9%E6%B3%95%E6%B5%81%E7%A8%8B/">AbstractContext refresh 方法流程</a>
       </h2>
-      <p class="article-date">May 2, 2022</p>
+      <p class="article-date">July 22, 2022</p>
+      
+        
+  <a href="/tags#Spring Framework" >
+    <span class="tag-code">Spring Framework</span>
+  </a>
+
       
       <div class="article-summary">
         
-          purge_queuepurge_queue中记录了所有等待Purge的Rollback Segment和其History中trx_no最小的事务
-预处理storage&#x2F;innobase&#x2F;trx&#x2F;trx0undo.cc
-事务结束的时候，对于需要Purge的Upd ...
+          AbstractContext refresh 方法流程1. refresh 总体流程IoC 容器刷新的方法是由 AbstractApplicationContext.refresh 实现，方法如下: 
+12345678910111213141516171819202122232425262 ...
         
       </div>
-      <a class="more" href="/2022/05/02/undo-%E6%B8%85%E7%90%86/">Read more</a>
+      <a class="more" href="/2022/07/22/Spring-Framework/AbstractContext-refresh-%E6%96%B9%E6%B3%95%E6%B5%81%E7%A8%8B/">Read more</a>
     </article>
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="/2022/04/12/hello-world/">Hello World</a>
+        <a href="/2022/07/20/MySQL/MySQL-%E7%BC%93%E5%86%B2%E6%B1%A0-Buffer-Pool/">MySQL InnoDB Buffer Pool</a>
       </h2>
-      <p class="article-date">April 12, 2022</p>
+      <p class="article-date">July 20, 2022</p>
       
       <div class="article-summary">
         
-          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer ...
+          MySQL InnoDB Buffer Pool​
+
+本文主要内容源自官网：MySQL :: MySQL 8.0 Reference Manual :: 15.5.1 Buffer Pool感兴趣的可以直接阅读
+
+​缓冲池是主内存的一块区域，其中 InnoDB 访问表和索引数据时会在其中进行 ...
         
       </div>
-      <a class="more" href="/2022/04/12/hello-world/">Read more</a>
+      <a class="more" href="/2022/07/20/MySQL/MySQL-%E7%BC%93%E5%86%B2%E6%B1%A0-Buffer-Pool/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/20/Git/Git-%E7%AC%94%E8%AE%B0/">Git 笔记</a>
+      </h2>
+      <p class="article-date">July 20, 2022</p>
+      
+      <div class="article-summary">
+        
+          官方网址
+https://git-scm.com/
+https://git-scm.com/book/zh/v2/
+使用前的准备配置用户信息
+项目配置优先生效，如果没有项目配置，则使用全局配置。
+服务器 Git裸仓库搭建
+&amp;nbsp;
+常用命令Getting and Creating ...
+        
+      </div>
+      <a class="more" href="/2022/07/20/Git/Git-%E7%AC%94%E8%AE%B0/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/20/JDK/Java-I-O-%E7%AC%94%E8%AE%B0/">Java I/O 笔记</a>
+      </h2>
+      <p class="article-date">July 20, 2022</p>
+      
+      <div class="article-summary">
+        
+          I&#x2F;O当应用程序发起 I&#x2F;O 调用后，会经历两个步骤：
+
+内核等待 I&#x2F;O 设备准备好数据
+内核将数据从内核空间拷贝到用户空间。
+
+Java 中 3 种常见 IO 模型
+BIO (Blocking I&#x2F;O)
+
+同步阻塞 I&#x2F;O 模型，应用程序 ...
+        
+      </div>
+      <a class="more" href="/2022/07/20/JDK/Java-I-O-%E7%AC%94%E8%AE%B0/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/20/JVM/Java-HotSpot-VM-%E7%AC%94%E8%AE%B0/">Java HotSpot VM 笔记</a>
+      </h2>
+      <p class="article-date">July 20, 2022</p>
+      
+        
+  <a href="/tags#JVM" >
+    <span class="tag-code">JVM</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          即时编译器目前主流的两款商用 Java VM （HotSpot、OpenJ9）里，Java 程序最初都是通过解释器（Interperter）进行解释的。当 VM 发现某个方法或者代码块的运行特别频繁，就会把这些代码认定为 “热点代码”（Hot Spot Code），为了提到热点代码的执行效率 ...
+        
+      </div>
+      <a class="more" href="/2022/07/20/JVM/Java-HotSpot-VM-%E7%AC%94%E8%AE%B0/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/20/JVM/JVM-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AC%94%E8%AE%B0/">JVM 垃圾回收笔记</a>
+      </h2>
+      <p class="article-date">July 20, 2022</p>
+      
+        
+  <a href="/tags#JVM" >
+    <span class="tag-code">JVM</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          JVM 垃圾回收笔记参考文章JVM 规范
+https://blogs.oracle.com/jonthecollector/our-collectors
+关于 minor gc 和 full gc 的名词，从该文章可以获取
+Java Hotspot 内存管理白皮书
+GC 算法标记-清除算法( ...
+        
+      </div>
+      <a class="more" href="/2022/07/20/JVM/JVM-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AC%94%E8%AE%B0/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/20/TCP-%E5%8D%8F%E8%AE%AE%E7%AC%94%E8%AE%B0/">TCP 协议笔记</a>
+      </h2>
+      <p class="article-date">July 20, 2022</p>
+      
+        
+  <a href="/tags#TCP" >
+    <span class="tag-code">TCP</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          TCP
+报文种类
+SYN
+Data
+FIN
+Reset
+ACK
+
+SYN、Data、FIN 这三种报文发送方一定要收到 ACK 报文，如果在超时时间内不确认，发送方会一直重传，直到对方确认，或者达到重传上线次数而 Reset 连接。
+三次握手
+
+
+三次握手本质上是四次报文交互：
+
+A 发送  ...
+        
+      </div>
+      <a class="more" href="/2022/07/20/TCP-%E5%8D%8F%E8%AE%AE%E7%AC%94%E8%AE%B0/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/19/JDK/Java-Collection/">Java Collection</a>
+      </h2>
+      <p class="article-date">July 19, 2022</p>
+      
+        
+  <a href="/tags#JDK" >
+    <span class="tag-code">JDK</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Java Collection容器底层数据结构List
+ArrayList: Object[] 数组
+Vector: Object[] 数组
+LinkedList: JDK 1.7 之前，双向循环链表；JDK 1.7 之后，双向链表
+
+Map
+HashMap：JDK 1.8 之前，数组 +  ...
+        
+      </div>
+      <a class="more" href="/2022/07/19/JDK/Java-Collection/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/19/Spring-Framework/Spring-Core-@Resource-%E4%B8%8E-@Autowired/">Spring Bean @Autowired 与 JSR-250 @Resource</a>
+      </h2>
+      <p class="article-date">July 19, 2022</p>
+      
+        
+  <a href="/tags#Spring Bean" >
+    <span class="tag-code">Spring Bean</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Spring Bean @Autowired 与 JSR-250 @Resource@Autowired由 Spring 提供的注解，依赖注入的过程由 AutowiredAnnotationBeanPostProcessor 执行。
+通常这一步骤发生在 populateBean 流程之中，使 ...
+        
+      </div>
+      <a class="more" href="/2022/07/19/Spring-Framework/Spring-Core-@Resource-%E4%B8%8E-@Autowired/">Read more</a>
     </article>
   
 
@@ -257,7 +434,7 @@ trx_assign_rseg_durable
     <a href="/page/3/"><span class="page-arrow">← </span>Prev</a>
   
   
-    <a class="unvisible" href="/">Next <span class="page-arrow">→</span></a>
+    <a href="/page/5/">Next<span class="page-arrow"> →</span></a>
   
 </div>
   

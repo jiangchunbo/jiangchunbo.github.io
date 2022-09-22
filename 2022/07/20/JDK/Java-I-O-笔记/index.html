@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Java I/O 笔记 | 🥫🍞
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="🥫🍞" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>🥫🍞</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Java I/O 笔记</h2>
+  <p class="post-date">2022-07-20</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="I-x2F-O"><a href="#I-x2F-O" class="headerlink" title="I&#x2F;O"></a>I&#x2F;O</h1><p>当应用程序发起 I&#x2F;O 调用后，会经历两个步骤：</p>
+<ol>
+<li>内核等待 I&#x2F;O 设备准备好数据</li>
+<li>内核将数据从内核空间拷贝到用户空间。</li>
+</ol>
+<h1 id="Java-中-3-种常见-IO-模型"><a href="#Java-中-3-种常见-IO-模型" class="headerlink" title="Java 中 3 种常见 IO 模型"></a>Java 中 3 种常见 IO 模型</h1><ul>
+<li>BIO (Blocking I&#x2F;O)</li>
+</ul>
+<p>同步阻塞 I&#x2F;O 模型，应用程序（线程）发起 read 调用后，会一直阻塞，直到内核把数据拷贝到用户空间。</p>
+<ul>
+<li>NIO (Non-blocking&#x2F;New I&#x2F;O)</li>
+</ul>
+<p>I&#x2F;O 多路复用模型。属于同步非阻塞 I&#x2F;O 模型。应用程序会一直发起 read 调用，检查是否有数据。数据从内核空间拷贝到用户空间的这段时间，线程依然是阻塞。</p>
+<p>相比于同步阻塞 I&#x2F;O，同步非阻塞 I&#x2F;O 避免了无数据阻塞。但是轮询十分消耗 CPU。</p>
+<p>I&#x2F;O 多路复用模型。线程发起 select 调用，询问内核数据是否准备就绪，等内核数据准备好了，用户线程再发起 read 调用。</p>
+<p>Java 中的 NIO ，有一个非常重要的选择器 ( Selector ) 的概念，也可以被称为 多路复用器。通过它，只需要一个线程便可以管理多个客户端连接。当客户端数据到了之后，才会为其服务。</p>
+<h1 id="一般-IO"><a href="#一般-IO" class="headerlink" title="一般 IO"></a>一般 IO</h1><ul>
+<li>InputStream 所有字节输入流的超类<ul>
+<li>FileInputStream 用于操作文件的读取</li>
+<li>ByteArrayInputStream</li>
+<li>FilterInputStream<ul>
+<li>BufferedInputStream</li>
+<li>DataInputStream</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>&amp;nbsp;</p>
+<ul>
+<li>OutputStream<ul>
+<li>FilterOutputStream<ul>
+<li>DataOutputStream</li>
+<li>PrintStream</li>
+<li>BufferedOutputStream</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>&amp;nbsp;<br>Java 1.1 对基本 I&#x2F;O 流类库进行了重大改写。Reader 和 Writer 属于其中的新产物，不过它们的出现并不是取代 InputStream 和 OutputStream，因为 InputStream 和 OutputStream 在面向字节的 I&#x2F;O 仍然具有价值，Reader 和 Writer 则提供了兼容 Unicode 与面向字符的 I&#x2F;O。</p>
+<ul>
+<li>Reader<ul>
+<li>InputStreamReader<ul>
+<li>FileReader</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Writer<ul>
+<li>OutputStreamWriter<ul>
+<li>FileWriter</li>
+</ul>
+</li>
+<li>PrintWriter</li>
+</ul>
+</li>
+</ul>
+<p>案例 1</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getFileContent</span><span class="params">(String path)</span> &#123;</span><br><span class="line">    <span class="type">StringBuilder</span> <span class="variable">result</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">    <span class="keyword">try</span> (<span class="type">FileInputStream</span> <span class="variable">fileInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(path);</span><br><span class="line">         <span class="type">InputStreamReader</span> <span class="variable">inputStreamReader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(fileInputStream, StandardCharsets.UTF_8);</span><br><span class="line">         <span class="type">BufferedReader</span> <span class="variable">bufferedReader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(inputStreamReader);) &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">readLine</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">while</span> ((readLine = bufferedReader.readLine()) != <span class="literal">null</span>) &#123;</span><br><span class="line">            result.append(readLine);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>案例 2</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">putFileContent</span><span class="params">(String content, String path)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> (<span class="type">PrintWriter</span> <span class="variable">printWriter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PrintWriter</span>(<span class="keyword">new</span> <span class="title class_">File</span>(path), <span class="string">&quot;GBK&quot;</span>);</span><br><span class="line">         <span class="type">BufferedWriter</span> <span class="variable">bufferedWriter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedWriter</span>(printWriter);) &#123;</span><br><span class="line">        bufferedWriter.write(content);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h1><p>Blocking IO 的缩写，意思是阻塞型 IO</p>
+<p>ServerSocket.accept() 方法会一直阻塞到一个连接建立，返回一个新的 Socket 用于客户端和服务器之间的通信。</p>
+<p>如果为每个客户端创建一个新的 Thread，有以下问题: </p>
+<ol>
+<li><p>任何时候都可能有大量的线程处于休眠状态，只是等待输入或输出数据，造成资源浪费</p>
+</li>
+<li><p>需要为每个线程的调用栈都分配内存，内存消耗问题</p>
+</li>
+<li><p>即使忽略内存消耗问题，上下文的切换开销也很大</p>
+</li>
+</ol>
+<h1 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h1><h2 id="Channel"><a href="#Channel" class="headerlink" title="Channel"></a>Channel</h2><p>FileChannel、DatagramChannel、ServerSocketChannel、SocketChannel</p>
+<h2 id="Buffer"><a href="#Buffer" class="headerlink" title="Buffer"></a>Buffer</h2><blockquote>
+<p>关于以下属性的解释可以参考：<a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/7/docs/api/java/nio/Buffer.html">https://docs.oracle.com/javase/7/docs/api/java/nio/Buffer.html</a></p>
+</blockquote>
+<p>mark: 缓冲区的 mark 是在调用 reset 方法时将其位置重置到的索引。</p>
+<p>position: 缓冲区的 position 是下一个要读或写的元素的索引。缓冲区的位置永远不会为负，也永远不会大于其 limit。</p>
+<p>limit: 缓冲区的 limit 是不应该读取或写入的第一个元素的索引。缓冲区的 limit 永远不会是负的，也永远不会超过它的 capacity 。</p>
+<p>capacity: 缓冲区的 capacity 就是它包含的元素的数量。缓冲区的容量永远不会是负的，也永远不会改变。</p>
+<p>具有 0 &lt;&#x3D; mark &lt;&#x3D; position &lt;&#x3D; limit &lt;&#x3D; capacity </p>
+<p>clear(): 使 buffer 为新的读取或者相对 put 操作做好准备，它将设置 limit 为 capacity，并且 position 设置为 0</p>
+<p>flip(): 使 buffer 为新的序列写入或者相对 get 操作做好准备，他将设置 limit 为当前的位置，并且设置 position 为 0</p>
+<p>rewind(): 使 buffer 为重新读取已经包含的数据做好准备，它将保持 limit 不变，设置 position 为 0</p>
+<h3 id="只读-Buffer"><a href="#只读-Buffer" class="headerlink" title="只读 Buffer"></a>只读 Buffer</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">byteBuffer.asReadOnlyBuffer();</span><br></pre></td></tr></table></figure>
+
+<h3 id="MappedByteBuffer"><a href="#MappedByteBuffer" class="headerlink" title="MappedByteBuffer"></a>MappedByteBuffer</h3><p>文件的修改在堆外内存进行</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/8/docs/api/java/nio/MappedByteBuffer.html">https://docs.oracle.com/javase/8/docs/api/java/nio/MappedByteBuffer.html</a></p>
+</blockquote>
+<h2 id="Selector"><a href="#Selector" class="headerlink" title="Selector"></a>Selector</h2><p>select() 方法是阻塞操作。但可以设置超时时间。</p>
+<p>SelectionKey<br>包含以下 int 类型常量 OP_READ、OP_WRITE、OP_CONNECT、OP_ACCEPT</p>
+</section>
+    <!-- Tags START -->
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/20/JVM/Java-HotSpot-VM-%E7%AC%94%E8%AE%B0/">
+        <span class="nav-arrow">← </span>
+        
+          Java HotSpot VM 笔记
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/20/Git/Git-%E7%AC%94%E8%AE%B0/">
+        
+          Git 笔记
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo="JiangChunbo/jiangchunbo.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#I-x2F-O"><span class="toc-nav-text">I&#x2F;O</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Java-%E4%B8%AD-3-%E7%A7%8D%E5%B8%B8%E8%A7%81-IO-%E6%A8%A1%E5%9E%8B"><span class="toc-nav-text">Java 中 3 种常见 IO 模型</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E4%B8%80%E8%88%AC-IO"><span class="toc-nav-text">一般 IO</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#BIO"><span class="toc-nav-text">BIO</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#NIO"><span class="toc-nav-text">NIO</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Channel"><span class="toc-nav-text">Channel</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Buffer"><span class="toc-nav-text">Buffer</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%8F%AA%E8%AF%BB-Buffer"><span class="toc-nav-text">只读 Buffer</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#MappedByteBuffer"><span class="toc-nav-text">MappedByteBuffer</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Selector"><span class="toc-nav-text">Selector</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/20/JDK/Java-I-O-笔记/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

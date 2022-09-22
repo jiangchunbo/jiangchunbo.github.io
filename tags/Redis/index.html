@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      🥫🍞
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="🥫🍞" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>🥫🍞</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Archives</h2>
+  <p class="post-date">Archives</p>
+</div>
+<main class="app-body" id="archives">
+  
+  
+  
+    <section class="time-section">
+  <h1 class="section-year">
+    2022
+  </h1>
+  <div class="section-list">
+    
+    
+      <div class="section-list-item">
+        <a href="/2022/09/20/TemplateEngine/Thymeleaf-%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" class="archive-title">Thymeleaf 使用笔记</a>
+        <p class="archive-date">09-20</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/09/20/TemplateEngine/Freemarker-%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" class="archive-title">Freemarker 使用笔记</a>
+        <p class="archive-date">09-20</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/09/20/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E7%9A%84%E6%9D%82%E9%A1%B9%E8%AE%B0%E5%BD%95/" class="archive-title">软件架构的杂项记录</a>
+        <p class="archive-date">09-20</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/09/20/Java-%E6%97%A5%E6%9C%9F%E6%93%8D%E4%BD%9C%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/" class="archive-title">Java 日期操作问题汇总</a>
+        <p class="archive-date">09-20</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/09/14/%E5%A4%9A%E7%BA%BF%E7%A8%8B/Java-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%AC%94%E8%AE%B0/" class="archive-title">Java 线程池笔记</a>
+        <p class="archive-date">09-14</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/09/14/SMB-%E5%8D%8F%E8%AE%AE%E5%AF%B9%E6%8E%A5/" class="archive-title">SMB 协议对接</a>
+        <p class="archive-date">09-14</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/09/08/maven/Maven-%E7%AC%94%E8%AE%B0/" class="archive-title">Maven 笔记</a>
+        <p class="archive-date">09-08</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/08/26/Spring-Framework/Spring-Framework-Data-Access/" class="archive-title">Spring Framework Data Access</a>
+        <p class="archive-date">08-26</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/08/17/Spring-Framework/Spring-%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E5%A4%84%E7%90%86%E5%AE%9E%E8%B7%B5/" class="archive-title">Spring 请求参数处理实践</a>
+        <p class="archive-date">08-17</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/08/16/MyBatis/MyBatis-Generator-%E7%AC%94%E8%AE%B0/" class="archive-title">MyBatis Generator 笔记</a>
+        <p class="archive-date">08-16</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/08/12/Security/OAuth-2-0-Authorization-Server-%E8%AE%BE%E8%AE%A1/" class="archive-title">OAuth 2.0 Authorization Server 设计</a>
+        <p class="archive-date">08-12</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/08/04/Security/OAuth-2.0-Client-%E8%AE%BE%E8%AE%A1/" class="archive-title">OAuth 2.0 Client 设计</a>
+        <p class="archive-date">08-04</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/08/03/Security/OAuth2-%E8%AE%BE%E8%AE%A1/" class="archive-title">OAuth2 设计</a>
+        <p class="archive-date">08-03</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/30/Spring-Framework/Spring-MVC-ReturnValueHandlerr-%E5%8E%9F%E7%90%86/" class="archive-title">Spring MVC ReturnValueHandler 原理</a>
+        <p class="archive-date">07-30</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/28/%E5%B7%A5%E5%85%B7/%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7-IP/" class="archive-title">获取用户 IP</a>
+        <p class="archive-date">07-28</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/27/Security/%E7%9F%AD%E4%BF%A1%E6%8E%A5%E5%8F%A3%E9%98%B2%E7%9B%97%E7%94%A8/" class="archive-title">短信接口防盗用</a>
+        <p class="archive-date">07-27</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/27/Spring-Framework/Spring-Framework-Integration/" class="archive-title">Spring Framework Integration</a>
+        <p class="archive-date">07-27</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/26/RFC/RFC-6749/" class="archive-title">RFC 6749</a>
+        <p class="archive-date">07-26</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/25/Linux/yum-%E7%9A%84%E4%BD%BF%E7%94%A8/" class="archive-title">yum 的使用</a>
+        <p class="archive-date">07-25</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/24/%E9%9D%A2%E8%AF%95/Redis-%E9%9D%A2%E8%AF%95%E9%A2%84%E5%A4%87/" class="archive-title">Redis 面试预备</a>
+        <p class="archive-date">07-24</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/24/Spring-Boot/Spring-Boot-%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" class="archive-title">Spring Boot 启动流程</a>
+        <p class="archive-date">07-24</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/24/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="archive-title">排序算法</a>
+        <p class="archive-date">07-24</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/24/%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E4%BA%8C%E5%8F%89%E6%A0%91/" class="archive-title">数据结构——二叉树</a>
+        <p class="archive-date">07-24</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/24/Shiro/Shiro-%E6%9E%B6%E6%9E%84/" class="archive-title">Shiro 架构</a>
+        <p class="archive-date">07-24</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/23/Shiro/ShiroFilter%20%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/" class="archive-title">ShiroFilter 执行流程</a>
+        <p class="archive-date">07-23</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/23/Spring-Framework/Spring-Web-MVC-ViewResolver-%E7%AC%94%E8%AE%B0/" class="archive-title">Spring Web MVC ViewResolver 笔记</a>
+        <p class="archive-date">07-23</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/23/Spring-Framework/Spring-Web-MVC-HandlerAdapter-%E7%AC%94%E8%AE%B0/" class="archive-title">Spring Web MVC HandlerAdapter 笔记</a>
+        <p class="archive-date">07-23</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/22/Spring-Framework/Spring-Web-MVC-HandlerMapping-%E7%AC%94%E8%AE%B0/" class="archive-title">Spring Web MVC HandlerMapping 笔记</a>
+        <p class="archive-date">07-22</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/22/Spring-Framework/Spring-MVC-DispatcherServlet-%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E7%9A%84%E8%BF%87%E7%A8%8B/" class="archive-title">Spring MVC DispatcherServlet 处理请求的过程</a>
+        <p class="archive-date">07-22</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/22/Spring-Cloud/Spring-Cloud-BootstrapImportSelector/" class="archive-title">Spring Cloud BootstrapImportSelector</a>
+        <p class="archive-date">07-22</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/22/%E9%9D%A2%E8%AF%95/MQ-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-title">MQ 学习笔记</a>
+        <p class="archive-date">07-22</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/22/Spring-Framework/AbstractContext-refresh-%E6%96%B9%E6%B3%95%E6%B5%81%E7%A8%8B/" class="archive-title">AbstractContext refresh 方法流程</a>
+        <p class="archive-date">07-22</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/20/MySQL/MySQL-%E7%BC%93%E5%86%B2%E6%B1%A0-Buffer-Pool/" class="archive-title">MySQL InnoDB Buffer Pool</a>
+        <p class="archive-date">07-20</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/20/Git/Git-%E7%AC%94%E8%AE%B0/" class="archive-title">Git 笔记</a>
+        <p class="archive-date">07-20</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/20/JDK/Java-I-O-%E7%AC%94%E8%AE%B0/" class="archive-title">Java I/O 笔记</a>
+        <p class="archive-date">07-20</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/20/JVM/Java-HotSpot-VM-%E7%AC%94%E8%AE%B0/" class="archive-title">Java HotSpot VM 笔记</a>
+        <p class="archive-date">07-20</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/20/JVM/JVM-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AC%94%E8%AE%B0/" class="archive-title">JVM 垃圾回收笔记</a>
+        <p class="archive-date">07-20</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/20/TCP-%E5%8D%8F%E8%AE%AE%E7%AC%94%E8%AE%B0/" class="archive-title">TCP 协议笔记</a>
+        <p class="archive-date">07-20</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/19/JDK/Java-Collection/" class="archive-title">Java Collection</a>
+        <p class="archive-date">07-19</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/19/Spring-Framework/Spring-Core-@Resource-%E4%B8%8E-@Autowired/" class="archive-title">Spring Bean @Autowired 与 JSR-250 @Resource</a>
+        <p class="archive-date">07-19</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/18/Android/Android-%E7%AC%94%E8%AE%B0/" class="archive-title">Android 笔记</a>
+        <p class="archive-date">07-18</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/18/Android/%E5%90%91-Activity-%E6%B7%BB%E5%8A%A0-Fragment/" class="archive-title">向 Activity 添加 Fragment</a>
+        <p class="archive-date">07-18</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/18/Security/AES-%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" class="archive-title">AES 加密算法</a>
+        <p class="archive-date">07-18</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/18/Tool/%E6%95%B0%E6%8D%AE%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%99%A8-screw/" class="archive-title">数据文档生成器 screw</a>
+        <p class="archive-date">07-18</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/18/Vue/Vue-%E6%89%93%E5%8C%85%E9%83%A8%E7%BD%B2%E8%84%9A%E6%9C%AC/" class="archive-title">Vue 打包部署脚本</a>
+        <p class="archive-date">07-18</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/17/Spring-Cloud/Spring-Cloud-Config/" class="archive-title">Spring Cloud Config</a>
+        <p class="archive-date">07-17</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/16/%E6%9D%82%E9%A1%B9/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="archive-title">设计模式</a>
+        <p class="archive-date">07-16</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/16/MyBatis/MyBatis-%E6%9E%84%E9%80%A0-Mapper-Proxy-%E5%8E%9F%E7%90%86/" class="archive-title">MyBatis 构造 Mapper Proxy 原理</a>
+        <p class="archive-date">07-16</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/15/MyBatis/MyBatis-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91%E7%AC%94%E8%AE%B0/" class="archive-title">MyBatis 官方文档翻译笔记</a>
+        <p class="archive-date">07-15</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/15/MyBatis/Spring-Boot-%E6%95%B4%E5%90%88-MyBatis-%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86/" class="archive-title">Spring Boot 整合 MyBatis 启动原理</a>
+        <p class="archive-date">07-15</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/15/Spring-Cloud/Spring-Cloud-Gateway/" class="archive-title">Spring Cloud Gateway</a>
+        <p class="archive-date">07-15</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/15/Spring-Cloud/Hystrix-%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/" class="archive-title">Hystrix 配置实践</a>
+        <p class="archive-date">07-15</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/14/Shiro/Shiro-Subject-login-%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90/" class="archive-title">Shiro Subject login 流程分析</a>
+        <p class="archive-date">07-14</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/14/Shiro/Shiro-FilterChainDefinitionMap-%E6%B3%A8%E5%86%8C%E5%8E%9F%E7%90%86/" class="archive-title">Shiro FilterChainDefinitionMap 注册原理</a>
+        <p class="archive-date">07-14</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/14/Shiro/Shiro-DefaultFilter-%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" class="archive-title">Shiro DefaultFilter 使用笔记</a>
+        <p class="archive-date">07-14</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/13/Spring-Cloud/Spring-Cloud-OpenFeign/" class="archive-title">Spring Cloud OpenFeign</a>
+        <p class="archive-date">07-13</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/12/Spring-Cloud/Eureka-%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/" class="archive-title">Eureka 配置实践</a>
+        <p class="archive-date">07-12</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/12/Spring-Cloud/Spring-Cloud-Netflix/" class="archive-title">Spring Cloud Netflix</a>
+        <p class="archive-date">07-12</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/12/Nginx-%E5%AE%98%E6%96%B9%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-title">Nginx 官方学习笔记</a>
+        <p class="archive-date">07-12</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/11/InnoDB%20%E6%97%A5%E5%BF%97/" class="archive-title">InnoDB 日志</a>
+        <p class="archive-date">07-11</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/10/Spring-Framework/Spring-%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96/" class="archive-title">Spring 循环依赖</a>
+        <p class="archive-date">07-10</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/10/Security/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86%E7%AC%94%E8%AE%B0/" class="archive-title">加密解密笔记</a>
+        <p class="archive-date">07-10</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/08/Shiro/Shiro-BasicHttpAuthenticationFilter-%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B/" class="archive-title">Shiro BasicHttpAuthenticationFilter 认证流程</a>
+        <p class="archive-date">07-08</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/07/07/Spring-Boot/Spring-Boot-Features/" class="archive-title">Spring Boot Features</a>
+        <p class="archive-date">07-07</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/06/29/Python-%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-title">Python 爬虫学习笔记</a>
+        <p class="archive-date">06-29</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/05/24/%E5%90%84%E7%B1%BB%E5%9C%BA%E6%99%AF%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0/" class="archive-title">各类场景请求参数</a>
+        <p class="archive-date">05-24</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/05/09/Spring-Framework/Spring-Framework-Core/" class="archive-title">Spring Framework Core</a>
+        <p class="archive-date">05-09</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/05/09/Spring-Framework/Spring-Framework-Web-Servlet/" class="archive-title">Spring Framework Web Servlet</a>
+        <p class="archive-date">05-09</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/05/09/undo-%E5%88%86%E9%85%8D/" class="archive-title">undo 分配</a>
+        <p class="archive-date">05-09</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/05/02/undo-%E6%B8%85%E7%90%86/" class="archive-title">undo 清理</a>
+        <p class="archive-date">05-02</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2022/04/12/hello-world/" class="archive-title">Hello World</a>
+        <p class="archive-date">04-12</p>
+      </div>
+    
+  </div>
+</section>
+  
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/tags/Redis/index.html';
+    $('#article-banner').geopattern(url);
+    $('.header').removeClass('fixed-header');
+  })();
+</script>
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

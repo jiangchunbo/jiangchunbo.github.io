@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      🥫🍞
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="🥫🍞" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>🥫🍞</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link active">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link mobile-active">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <main class="app-body">
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/15/Spring-Cloud/Spring-Cloud-Gateway/">Spring Cloud Gateway</a>
+      </h2>
+      <p class="article-date">July 15, 2022</p>
+      
+        
+  <a href="/tags#Spring Cloud" >
+    <span class="tag-code">Spring Cloud</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Spring Cloud Gateway1. How to Include Spring Cloud Gateway1234&lt;dependency&gt;    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;    &l ...
+        
+      </div>
+      <a class="more" href="/2022/07/15/Spring-Cloud/Spring-Cloud-Gateway/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/15/Spring-Cloud/Hystrix-%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/">Hystrix 配置实践</a>
+      </h2>
+      <p class="article-date">July 15, 2022</p>
+      
+      <div class="article-summary">
+        
+          涉及到断路器的参数（HystrixCommandProperties）：
+
+
+
+参数
+描述
+默认值
+
+
+
+circuitBreaker.enabled
+是否开启断路器
+true
+
+
+circuitBreaker.requestVolumeThreshold
+请求总数阈值。这意味着，如果 hy ...
+        
+      </div>
+      <a class="more" href="/2022/07/15/Spring-Cloud/Hystrix-%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/14/Shiro/Shiro-Subject-login-%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90/">Shiro Subject login 流程分析</a>
+      </h2>
+      <p class="article-date">July 14, 2022</p>
+      
+        
+  <a href="/tags#Shiro" >
+    <span class="tag-code">Shiro</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Subject login 流程分析通常，在执行登录之前，我们必须拥有一个 Subject 对象，可能是从 SecurityUtils 类中获取：
+1Subject subject = SecurityUtils.getSubject();
+
+Shiro 框架中 Subject 实现类 De ...
+        
+      </div>
+      <a class="more" href="/2022/07/14/Shiro/Shiro-Subject-login-%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/14/Shiro/Shiro-FilterChainDefinitionMap-%E6%B3%A8%E5%86%8C%E5%8E%9F%E7%90%86/">Shiro FilterChainDefinitionMap 注册原理</a>
+      </h2>
+      <p class="article-date">July 14, 2022</p>
+      
+        
+  <a href="/tags#Shiro" >
+    <span class="tag-code">Shiro</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Shiro FilterChainDefinitionMap 注册原理在进行 FilterChainDefinitionMap 配置的时候，需要准备两个字符串，分别称之为 antPath 和 definition。以如下的配置为例：
+12DefaultShiroFilterChainDefi ...
+        
+      </div>
+      <a class="more" href="/2022/07/14/Shiro/Shiro-FilterChainDefinitionMap-%E6%B3%A8%E5%86%8C%E5%8E%9F%E7%90%86/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/14/Shiro/Shiro-DefaultFilter-%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">Shiro DefaultFilter 使用笔记</a>
+      </h2>
+      <p class="article-date">July 14, 2022</p>
+      
+        
+  <a href="/tags#Shiro" >
+    <span class="tag-code">Shiro</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Shiro DefaultFilter 使用笔记anonAnonymousFilter
+匿名过滤器，请求 onPreHandle() 直接通过。
+authcFormAuthenticationFilter
+onAccessDenied 方法分 loginUrl 处理和非 loginUrl 处 ...
+        
+      </div>
+      <a class="more" href="/2022/07/14/Shiro/Shiro-DefaultFilter-%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/13/Spring-Cloud/Spring-Cloud-OpenFeign/">Spring Cloud OpenFeign</a>
+      </h2>
+      <p class="article-date">July 13, 2022</p>
+      
+        
+  <a href="/tags#Spring Cloud" >
+    <span class="tag-code">Spring Cloud</span>
+  </a>
+
+  <a href="/tags#OpenFeign" >
+    <span class="tag-code">OpenFeign</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Spring Cloud OpenFeign1. Declarative REST Client: FeignFeign 是一个声明式 Web 服务客户端。它使得编写 Web 服务客户端更容易。使用 Feign 创建一个接口并注解它。它具有可插入的注解支持，包括 Feign 注解和 JAX- ...
+        
+      </div>
+      <a class="more" href="/2022/07/13/Spring-Cloud/Spring-Cloud-OpenFeign/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/12/Spring-Cloud/Eureka-%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/">Eureka 配置实践</a>
+      </h2>
+      <p class="article-date">July 12, 2022</p>
+      
+      <div class="article-summary">
+        
+          Eureka Server如何使用？确保引入 maven 依赖
+1234&lt;dependency&gt;    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;    &lt;artifactId&gt;spring-clo ...
+        
+      </div>
+      <a class="more" href="/2022/07/12/Spring-Cloud/Eureka-%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/12/Spring-Cloud/Spring-Cloud-Netflix/">Spring Cloud Netflix</a>
+      </h2>
+      <p class="article-date">July 12, 2022</p>
+      
+        
+  <a href="/tags#Spring Cloud" >
+    <span class="tag-code">Spring Cloud</span>
+  </a>
+
+  <a href="/tags#Netflix" >
+    <span class="tag-code">Netflix</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Spring Cloud Netflix1. Service Discovery: Eureka Clients服务发现是微服务架构的关键原则之一。手工配置每个客户端或基于某种约定是非常脆弱的。Eureka 是 Netflix 服务发现服务端和客户端。服务可以被配置和部署，变得高可用，每个服 ...
+        
+      </div>
+      <a class="more" href="/2022/07/12/Spring-Cloud/Spring-Cloud-Netflix/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/12/Nginx-%E5%AE%98%E6%96%B9%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Nginx 官方学习笔记</a>
+      </h2>
+      <p class="article-date">July 12, 2022</p>
+      
+      <div class="article-summary">
+        
+          Nginx 官方学习笔记Module 参考ngx_http_core_module
+语法：server_name name …;默认：server_name “”;上下文：server
+
+设置虚拟主机名，例如：
+123server &#123;    server_name example. ...
+        
+      </div>
+      <a class="more" href="/2022/07/12/Nginx-%E5%AE%98%E6%96%B9%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/11/InnoDB%20%E6%97%A5%E5%BF%97/">InnoDB 日志</a>
+      </h2>
+      <p class="article-date">July 11, 2022</p>
+      
+      <div class="article-summary">
+        
+          参考文献解析 roll_pointer
+庖丁解牛 
+InnoDB之UNDO LOG介绍
+Undo LogsUndo Log 是一条或者多条 Undo Log Record 的集合，每一条 Undo Log Record 都与一个读写事务相关。每条 Undo Log 记录包含了有关如何撤销事务 ...
+        
+      </div>
+      <a class="more" href="/2022/07/11/InnoDB%20%E6%97%A5%E5%BF%97/">Read more</a>
+    </article>
+  
+
+  
+    <div class="guide-pager">
+  
+    <a href="/page/5/"><span class="page-arrow">← </span>Prev</a>
+  
+  
+    <a href="/page/7/">Next<span class="page-arrow"> →</span></a>
+  
+</div>
+  
+</main>
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

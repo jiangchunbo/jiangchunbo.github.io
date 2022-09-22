@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Git 笔记 | 🥫🍞
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="🥫🍞" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>🥫🍞</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Git 笔记</h2>
+  <p class="post-date">2022-07-20</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="官方网址"><a href="#官方网址" class="headerlink" title="官方网址"></a>官方网址</h1><hr>
+<p><a target="_blank" rel="noopener" href="https://git-scm.com/">https://git-scm.com/</a></p>
+<p><a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/">https://git-scm.com/book/zh/v2/</a></p>
+<h1 id="使用前的准备"><a href="#使用前的准备" class="headerlink" title="使用前的准备"></a>使用前的准备</h1><p><a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE">配置用户信息</a></p>
+<p>项目配置优先生效，如果没有项目配置，则使用全局配置。</p>
+<h1 id="服务器-Git"><a href="#服务器-Git" class="headerlink" title="服务器 Git"></a>服务器 Git</h1><p><a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E6%90%AD%E5%BB%BA-Git">裸仓库搭建</a></p>
+<p>&amp;nbsp;</p>
+<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><h2 id="Getting-and-Creating-Projects"><a href="#Getting-and-Creating-Projects" class="headerlink" title="Getting and Creating Projects"></a>Getting and Creating Projects</h2><h3 id="clone"><a href="#clone" class="headerlink" title="clone"></a><a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-clone">clone</a></h3><p><code>git clone &lt;repository&gt;</code><br>克隆仓库。默认克隆全部分支。</p>
+<p><code>git clone -b &lt;branch&gt; &lt;repository&gt; &lt;dirname&gt;</code><br>指定克隆某个分支。如果只需要一个分支，可以使用此命令，减少 clone 时间。</p>
+<p>执行了这条命令之后自动在当前文件夹下初始化本地库且克隆了远程库，提供了一个名为 origin 的指向远程库的别名。</p>
+<p>注意：<br>(1) windows 的凭据管理器会记住你的登录信息并不再需要登录，因此在同一机器上想要达到不同角色 push 的效果时需注意。<br>(2) 通过添加 -b 参数可以指定克隆的分支。long style: –branch<br>(3) dirname 表示生成的本地文件夹名称，默认为仓库名</p>
+<h2 id="Branching-and-Merging"><a href="#Branching-and-Merging" class="headerlink" title="Branching and Merging"></a>Branching and Merging</h2><h3 id="branch"><a href="#branch" class="headerlink" title="branch"></a><a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-branch">branch</a></h3><p>可以简写为 <code>git branch</code>，列出本地存在的分支。当前分支会以绿色高亮并带 * 前缀。short style: <code>git branch -l</code><br><img src="https://img-blog.csdnimg.cn/e62d35e42b064b82a88638d37e972731.png" alt="在这里插入图片描述"></p>
+<h3 id="git-branch-remote"><a href="#git-branch-remote" class="headerlink" title="git branch --remote"></a><code>git branch --remote</code></h3><p>列出远程分支，short style: <code>git branch -r</code><br><img src="https://img-blog.csdnimg.cn/7b4a04429ffd47eb9ba204c7adabdf67.png" alt="在这里插入图片描述"></p>
+<h3 id="git-branch-all"><a href="#git-branch-all" class="headerlink" title="git branch --all"></a><code>git branch --all</code></h3><p>列出所有分支，short style: <code>git branch -a</code><br><img src="https://img-blog.csdnimg.cn/eed9d23a5e35469fbe35f83a2a1d9cbc.png" alt="在这里插入图片描述"></p>
+<h3 id="git-branch-list-lt-pattern-gt"><a href="#git-branch-list-lt-pattern-gt" class="headerlink" title="git branch --list &lt;pattern&gt;"></a><code>git branch --list &lt;pattern&gt;</code></h3><p>使用 shell 通配符列出 branch，pattern 可以传入多个，它们之间是 “或” 关系，即匹配任意一个即可。<br><img src="https://img-blog.csdnimg.cn/64b84c70d2a1432ba931eaa2b92ba3b9.png" alt="在这里插入图片描述"></p>
+<h3 id="git-branch-d-lt-branch-gt"><a href="#git-branch-d-lt-branch-gt" class="headerlink" title="git branch -d &lt;branch&gt;"></a><code>git branch -d &lt;branch&gt;</code></h3><p>删除分支。或者：<code>git branch -D &lt;branch&gt;</code></p>
+<h3 id="git-branch-m-lt-oldbranch-gt-lt-newbranch-gt"><a href="#git-branch-m-lt-oldbranch-gt-lt-newbranch-gt" class="headerlink" title="git branch -m &lt;oldbranch&gt; &lt;newbranch&gt;"></a><code>git branch -m &lt;oldbranch&gt; &lt;newbranch&gt;</code></h3><p>重命名分支。如果 <newbranch> 已经存在，需要使用 -M 强制。</p>
+<h3 id="git-branch-set-upstream-to-lt-远程主机-gt-lt-远程分支-gt-lt-本地分支-gt"><a href="#git-branch-set-upstream-to-lt-远程主机-gt-lt-远程分支-gt-lt-本地分支-gt" class="headerlink" title="git branch --set-upstream-to=&lt;远程主机&gt;/&lt;远程分支&gt; &lt;本地分支&gt;"></a><code>git branch --set-upstream-to=&lt;远程主机&gt;/&lt;远程分支&gt; &lt;本地分支&gt;</code></h3><h3 id="reset"><a href="#reset" class="headerlink" title="reset"></a>reset</h3><h4 id="撤销-add"><a href="#撤销-add" class="headerlink" title="撤销 add"></a>撤销 add</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">edit</span><br><span class="line">git add frotz.c filfre.c</span><br><span class="line">git reset </span><br></pre></td></tr></table></figure>
+<ol>
+<li>你愉快地在做某件事，发现这些文件的更改都完成了。你不想在 <code>git diff</code> 看到他们，因为你打算操作别的文件了，这些文件的更改可能会干扰你的注意力。</li>
+<li>有人让你 pull，这些更改听起来值得合并</li>
+<li>但是，你已经弄脏了 index（例如，你的 index 并不匹配 <code>HEAD</code> commit）。但你知道，你打算 pull 的操作并不会影响 <code>frotz.c</code> 或者 <code>filfre.c</code>，因此你 revert 对这两个文件索引的更改。在工作树中你的更改仍然存在。</li>
+<li>然后，你可以 pull 且 merge，<code>frotz.c</code> 和 <code>filefre.c</code> 的更改仍然在工作树</li>
+</ol>
+<p>&amp;nbsp;</p>
+<h2 id="remote"><a href="#remote" class="headerlink" title="remote"></a>remote</h2><p>管理被跟踪仓库的设置</p>
+<ul>
+<li><code>git remote [-v | --verbose]</code></li>
+</ul>
+<p>查看所有的别名。</p>
+<p>-v | –verbose 表示显示更详细内容。</p>
+<ul>
+<li><code>git remote add &lt;别名&gt; &lt;地址&gt;</code></li>
+</ul>
+<p>给远程库添加别名。</p>
+<ul>
+<li><code>git remote rename &lt;old&gt; &lt;new&gt;</code></li>
+</ul>
+<p>将名为 <code>&lt;old&gt;</code>  的 remote 重命名为 <code>&lt;new&gt;</code>。更新所有远程跟踪分支和配置设置。</p>
+<ul>
+<li><code>git remote remove &lt;name&gt;</code></li>
+</ul>
+<p>删除名为 <code>&lt;name&gt;</code> 的 remote。所有 跟踪的 remote 分支和配置设置都会被删除。</p>
+<p>&amp;nbsp;</p>
+<h2 id="checkout"><a href="#checkout" class="headerlink" title="checkout"></a>checkout</h2><h3 id="git-checkout-lt-branch-gt"><a href="#git-checkout-lt-branch-gt" class="headerlink" title="git checkout &lt;branch&gt;"></a><code>git checkout &lt;branch&gt;</code></h3><p>切换分支。</p>
+<p>情况一 <branch> 是本地已存在的分支。立即切换，保留工作树的改动。</p>
+<p>情况二 <branch> 本地不存在，远程不存在。从远程拉取分支，并切换，保留工作树的改动。</p>
+<p>情况三 <branch> 本地和远程都不存在。git 会将 <branch> 识别为一个本地文件或文件夹，此时 git 会丢弃该文件当前工作树上所有的改动（危险！！！）。<br>用法：<code>git checkout .</code> 可以以当前所在目录为根，递归丢弃当前文件夹下所有改动，对于 PHP 线上调试还原比较有用。</p>
+<h3 id="git-checkout-b-lt-branch-gt"><a href="#git-checkout-b-lt-branch-gt" class="headerlink" title="git checkout -b &lt;branch&gt;"></a><code>git checkout -b &lt;branch&gt;</code></h3><p>等价于 <code>git branch &lt;branch&gt;</code> + <code>git checkout &lt;branch&gt;</code>，但如果 <branch> 已经存在，则会报错，因为 <code>git branch &lt;branch&gt;</code> 不允许创建重名分支。</p>
+<h3 id="git-checkout-B-lt-branch-gt"><a href="#git-checkout-B-lt-branch-gt" class="headerlink" title="git checkout -B &lt;branch&gt;"></a><code>git checkout -B &lt;branch&gt;</code></h3><p>情况一 如果 <branch> 不存在，则创建并切换。<br>情况二 如果 <branch> 存在，则将 <branch> 重置为当前分支的状态，切换，工作树保留。（危险！！！）</p>
+<h3 id="将-dev-分支的某个文件改动合并到-master"><a href="#将-dev-分支的某个文件改动合并到-master" class="headerlink" title="将 dev 分支的某个文件改动合并到 master"></a>将 dev 分支的某个文件改动合并到 master</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切换到 master</span></span><br><span class="line">git checkeout master</span><br><span class="line"><span class="comment"># 进入手选模式</span></span><br><span class="line">git checkout --patch dev 要合并的文件路径</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h2><h3 id="git-rm-cached-lt-file-gt"><a href="#git-rm-cached-lt-file-gt" class="headerlink" title="git rm --cached &lt;file&gt;"></a><code>git rm --cached &lt;file&gt;</code></h3><p>删除文件缓存。可以将已经被 git 跟踪，但从此不想被跟踪的文件进行缓存删除。</p>
+<h3 id="git-rm-r-cached-lt-dir-gt"><a href="#git-rm-r-cached-lt-dir-gt" class="headerlink" title="git rm -r --cached &lt;dir&gt;"></a><code>git rm -r --cached &lt;dir&gt;</code></h3><p>删除文件夹缓存。可以将已经被 git 跟踪，但从此不想被跟踪的文件进行缓存删除。-r 代表递归，用于文件夹。</p>
+<p>删除一个 maven 项目下所有 target 文件夹的跟踪：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">rm</span> --cache -r --ignore-unmatch */target</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Administration"><a href="#Administration" class="headerlink" title="Administration"></a>Administration</h2><h3 id="clean"><a href="#clean" class="headerlink" title="clean"></a><code>clean</code></h3><p>删除所有未跟踪的文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clean -d -f</span><br></pre></td></tr></table></figure>
+
+<h2 id="stash"><a href="#stash" class="headerlink" title="stash"></a>stash</h2><h3 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a><code>git stash</code></h3><p>创建储藏</p>
+<h3 id="git-stash-list"><a href="#git-stash-list" class="headerlink" title="git stash list"></a><code>git stash list</code></h3><p>查看贮藏</p>
+<h3 id="git-stash-apply"><a href="#git-stash-apply" class="headerlink" title="git stash apply"></a><code>git stash apply</code></h3><p>使用贮藏。默认使用最近的一个，如果要指定最近的第二个，则 <code>git stash apply stash@&#123;2&#125;</code></p>
+<h3 id="config"><a href="#config" class="headerlink" title="config"></a><code>config</code></h3><p>修改 git log 显示格式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 本地仓库格式修改</span></span><br><span class="line">git config log.date <span class="string">&quot;format:%Y-%m-%d %H:%M:%S&quot;</span></span><br><span class="line">git config log.date iso8601</span><br><span class="line">git config log.date short <span class="comment"># 只显示日期</span></span><br><span class="line"><span class="comment"># 修改全局样式</span></span><br><span class="line">git config --global log.date <span class="string">&quot;format:%Y-%m-%d %H:%M:%S&quot;</span></span><br><span class="line">git config --global log.date iso8601</span><br><span class="line">git config --global log.date short <span class="comment"># 只显示日期</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<h1 id="凭证存储"><a href="#凭证存储" class="headerlink" title="凭证存储"></a>凭证存储</h1><p><a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%87%AD%E8%AF%81%E5%AD%98%E5%82%A8">官方文档</a></p>
+<p>凭证存储涉及到免密登录</p>
+<h1 id="IDE-的使用"><a href="#IDE-的使用" class="headerlink" title="IDE 的使用"></a>IDE 的使用</h1><p>Eclipse 如何给没有 git 版本控制的项目添加版本控制？</p>
+<h1 id="Github-访问慢"><a href="#Github-访问慢" class="headerlink" title="Github 访问慢"></a>Github 访问慢</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45921491/article/details/115977828">https://blog.csdn.net/qq_45921491/article/details/115977828</a></p>
+</section>
+    <!-- Tags START -->
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/20/JDK/Java-I-O-%E7%AC%94%E8%AE%B0/">
+        <span class="nav-arrow">← </span>
+        
+          Java I/O 笔记
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/20/MySQL/MySQL-%E7%BC%93%E5%86%B2%E6%B1%A0-Buffer-Pool/">
+        
+          MySQL InnoDB Buffer Pool
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo="JiangChunbo/jiangchunbo.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%AE%98%E6%96%B9%E7%BD%91%E5%9D%80"><span class="toc-nav-text">官方网址</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E4%BD%BF%E7%94%A8%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87"><span class="toc-nav-text">使用前的准备</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8-Git"><span class="toc-nav-text">服务器 Git</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-nav-text">常用命令</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Getting-and-Creating-Projects"><span class="toc-nav-text">Getting and Creating Projects</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#clone"><span class="toc-nav-text">clone</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Branching-and-Merging"><span class="toc-nav-text">Branching and Merging</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#branch"><span class="toc-nav-text">branch</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#git-branch-remote"><span class="toc-nav-text">git branch --remote</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#git-branch-all"><span class="toc-nav-text">git branch --all</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#git-branch-list-lt-pattern-gt"><span class="toc-nav-text">git branch --list &lt;pattern&gt;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#git-branch-d-lt-branch-gt"><span class="toc-nav-text">git branch -d &lt;branch&gt;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#git-branch-m-lt-oldbranch-gt-lt-newbranch-gt"><span class="toc-nav-text">git branch -m &lt;oldbranch&gt; &lt;newbranch&gt;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#git-branch-set-upstream-to-lt-%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA-gt-lt-%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF-gt-lt-%E6%9C%AC%E5%9C%B0%E5%88%86%E6%94%AF-gt"><span class="toc-nav-text">git branch --set-upstream-to&#x3D;&lt;远程主机&gt;&#x2F;&lt;远程分支&gt; &lt;本地分支&gt;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#reset"><span class="toc-nav-text">reset</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E6%92%A4%E9%94%80-add"><span class="toc-nav-text">撤销 add</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#remote"><span class="toc-nav-text">remote</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#checkout"><span class="toc-nav-text">checkout</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#git-checkout-lt-branch-gt"><span class="toc-nav-text">git checkout &lt;branch&gt;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#git-checkout-b-lt-branch-gt"><span class="toc-nav-text">git checkout -b &lt;branch&gt;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#git-checkout-B-lt-branch-gt"><span class="toc-nav-text">git checkout -B &lt;branch&gt;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%B0%86-dev-%E5%88%86%E6%94%AF%E7%9A%84%E6%9F%90%E4%B8%AA%E6%96%87%E4%BB%B6%E6%94%B9%E5%8A%A8%E5%90%88%E5%B9%B6%E5%88%B0-master"><span class="toc-nav-text">将 dev 分支的某个文件改动合并到 master</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#rm"><span class="toc-nav-text">rm</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#git-rm-cached-lt-file-gt"><span class="toc-nav-text">git rm --cached &lt;file&gt;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#git-rm-r-cached-lt-dir-gt"><span class="toc-nav-text">git rm -r --cached &lt;dir&gt;</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Administration"><span class="toc-nav-text">Administration</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#clean"><span class="toc-nav-text">clean</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#stash"><span class="toc-nav-text">stash</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#git-stash"><span class="toc-nav-text">git stash</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#git-stash-list"><span class="toc-nav-text">git stash list</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#git-stash-apply"><span class="toc-nav-text">git stash apply</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#config"><span class="toc-nav-text">config</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%87%AD%E8%AF%81%E5%AD%98%E5%82%A8"><span class="toc-nav-text">凭证存储</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#IDE-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-nav-text">IDE 的使用</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Github-%E8%AE%BF%E9%97%AE%E6%85%A2"><span class="toc-nav-text">Github 访问慢</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/20/Git/Git-笔记/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

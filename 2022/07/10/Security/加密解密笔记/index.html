@@ -20,10 +20,6 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
-    
-<link rel="stylesheet" href="/css/plugins/gitment.css">
-
-  
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
@@ -32,10 +28,6 @@
 <script src="/js/qrious.js"></script>
 
   
-  
-    
-<script src="/js/gitment.js"></script>
-
   
   
   
@@ -274,14 +266,16 @@
 </ul>
 <p>Java DESKeySpec 需要密码至少 8 字节，如果超过 8 字节，只取前 8 字节。</p>
 <p><a target="_blank" rel="noopener" href="https://gitee.com/jiang_chun_bo/encrypt/blob/master/des/jdk8+/DES.java">代码参考</a></p>
-<p>&amp;nbsp;</p>
-<h3 id="1-2-AES"><a href="#1-2-AES" class="headerlink" title="1.2. AES"></a>1.2. AES</h3><p>AES 是一个高级加密标准（Advanced Encryption Standard）。</p>
+<h3 id="1-2-AES"><a href="#1-2-AES" class="headerlink" title="1.2. AES"></a>1.2. AES</h3><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>AES 是一个高级加密标准（Advanced Encryption Standard）。</p>
 <p>AES 按加密方式分为：AES-128、AES-192、AES-256</p>
 <p>按加密模式分为：ECB、CBC、CTR、CFB、OCF</p>
 <p>对称分组密码体制，分组长度 128 位。这种加密算法是美国联邦政府采用的区块加密标准，AES 标准用来代替原先的 DES。</p>
 <p>javax.crypto 包下。</p>
 <p>加解密功能由 Cipher 组件提供，</p>
 <p>在设置 Cipher 类的时候注意点：<br>(1) Cipher 在使用时需以参数方式指定 transformation<br>(2) transformation 格式为 algorithm&#x2F;mode&#x2F;padding，其中 algorithm 为必输项，<br>(3) 缺省的 mode 为 ECB，缺省的 padding 为 PKCS5Padding<br>(4) 在 block 算法与流加密模式组合时，需在 mode 后面指定每次处理的 bit 数，如 DES&#x2F;CFB8&#x2F;NoPadding，如未指定则使用缺省值，SunJCE 缺省值为 64 bits<br>(5) Cipher 有 4 中操作模式：ENCRYPT_MODE(加密)、DECRYPT_MODE(解密)、WRAP_MODE(导出Key)、UNWRAP_MODE(导入Key)，初始化（init）时需要指定某种操作模式</p>
+<h4 id="代码参考"><a href="#代码参考" class="headerlink" title="代码参考"></a>代码参考</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/JiangChunbo/crypto/blob/master/AES/php/AES.php">PHP 版本</a></li>
+</ul>
 <p>&amp;nbsp;</p>
 <h3 id="1-3-Discuz"><a href="#1-3-Discuz" class="headerlink" title="1.3. Discuz"></a>1.3. Discuz</h3><p>php 论坛框架 discuz 的加密算法，也兼容过期时间校验。</p>
 <p><a target="_blank" rel="noopener" href="https://gitee.com/jiang_chun_bo/encrypt/blob/master/discuz/php/DiscuzUtil.php">代码参考</a></p>
@@ -338,6 +332,13 @@
 <p>MD2 MD4 MD5 </p>
 <p>SHA1 SHA256  SHA384  SHA512，SHA（Secure Hash Algorithm）是由美国专门制定密码算法的标准机构——美国国家标准技术研究院制定。</p>
 <p>RIPEMD、PANAMA、TIGER、ADLER32 </p>
+<h1 id="bcrypt"><a href="#bcrypt" class="headerlink" title="bcrypt"></a>bcrypt</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$2b$[cost]$[22 character salt][31 character <span class="built_in">hash</span>]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$2a$10<span class="variable">$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy</span></span><br><span class="line">\__/\/ \____________________/\_____________________________/</span><br><span class="line"> Alg Cost      Salt                        Hash</span><br></pre></td></tr></table></figure>
+<p><code>$2a$</code> hash算法的唯一标志</p>
+<p>10 代价因子，这里是 2 的 10 次方，</p>
+<p>N9qo8uLOickgx2ZMRZoMye  16 字节的 salt经过 base64 编码得到的 22 长度字符</p>
+<p>IjZAgcfl7p92ldGxad68LJZdL17lhWy 是 24 个字节的 hash，经过 base64 编码的 31 长度字符</p>
 </section>
     <!-- Tags START -->
     
@@ -364,7 +365,7 @@
       </a>
     
     
-      <a class="nav-right" href="/2022/07/10/Spring-Core/Spring-%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96/">
+      <a class="nav-right" href="/2022/07/10/Spring-Framework/Spring-%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96/">
         
           Spring 循环依赖
         
@@ -403,9 +404,15 @@
     
     <!-- 二维码 END -->
     
-      <!-- Gitment START -->
-      <div id="comments"></div>
-      <!-- Gitment END -->
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo="JiangChunbo/jiangchunbo.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>
+      <!-- Utterances END -->
     
   </article>
   <!-- Article END -->
@@ -415,7 +422,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86%E7%AC%94%E8%AE%B0"><span class="toc-nav-text">加密解密笔记</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%AF%86%E7%A0%81%E6%8A%80%E6%9C%AF"><span class="toc-nav-text">密码技术</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="toc-nav-text">1. 对称加密算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-1-ECB-%E5%92%8C-CBC"><span class="toc-nav-text">1.1. ECB 和 CBC</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-2-DES"><span class="toc-nav-text">1.2. DES</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-nav-text">代码</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86"><span class="toc-nav-text">加密与解密</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-2-AES"><span class="toc-nav-text">1.2. AES</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-3-Discuz"><span class="toc-nav-text">1.3. Discuz</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="toc-nav-text">2. 非对称加密算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%BA%94%E7%94%A8"><span class="toc-nav-text">应用</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E7%94%9F%E6%88%90-RSA-%E5%AF%86%E9%92%A5%E5%AF%B9"><span class="toc-nav-text">生成 RSA 密钥对</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#RSA-%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86"><span class="toc-nav-text">RSA 加密与解密</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Java"><span class="toc-nav-text">Java</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#JavaScript"><span class="toc-nav-text">JavaScript</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#PHP"><span class="toc-nav-text">PHP</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%91%98%E8%A6%81%E7%AE%97%E6%B3%95"><span class="toc-nav-text">摘要算法</span></a></li></ol></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86%E7%AC%94%E8%AE%B0"><span class="toc-nav-text">加密解密笔记</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%AF%86%E7%A0%81%E6%8A%80%E6%9C%AF"><span class="toc-nav-text">密码技术</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="toc-nav-text">1. 对称加密算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-1-ECB-%E5%92%8C-CBC"><span class="toc-nav-text">1.1. ECB 和 CBC</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-2-DES"><span class="toc-nav-text">1.2. DES</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-nav-text">代码</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86"><span class="toc-nav-text">加密与解密</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-2-AES"><span class="toc-nav-text">1.2. AES</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-nav-text">介绍</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E4%BB%A3%E7%A0%81%E5%8F%82%E8%80%83"><span class="toc-nav-text">代码参考</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-3-Discuz"><span class="toc-nav-text">1.3. Discuz</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="toc-nav-text">2. 非对称加密算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%BA%94%E7%94%A8"><span class="toc-nav-text">应用</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E7%94%9F%E6%88%90-RSA-%E5%AF%86%E9%92%A5%E5%AF%B9"><span class="toc-nav-text">生成 RSA 密钥对</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#RSA-%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86"><span class="toc-nav-text">RSA 加密与解密</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Java"><span class="toc-nav-text">Java</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#JavaScript"><span class="toc-nav-text">JavaScript</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#PHP"><span class="toc-nav-text">PHP</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%91%98%E8%A6%81%E7%AE%97%E6%B3%95"><span class="toc-nav-text">摘要算法</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#bcrypt"><span class="toc-nav-text">bcrypt</span></a></li></ol>
     
   </div>
 </aside>
@@ -482,34 +489,6 @@
   </script>
 
 
-
-  <script>
-    var gitmentConfig = "jiangchunbo";
-    if (gitmentConfig !== 'undefined') {
-      var gitment = new Gitment({
-        id: "加密解密笔记",
-        owner: "jiangchunbo",
-        repo: "jiangchunbo.github.io",
-        oauth: {
-          client_id: "8ff18c626ce6de443832",
-          client_secret: "ccbfc51ce15c59b57e0fe4a4dea81060976bbde3"
-        },
-        theme: {
-          render(state, instance) {
-            const container = document.createElement('div')
-            container.lang = "en-US"
-            container.className = 'gitment-container gitment-root-container'
-            container.appendChild(instance.renderHeader(state, instance))
-            container.appendChild(instance.renderEditor(state, instance))
-            container.appendChild(instance.renderComments(state, instance))
-            container.appendChild(instance.renderFooter(state, instance))
-            return container;
-          }
-        }
-      })
-      gitment.render(document.getElementById('comments'))
-    }
-  </script>
 
 
 

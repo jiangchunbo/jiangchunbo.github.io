@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Spring Framework Data Access | 🥫🍞
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="🥫🍞" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>🥫🍞</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Spring Framework Data Access</h2>
+  <p class="post-date">2022-08-26</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Data-Access"><a href="#Data-Access" class="headerlink" title="Data Access"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#spring-data-tier">Data Access</a></h1><hr>
+<h2 id="1-Transaction-Management"><a href="#1-Transaction-Management" class="headerlink" title="1. Transaction Management"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#transaction">1. Transaction Management</a></h2><h3 id="1-1-Advantages-of-the-Spring-Framework’s-Transaction-Support-Model"><a href="#1-1-Advantages-of-the-Spring-Framework’s-Transaction-Support-Model" class="headerlink" title="1.1. Advantages of the Spring Framework’s Transaction Support Model"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#transaction-motivation">1.1. Advantages of the Spring Framework’s Transaction Support Model</a></h3><h3 id="1-1-1-Global-Transactions"><a href="#1-1-1-Global-Transactions" class="headerlink" title="1.1.1. Global Transactions"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#transaction-global">1.1.1. Global Transactions</a></h3><h2 id="1-2-Understanding-the-Spring-Framework-Transaction-Abstraction"><a href="#1-2-Understanding-the-Spring-Framework-Transaction-Abstraction" class="headerlink" title="1.2. Understanding the Spring Framework Transaction Abstraction"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#transaction-strategies">1.2. Understanding the Spring Framework Transaction Abstraction</a></h2><p>Spring 事务抽象的关键在于事务策略概念。事务策略被定义在 <code>TransactionManager</code>，特别是，PlatformTransactionManager 用于命令式事务管理和 ReactiveTransactionManager 用于响应式事务管理。</p>
+<p>PlatformTransactionManager 类似 Spring Framework IoC 容器的其他 bean。这种好处是，让 Spring Framework 事务称为一个抽象，即使你使用 JTA。你可以比直接使用 JTA 更轻松地测试事务代码。</p>
+<p>同样，在 Spring 中，可以被任何 PlatformTransactionManager 接口额方法抛出的 TransactionException 是未检查的（也就是继承于 RuntimeException）。事务基础架构的错误总是致命的。在罕见的情况下，应用程序的代码可以从事务发生的故障中恢复，开发人员仍然可以选择 catch 和处理 TransactionException。</p>
+<p><code>TransactionDefinition</code> 接口指定如下内容：</p>
+<ul>
+<li>Propagation：通常，在一个事务范围中的所有代码运行在那个事务中。但是，如果当一个事务上下文已经存在时，运行了一个事务方法，则可以指定这种行为。例如，代码可以继续运行在现有事务中（通常的情况），或者暂停已存在的事务，创建一个新的事务。</li>
+<li>Isolation：隔离级别。该事务从其他事务的工作中隔离的程度。</li>
+<li>Timeout：超时。在超时之前该事务可以运行的时间，并且会自动由事务底层机制回滚。</li>
+<li>Read-only status：你可以在代码读取但不修改数据时使用只读状态。在某些情况下，只读事务时有用的优化，如 Hibernate。</li>
+</ul>
+<p>这些设置反映了标准的事务概念。</p>
+<h3 id="1-4-Declarative-Transaction-Management"><a href="#1-4-Declarative-Transaction-Management" class="headerlink" title="1.4. Declarative Transaction Management"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#transaction-declarative">1.4. Declarative Transaction Management</a></h3><blockquote>
+<p>大多数 Spring 框架用户选择声明式事务管理。此选项对应用程序代码影响最小，是最符合非侵入式轻量容器的理想方式。</p>
+</blockquote>
+<p>基于 Spring 面向切面编程（AOP），Spring 框架的声明式事务管理是可能的。但是，由于事务切面代码随着 Spring Framework 发布而来，并且可以在样板中使用，AOP 的概念没有必要理解为充分利用这段代码。</p>
+<p>Spring Framework 的声明式事务管理类似于 EJB CMT，因此你可以指定事务行为到单个方法级别。如有必要，你可以在事务上下文中调用 setRollBackOnly()。</p>
+<h4 id="1-4-1-Understanding-the-Spring-Framework’s-Declarative-Transaction-Implementation"><a href="#1-4-1-Understanding-the-Spring-Framework’s-Declarative-Transaction-Implementation" class="headerlink" title="1.4.1. Understanding the Spring Framework’s Declarative Transaction Implementation"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#tx-decl-explained">1.4.1. Understanding the Spring Framework’s Declarative Transaction Implementation</a></h4><p>仅仅使用 <code>@Transactional</code> 注解是没有用的，还需要添加 <code>@EnableTransactionManagement</code> 到配置类中。</p>
+<p>掌握 Spring Framework 声明式事务支持最重要的概念是通过 AOP 代理开启的支持和由元数据（XML 或者 注解）驱动的 transactional advice。AOP 和事务元数据的组合产生了 AOP 代理，其使用 TransactionInterceptor 与适当的 TransactionManager 实现来驱动围绕方法调用事务。</p>
+<p>Spring 框架的 <code>TransactionInterceptor</code> 为命令式和响应式编程模型提供事务管理。拦截器通过检查方法返回类型来检测所需的事务管理。</p>
+<h4 id="1-4-6-Using-Transactional"><a href="#1-4-6-Using-Transactional" class="headerlink" title="1.4.6. Using @Transactional"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#transaction-declarative-annotations">1.4.6. Using @Transactional</a></h4><p>除了基于注解的声明式方式进行事务配置之外，你还可以使用基于注解的方式。直接在 Java 代码中声明事务语义上更贴近受影响的代码。</p>
+<p>使用在类级别上，表示注解默认作用域声明类的所有方法（包括子类）。或者，每个方法可以被单独注解。注意，类级别的注解不会使用祖先类到类的层次结构；在这样的场景中，需要在本地重新声明，一边参与子类级注解。</p>
+<p>在 xml 配种，标签 <code>&lt;tx:annotation-driven/&gt;</code>提供相似的简便方式：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">tx:annotation-driven</span> <span class="attr">transaction-manager</span>=<span class="string">&quot;txManager&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>如果你想绑定的 <code>TransactionManager</code> 名称就是 <code>transactionManager</code>，你可以省略配置 <code>&lt;tx:annotation-driven/&gt;</code> 标签中的 <code>transaction-manager</code> 属性；否则你不得不指定 <code>transaction-manager</code> 属性。</li>
+</ul>
+</blockquote>
+<h5 id="Transactional-Settings"><a href="#Transactional-Settings" class="headerlink" title="@Transactional Settings"></a>@Transactional Settings</h5><p><code>@Transactional</code> 注解是指定接口，类或者方法必须具有事务语义。默认的 <code>@Transactional</code> 设置如下：</p>
+<ul>
+<li>传播类型 <code>PROPAGATION_REQUIRED</code></li>
+<li>隔离级别 <code>ISOLATION_DEFAULT</code></li>
+<li>事务是读写型</li>
+<li>事务超时默认为底层事务系统的默认超时时间，如果不支持超时，则没有</li>
+<li>任何 <code>RuntimeException</code> 触发回滚，任何检查型 <code>Exception</code> 并不会。</li>
+</ul>
+<p>&amp;nbsp;</p>
+<h5 id="Custom-Composed-Annotations"><a href="#Custom-Composed-Annotations" class="headerlink" title="Custom Composed Annotations"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#tx-custom-attributes">Custom Composed Annotations</a></h5><h4 id="1-4-7-Transaction-Propagation"><a href="#1-4-7-Transaction-Propagation" class="headerlink" title="1.4.7. Transaction Propagation"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#tx-propagation">1.4.7. Transaction Propagation</a></h4><p>本节描述 Spring 中事务传播的一些语义。请注意，本节不是对事务传播本身的介绍。相反，它详细描述了 Spring 中关于事务传播的一些语义。</p>
+<p>在 Spring 管理的事务中，要注意物理事务和逻辑事务之间的区别，以及传播设置如何应用的区别。</p>
+<h5 id="Understanding-PROPAGATION-REQUIRED"><a href="#Understanding-PROPAGATION-REQUIRED" class="headerlink" title="Understanding PROPAGATION_REQUIRED"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#tx-propagation-required">Understanding <code>PROPAGATION_REQUIRED</code></a></h5><img src="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/images/tx_prop_required.png">
+
+<p><code>PROPAGATION_REQUIRED</code> 强制执行一个物理事务，如果不存在事务，则本地为当前范围开启事务，或者参与定义为更大范围的已经存在的外部事务。在同一个线程内的公用调用栈安排中，这是一个很好的默认值（例如，一个委托给几个仓库方法的服务门面，其中所有的底层资源都必须参与服务级别事务）</p>
+<p>当传播设置为 <code>PROPAGATION_REQUIRED</code> 时，会为每个设置应用的方法创建一个逻辑事务范围。每个此类逻辑事务范围可以单独决定仅回滚状态，外部事务范围逻辑上独立于内部事务范围。在标准的 <code>PROPAGATION_REQUIRED</code> 行为下，所有这些范围都映射相同的物理事务。内部事务范围的仅回滚标记确实会影响到外部事务实际提交的机会。</p>
+<h5 id="Understanding-PROPAGATION-REQUIRES-NEW"><a href="#Understanding-PROPAGATION-REQUIRES-NEW" class="headerlink" title="Understanding PROPAGATION_REQUIRES_NEW"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#tx-propagation-requires_new">Understanding <code>PROPAGATION_REQUIRES_NEW</code></a></h5><p>相较于 <code>PROPAGATION_REQUIRED</code>，<code>PROPAGATION_REQUIRES_NEW</code> 总是为每个受影响的事务范围使用独立的物理事务，从不参与到外部范围的现有事务中去。在这种安排下，底层资源事务是不同的，因此，可以独立提交、回滚，外部事务不受内部事务回滚状态影响，并且内部事务的锁在完成后立即释放。这种独立的内部事务也可以声明自己的隔离级别，超时，以及是否只读，而不继承外部事物的特征。</p>
+<h5 id="Understanding-PROPAGATION-NESTED"><a href="#Understanding-PROPAGATION-NESTED" class="headerlink" title="Understanding PROPAGATION_NESTED"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#tx-propagation-nested">Understanding <code>PROPAGATION_NESTED</code></a></h5><p><code>PROPAGATION_NESTED</code> 使用一个具有多个可以回滚保存点的物理事务。这种部分回滚让内部事务范围触发其范围内的回滚，并且即使某些操作已经回滚，外部事务仍能够继续物理事务。这个设置通常映射到 JDBC 保存点，因此它只适用于 JDBC 资源事务。参见 Spring 的 <a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/javadoc-api/org/springframework/jdbc/datasource/DataSourceTransactionManager.html"><code>DataSourceTransactionManager</code></a></p>
+<h4 id="1-5-3-Using-the-TransactionManager"><a href="#1-5-3-Using-the-TransactionManager" class="headerlink" title="1.5.3. Using the TransactionManager"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#transaction-programmatic-tm">1.5.3. Using the TransactionManager</a></h4><h5 id="Using-the-PlatformTransactionManager"><a href="#Using-the-PlatformTransactionManager" class="headerlink" title="Using the PlatformTransactionManager"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#transaction-programmatic-ptm">Using the PlatformTransactionManager</a></h5><p>对于强制性的事务，你可以直接使用 <code>org.springframework.transaction.PlatformTransactionManager</code> 来管理事务。为此，将你要使用的 <code>PlatformTransactionManager</code> 的实现类传递给你的 bean。然后，通过使用 <code>TransactionDefinition</code> 和 <code>TransactionStatus</code> 对象，你可以启动，回滚以及提交事务。</p>
+<h5 id="Using-the-ReactiveTransactionManager"><a href="#Using-the-ReactiveTransactionManager" class="headerlink" title="Using the ReactiveTransactionManager"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#transaction-programmatic-rtm">Using the ReactiveTransactionManager</a></h5><p>当使用响应式事务时，你可以直接使用 <code>org.springframework.transaction.ReactiveTransactionManager</code> 管理你的事务。</p>
+<h3 id="1-6-Choosing-Between-Programmatic-and-Declarative-Transaction-Management"><a href="#1-6-Choosing-Between-Programmatic-and-Declarative-Transaction-Management" class="headerlink" title="1.6. Choosing Between Programmatic and Declarative Transaction Management"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#tx-decl-vs-prog">1.6. Choosing Between Programmatic and Declarative Transaction Management</a></h3><p>当你具有少量的事务操作时，编程式事务管理通常是个不错的主意。</p>
+<p>&amp;nbsp;</p>
+<h2 id="2-DAO-Support"><a href="#2-DAO-Support" class="headerlink" title="2. DAO Support"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#dao">2. DAO Support</a></h2><h3 id="2-1-Consistent-Exception-Hierarchy"><a href="#2-1-Consistent-Exception-Hierarchy" class="headerlink" title="2.1. Consistent Exception Hierarchy"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#dao-exceptions">2.1. Consistent Exception Hierarchy</a></h3><p>Spring 提供了特定异常到自己异常类层次结构的转换。该类层次结构将 <code>DataAccessException</code> 作为根异常。</p>
+<h2 id="3-Data-Access-with-JDBC"><a href="#3-Data-Access-with-JDBC" class="headerlink" title="3. Data Access with JDBC"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#jdbc">3. Data Access with JDBC</a></h2><h3 id="3-1-Choosing-an-Approach-for-JDBC-Database-Access"><a href="#3-1-Choosing-an-Approach-for-JDBC-Database-Access" class="headerlink" title="3.1. Choosing an Approach for JDBC Database Access"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#jdbc-choose-style">3.1. Choosing an Approach for JDBC Database Access</a></h3><p>你可以选择及中方来构建 JDBC 数据库访问基础。除了三种 JdbcTemplate 之外，一个新的 SimpleJdbcInsert 和 SimpleJdbcCall 方法优化了数据库元数据，并且 RDBMS 对象风格采取了一种更面向对象的方式，类似于 JDO 查询设计。</p>
+<ul>
+<li><code>JdbcTemplate</code> 是经典且最流行的 Spring JDBC 方式。这种 “最低级别” 的方法和所有其他封装的方法使用 <code>JdbcTemplate</code></li>
+<li><code>NamedParameterJdbcTemplate</code> 包装了一个 <code>JdbcTemplate</code> 以提供命名参数而不是传统的 JDBC ? 占位符。当你的 SQL 语句有多个参数时，这种方法提供了更好的文档性且易于使用。</li>
+<li><code>SimpleJdbcInsert</code> 和 <code>SimpleJdbcCall</code> 优化了数据库元数据来限制必要配置的数量。这种方法简化了编码，你只需要提供表名称，或者存储过程名称，并且提供一个参数与列名匹配的映射。</li>
+</ul>
+<h3 id="3-3-Using-the-JDBC-Core-Classes-to-Control-Basic-JDBC-Processing-and-Error-Handling"><a href="#3-3-Using-the-JDBC-Core-Classes-to-Control-Basic-JDBC-Processing-and-Error-Handling" class="headerlink" title="3.3. Using the JDBC Core Classes to Control Basic JDBC Processing and Error Handling"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#jdbc-core">3.3. Using the JDBC Core Classes to Control Basic JDBC Processing and Error Handling</a></h3><h4 id="3-3-1-Using-JdbcTemplate"><a href="#3-3-1-Using-JdbcTemplate" class="headerlink" title="3.3.1. Using JdbcTemplate"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#jdbc-JdbcTemplate">3.3.1. Using JdbcTemplate</a></h4><p><code>JdbcTemplate</code> 是 JDBC <code>core</code> 包下的核心类。它处理资源的创建与释放，这可以帮助你避免一些常见的错误，比如忘记关闭连接。它执行核心 JDBC 工作流的基本任务（如语句的创建和执行），让应用程序代码来提供 SQL 和获取结果集。</p>
+<p><code>JdbcTemplate</code> 可以做如下的事情：</p>
+<ul>
+<li>运行 SQL 查询</li>
+<li>更新语句以及存储过程调用</li>
+<li>执行 <code>ResultSet</code> 的迭代，以及提取返回参数值的结果</li>
+<li>捕获 JDBC 异常，并将其转换为定义在 <code>org.springframework.dao</code> 包下的更通用，更具信息意义的异常层次</li>
+</ul>
+<p>当你使用 <code>JdbcTemplate</code> 时，你只需要实现一个回调接口，给出明确定义的约定。给定一个 <code>JdbcTemplate</code> 类提供的 <code>Connection</code>，<code>PreparedStatementCreator</code> 回调接口会创建一个 预编译的语句，提供了 SQL 以及任何必要的参数。<code>CallableStatementCreator</code> 接口也是如此，它创建可调用的语句。<code>RowCallbackHandler</code> 接口从 <code>ResultSet</code> 的每一行中提取值。</p>
+<p>你可以在你的 DAO 实现中通过给予一个 <code>DataSource</code> 的引用直接实例化 <code>JdbcTempalte</code> 并使用；或者，你可以配置它到 Spring IoC 容器里，并将其作为一个 bean 引用给 DAO。</p>
+<blockquote>
+<p><code>DataSource</code> 应当总是配置为一个 Spring Ioc 容器中的 bean。</p>
+</blockquote>
+<p>此类发出的所有 SQL 都以 debug 级别的日志记录下来，</p>
+<h5 id="Querying-SELECT"><a href="#Querying-SELECT" class="headerlink" title="Querying (SELECT)"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#jdbc-JdbcTemplate-examples-query">Querying (SELECT)</a></h5><h5 id="Updating-INSERT-UPDATE-and-DELETE-with-JdbcTemplate"><a href="#Updating-INSERT-UPDATE-and-DELETE-with-JdbcTemplate" class="headerlink" title="Updating (INSERT, UPDATE, and DELETE) with JdbcTemplate"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#jdbc-JdbcTemplate-examples-update">Updating (INSERT, UPDATE, and DELETE) with JdbcTemplate</a></h5><h4 id="3-3-3-Using-SQLExceptionTranslator"><a href="#3-3-3-Using-SQLExceptionTranslator" class="headerlink" title="3.3.3. Using SQLExceptionTranslator"></a><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/data-access.html#jdbc-SQLExceptionTranslator">3.3.3. Using SQLExceptionTranslator</a></h4><p>SQLExceptionTranslator 是一个接口，用于 SQLExceptions 和 Spring 的 DataAccessException 之间进行转换。</p>
+<p>SQLErrorCodeSQLExceptionTranslator 是 SQLExceptionTranslator 默认的实现。此实现使用特定的供应商代码，比 SQLState 更精确。错误代码转换基于名为 SQLErrorCodes 的 JavaBean 类中保存的代码。此类由 SQLErrorCodesFactory 创建和填充，是基于 sql-error-codes.xml 的配置文件的内容创建的工厂。</p>
+</section>
+    <!-- Tags START -->
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/08/17/Spring-Framework/Spring-%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E5%A4%84%E7%90%86%E5%AE%9E%E8%B7%B5/">
+        <span class="nav-arrow">← </span>
+        
+          Spring 请求参数处理实践
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/09/08/maven/Maven-%E7%AC%94%E8%AE%B0/">
+        
+          Maven 笔记
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo="JiangChunbo/jiangchunbo.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Data-Access"><span class="toc-nav-text">Data Access</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-Transaction-Management"><span class="toc-nav-text">1. Transaction Management</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-1-Advantages-of-the-Spring-Framework%E2%80%99s-Transaction-Support-Model"><span class="toc-nav-text">1.1. Advantages of the Spring Framework’s Transaction Support Model</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-1-1-Global-Transactions"><span class="toc-nav-text">1.1.1. Global Transactions</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-2-Understanding-the-Spring-Framework-Transaction-Abstraction"><span class="toc-nav-text">1.2. Understanding the Spring Framework Transaction Abstraction</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-4-Declarative-Transaction-Management"><span class="toc-nav-text">1.4. Declarative Transaction Management</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#1-4-1-Understanding-the-Spring-Framework%E2%80%99s-Declarative-Transaction-Implementation"><span class="toc-nav-text">1.4.1. Understanding the Spring Framework’s Declarative Transaction Implementation</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#1-4-6-Using-Transactional"><span class="toc-nav-text">1.4.6. Using @Transactional</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Transactional-Settings"><span class="toc-nav-text">@Transactional Settings</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Custom-Composed-Annotations"><span class="toc-nav-text">Custom Composed Annotations</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#1-4-7-Transaction-Propagation"><span class="toc-nav-text">1.4.7. Transaction Propagation</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Understanding-PROPAGATION-REQUIRED"><span class="toc-nav-text">Understanding PROPAGATION_REQUIRED</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Understanding-PROPAGATION-REQUIRES-NEW"><span class="toc-nav-text">Understanding PROPAGATION_REQUIRES_NEW</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Understanding-PROPAGATION-NESTED"><span class="toc-nav-text">Understanding PROPAGATION_NESTED</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#1-5-3-Using-the-TransactionManager"><span class="toc-nav-text">1.5.3. Using the TransactionManager</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Using-the-PlatformTransactionManager"><span class="toc-nav-text">Using the PlatformTransactionManager</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Using-the-ReactiveTransactionManager"><span class="toc-nav-text">Using the ReactiveTransactionManager</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-6-Choosing-Between-Programmatic-and-Declarative-Transaction-Management"><span class="toc-nav-text">1.6. Choosing Between Programmatic and Declarative Transaction Management</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-DAO-Support"><span class="toc-nav-text">2. DAO Support</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2-1-Consistent-Exception-Hierarchy"><span class="toc-nav-text">2.1. Consistent Exception Hierarchy</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3-Data-Access-with-JDBC"><span class="toc-nav-text">3. Data Access with JDBC</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#3-1-Choosing-an-Approach-for-JDBC-Database-Access"><span class="toc-nav-text">3.1. Choosing an Approach for JDBC Database Access</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#3-3-Using-the-JDBC-Core-Classes-to-Control-Basic-JDBC-Processing-and-Error-Handling"><span class="toc-nav-text">3.3. Using the JDBC Core Classes to Control Basic JDBC Processing and Error Handling</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#3-3-1-Using-JdbcTemplate"><span class="toc-nav-text">3.3.1. Using JdbcTemplate</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Querying-SELECT"><span class="toc-nav-text">Querying (SELECT)</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Updating-INSERT-UPDATE-and-DELETE-with-JdbcTemplate"><span class="toc-nav-text">Updating (INSERT, UPDATE, and DELETE) with JdbcTemplate</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#3-3-3-Using-SQLExceptionTranslator"><span class="toc-nav-text">3.3.3. Using SQLExceptionTranslator</span></a></li></ol></li></ol></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/08/26/Spring-Framework/Spring-Framework-Data-Access/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

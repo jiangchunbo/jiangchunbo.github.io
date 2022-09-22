@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Spring Web MVC HandlerMapping 笔记 | 🥫🍞
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="🥫🍞" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>🥫🍞</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Spring Web MVC HandlerMapping 笔记</h2>
+  <p class="post-date">2022-07-22</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Spring-Web-MVC-HandlerMapping-笔记"><a href="#Spring-Web-MVC-HandlerMapping-笔记" class="headerlink" title="Spring Web MVC HandlerMapping 笔记"></a>Spring Web MVC HandlerMapping 笔记</h1><h1 id="HandlerMapping"><a href="#HandlerMapping" class="headerlink" title="HandlerMapping"></a>HandlerMapping</h1><h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h2><p><code>HandlerMapping</code> 用于将请求映射到 handler，以及前置处理拦截器和后置处理拦截器。该映射基于某些规则，其中的细节随着 <code>HandlerMapping</code> 的实现有所不同。</p>
+<p>两个主要的 <code>HandlerMapping</code> 的实现类：</p>
+<p>(1) <code>RequestMappingHandlerMapping </code>，它支持 <code>@RequestMapping</code> 注解的方法</p>
+<p>(2) <code>SimpleUrlHandlerMapping</code>，它维护 URI 路径模式到 handler 的指定注册</p>
+<blockquote>
+<p>参考官方文档 <a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/web.html#mvc-servlet-special-bean-types">1.1.2. Special Bean Types</a></p>
+</blockquote>
+<h2 id="2-Spring-Boot"><a href="#2-Spring-Boot" class="headerlink" title="2. Spring Boot"></a>2. Spring Boot</h2><p>默认情况下，Spring Boot 提供 5 个默认的 <code>HandlerMapping</code>，他们分别是：</p>
+<ul>
+<li><code>RequestMappingHandlerMapping</code></li>
+<li><code>BeanNameUrlHandlerMapping</code></li>
+<li><code>RouterFunctionMapping</code></li>
+<li><code>SimpleUrlHandlerMapping</code></li>
+<li><code>WelcomePageHandlerMapping</code></li>
+</ul>
+<p>上述这几个 <code>HandlerMapping</code> 都是在 <code>WebMvcAutoConfiguration</code> 内部类 <code>EnableWebMvcConfiguration</code> 中配置的。</p>
+<p>为了能够通过类名立即能知道该类实现了 <code>HandlerMapping</code> 接口，这些实现类都以 <code>HandlerMapping</code> 为结尾，以前缀标识其作用。</p>
+<blockquote>
+<p>通常 <code>SimpleUrlHandlerMapping</code> 会返回 <code>ResourceHttpRequestHandler</code>；<code>RequestMappingHandlerMapping</code> 返回 <code>HandlerMethod</code></p>
+</blockquote>
+<p><strong>如何找到当前请求使用哪个 <code>HandlerMapping</code> 处理？</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> HandlerExecutionChain <span class="title function_">getHandler</span><span class="params">(HttpServletRequest request)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">this</span>.handlerMappings != <span class="literal">null</span>) &#123;</span><br><span class="line">		<span class="keyword">for</span> (HandlerMapping mapping : <span class="built_in">this</span>.handlerMappings) &#123;</span><br><span class="line">			<span class="type">HandlerExecutionChain</span> <span class="variable">handler</span> <span class="operator">=</span> mapping.getHandler(request);</span><br><span class="line">            <span class="comment">// 通过返回值是否为 null 确定</span></span><br><span class="line">			<span class="keyword">if</span> (handler != <span class="literal">null</span>) &#123;</span><br><span class="line">				<span class="keyword">return</span> handler;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="AbstractHandlerMapping"><a href="#AbstractHandlerMapping" class="headerlink" title="AbstractHandlerMapping"></a>AbstractHandlerMapping</h3><p><code>AbstractHandlerMapping</code> 是所有 <code>HandlerMapping</code> 的父类，以下是所有请求获取 handler 的统一入口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> HandlerExecutionChain <span class="title function_">getHandler</span><span class="params">(HttpServletRequest request)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">	<span class="comment">// getHandlerInternal 是抽象方法，留给子类实现</span></span><br><span class="line">	</span><br><span class="line">	<span class="type">Object</span> <span class="variable">handler</span> <span class="operator">=</span> getHandlerInternal(request);</span><br><span class="line">	<span class="comment">// 如果子类无法找到 handler 则使用默认 handler</span></span><br><span class="line">	<span class="keyword">if</span> (handler == <span class="literal">null</span>) &#123;</span><br><span class="line">		handler = getDefaultHandler();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 如果没有默认 handler，则返回 null</span></span><br><span class="line">	<span class="keyword">if</span> (handler == <span class="literal">null</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// Bean name or resolved handler?</span></span><br><span class="line">	<span class="keyword">if</span> (handler <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">		<span class="type">String</span> <span class="variable">handlerName</span> <span class="operator">=</span> (String) handler;</span><br><span class="line">		handler = obtainApplicationContext().getBean(handlerName);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="type">HandlerExecutionChain</span> <span class="variable">executionChain</span> <span class="operator">=</span> getHandlerExecutionChain(handler, request);</span><br><span class="line">	<span class="keyword">if</span> (CorsUtils.isCorsRequest(request)) &#123;</span><br><span class="line">		<span class="type">CorsConfiguration</span> <span class="variable">globalConfig</span> <span class="operator">=</span> <span class="built_in">this</span>.globalCorsConfigSource.getCorsConfiguration(request);</span><br><span class="line">		<span class="type">CorsConfiguration</span> <span class="variable">handlerConfig</span> <span class="operator">=</span> getCorsConfiguration(handler, request);</span><br><span class="line">		<span class="type">CorsConfiguration</span> <span class="variable">config</span> <span class="operator">=</span> (globalConfig != <span class="literal">null</span> ? globalConfig.combine(handlerConfig) : handlerConfig);</span><br><span class="line">		executionChain = getCorsHandlerExecutionChain(request, executionChain, config);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> executionChain;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>getHandlerInternal</code> 是抽象方法，由子类实现，因此官方才会有这样一句话：</p>
+<blockquote>
+<p>The mapping is based on some criteria, the details of which vary by <code>HandlerMapping</code> implementation.</p>
+</blockquote>
+<h3 id="RequestMappingHandlerMapping"><a href="#RequestMappingHandlerMapping" class="headerlink" title="RequestMappingHandlerMapping"></a>RequestMappingHandlerMapping</h3><p><code>RequestMappingHandlerMapping</code> 是 <code>RequestMappingInfoHandlerMapping</code> 的子类。<code>RequestMappingInfoHandlerMapping</code> 实现了 <code>getHandlerInternal</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> HandlerMethod <span class="title function_">getHandlerInternal</span><span class="params">(HttpServletRequest request)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">	request.removeAttribute(PRODUCIBLE_MEDIA_TYPES_ATTRIBUTE);</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">super</span>.getHandlerInternal(request);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">finally</span> &#123;</span><br><span class="line">		ProducesRequestCondition.clearMediaTypesAttribute(request);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>RequestMappingInfoHandlerMapping</code> 并没有做什么具体的操作，他只是调用父类 <code>AbstractHandlerMethodMapping</code> 的 <code>getHandlerInternal</code> 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> HandlerMethod <span class="title function_">getHandlerInternal</span><span class="params">(HttpServletRequest request)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">	<span class="type">String</span> <span class="variable">lookupPath</span> <span class="operator">=</span> getUrlPathHelper().getLookupPathForRequest(request);</span><br><span class="line">	request.setAttribute(LOOKUP_PATH, lookupPath);</span><br><span class="line">	<span class="built_in">this</span>.mappingRegistry.acquireReadLock();</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="type">HandlerMethod</span> <span class="variable">handlerMethod</span> <span class="operator">=</span> lookupHandlerMethod(lookupPath, request);</span><br><span class="line">		<span class="keyword">return</span> (handlerMethod != <span class="literal">null</span> ? handlerMethod.createWithResolvedBean() : <span class="literal">null</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">finally</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.mappingRegistry.releaseReadLock();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述代码比较重要的是 <code>lookupHandlerMethod</code> 方法调用，它负责寻找 handler 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> HandlerMethod <span class="title function_">lookupHandlerMethod</span><span class="params">(String lookupPath, HttpServletRequest request)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">	List&lt;Match&gt; matches = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">	<span class="comment">// 先通过 url 找到匹配项</span></span><br><span class="line">	List&lt;T&gt; directPathMatches = <span class="built_in">this</span>.mappingRegistry.getMappingsByUrl(lookupPath);</span><br><span class="line">	<span class="comment">// 接着添加匹配的映射（根据具体条件，如 HTTP Method 等）</span></span><br><span class="line">	<span class="keyword">if</span> (directPathMatches != <span class="literal">null</span>) &#123;</span><br><span class="line">		addMatchingMappings(directPathMatches, matches, request);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (matches.isEmpty()) &#123;</span><br><span class="line">		<span class="comment">// No choice but to go through all mappings...</span></span><br><span class="line">		addMatchingMappings(<span class="built_in">this</span>.mappingRegistry.getMappings().keySet(), matches, request);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!matches.isEmpty()) &#123;</span><br><span class="line">		<span class="type">Match</span> <span class="variable">bestMatch</span> <span class="operator">=</span> matches.get(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 如果匹配项不止 1 个</span></span><br><span class="line">		<span class="keyword">if</span> (matches.size() &gt; <span class="number">1</span>) &#123;	</span><br><span class="line">			Comparator&lt;Match&gt; comparator = <span class="keyword">new</span> <span class="title class_">MatchComparator</span>(getMappingComparator(request));</span><br><span class="line">			<span class="comment">// 排序，取出第 0 个</span></span><br><span class="line">			matches.sort(comparator);</span><br><span class="line">			bestMatch = matches.get(<span class="number">0</span>);</span><br><span class="line">			<span class="keyword">if</span> (logger.isTraceEnabled()) &#123;</span><br><span class="line">				logger.trace(matches.size() + <span class="string">&quot; matching mappings: &quot;</span> + matches);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (CorsUtils.isPreFlightRequest(request)) &#123;</span><br><span class="line">				<span class="keyword">return</span> PREFLIGHT_AMBIGUOUS_MATCH;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="type">Match</span> <span class="variable">secondBestMatch</span> <span class="operator">=</span> matches.get(<span class="number">1</span>);</span><br><span class="line">			<span class="keyword">if</span> (comparator.compare(bestMatch, secondBestMatch) == <span class="number">0</span>) &#123;</span><br><span class="line">				<span class="type">Method</span> <span class="variable">m1</span> <span class="operator">=</span> bestMatch.handlerMethod.getMethod();</span><br><span class="line">				<span class="type">Method</span> <span class="variable">m2</span> <span class="operator">=</span> secondBestMatch.handlerMethod.getMethod();</span><br><span class="line">				<span class="type">String</span> <span class="variable">uri</span> <span class="operator">=</span> request.getRequestURI();</span><br><span class="line">				<span class="comment">// 无法决定最佳匹配，抛异常！！！</span></span><br><span class="line">				<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalStateException</span>(</span><br><span class="line">						<span class="string">&quot;Ambiguous handler methods mapped for &#x27;&quot;</span> + uri + <span class="string">&quot;&#x27;: &#123;&quot;</span> + m1 + <span class="string">&quot;, &quot;</span> + m2 + <span class="string">&quot;&#125;&quot;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 设置一些属性等</span></span><br><span class="line">		request.setAttribute(BEST_MATCHING_HANDLER_ATTRIBUTE, bestMatch.handlerMethod);</span><br><span class="line">		handleMatch(bestMatch.mapping, lookupPath, request);</span><br><span class="line">		<span class="keyword">return</span> bestMatch.handlerMethod;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> handleNoMatch(<span class="built_in">this</span>.mappingRegistry.getMappings().keySet(), lookupPath, request);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述代码具体做的就是找到一个最佳匹配 handlerMethod 并返回，如果有两个并列的最佳匹配 handlerMethod，则抛出异常，Spring 无法决定选择哪个，因此，建议不要定义具有歧义的 handler。</p>
+<h3 id="RouterFunctionMapping"><a href="#RouterFunctionMapping" class="headerlink" title="RouterFunctionMapping"></a>RouterFunctionMapping</h3><p>用于功能性端点的映射，可以阅读<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.17.RELEASE/spring-framework-reference/web-reactive.html#webflux-fn">官网</a></p>
+<h3 id="SimpleUrlHandlerMapping"><a href="#SimpleUrlHandlerMapping" class="headerlink" title="SimpleUrlHandlerMapping"></a>SimpleUrlHandlerMapping</h3><p>尽管类名称叫 <code>SimpleUrlHandlerMapping</code>，但是其 beanName 为 <code>resourceHandlerMapping</code></p>
+<p><code>SimpleUrlHandlerMapping</code> 是 <code>AbstractUrlHandlerMapping</code> 的子类，所有请求直接经过其父类 <code>getHandlerInternal</code> 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> Object <span class="title function_">getHandlerInternal</span><span class="params">(HttpServletRequest request)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">	<span class="comment">// 获得需要寻找的路径</span></span><br><span class="line">	<span class="type">String</span> <span class="variable">lookupPath</span> <span class="operator">=</span> getUrlPathHelper().getLookupPathForRequest(request);</span><br><span class="line">	request.setAttribute(LOOKUP_PATH, lookupPath);</span><br><span class="line">	<span class="comment">// 寻找 handler</span></span><br><span class="line">	<span class="type">Object</span> <span class="variable">handler</span> <span class="operator">=</span> lookupHandler(lookupPath, request);</span><br><span class="line">	<span class="keyword">if</span> (handler == <span class="literal">null</span>) &#123;</span><br><span class="line">		<span class="comment">// We need to care for the default handler directly, since we need to</span></span><br><span class="line">		<span class="comment">// expose the PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE for it as well.</span></span><br><span class="line">		<span class="type">Object</span> <span class="variable">rawHandler</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="keyword">if</span> (<span class="string">&quot;/&quot;</span>.equals(lookupPath)) &#123;</span><br><span class="line">			rawHandler = getRootHandler();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (rawHandler == <span class="literal">null</span>) &#123;</span><br><span class="line">			rawHandler = getDefaultHandler();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (rawHandler != <span class="literal">null</span>) &#123;</span><br><span class="line">			<span class="comment">// Bean name or resolved handler?</span></span><br><span class="line">			<span class="keyword">if</span> (rawHandler <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">				<span class="type">String</span> <span class="variable">handlerName</span> <span class="operator">=</span> (String) rawHandler;</span><br><span class="line">				rawHandler = obtainApplicationContext().getBean(handlerName);</span><br><span class="line">			&#125;</span><br><span class="line">			validateHandler(rawHandler, request);</span><br><span class="line">			handler = buildPathExposingHandler(rawHandler, lookupPath, lookupPath, <span class="literal">null</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> handler;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> Object <span class="title function_">lookupHandler</span><span class="params">(String urlPath, HttpServletRequest request)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">	<span class="comment">// 通过 map 直接匹配，可以自行通过 WebMvcConfigurer 注册更多项</span></span><br><span class="line">	<span class="comment">// 一般匹配不到，因为我们几乎都是通过 ** 等通配符配置</span></span><br><span class="line">	<span class="type">Object</span> <span class="variable">handler</span> <span class="operator">=</span> <span class="built_in">this</span>.handlerMap.get(urlPath);  <span class="comment">// 1</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> (handler != <span class="literal">null</span>) &#123;</span><br><span class="line">		<span class="comment">// Bean name or resolved handler?</span></span><br><span class="line">		<span class="comment">// 如果匹配到...</span></span><br><span class="line">		<span class="keyword">if</span> (handler <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">			<span class="type">String</span> <span class="variable">handlerName</span> <span class="operator">=</span> (String) handler;</span><br><span class="line">			handler = obtainApplicationContext().getBean(handlerName);</span><br><span class="line">		&#125;</span><br><span class="line">		validateHandler(handler, request);</span><br><span class="line">		<span class="keyword">return</span> buildPathExposingHandler(handler, urlPath, urlPath, <span class="literal">null</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Pattern match?</span></span><br><span class="line">	<span class="comment">// 没有直接匹配到，进行模式匹配</span></span><br><span class="line">	List&lt;String&gt; matchingPatterns = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">	<span class="keyword">for</span> (String registeredPattern : <span class="built_in">this</span>.handlerMap.keySet()) &#123;</span><br><span class="line">		<span class="keyword">if</span> (getPathMatcher().match(registeredPattern, urlPath)) &#123;</span><br><span class="line">			matchingPatterns.add(registeredPattern);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (useTrailingSlashMatch()) &#123;</span><br><span class="line">			<span class="keyword">if</span> (!registeredPattern.endsWith(<span class="string">&quot;/&quot;</span>) &amp;&amp; getPathMatcher().match(registeredPattern + <span class="string">&quot;/&quot;</span>, urlPath)) &#123;</span><br><span class="line">				matchingPatterns.add(registeredPattern + <span class="string">&quot;/&quot;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="type">String</span> <span class="variable">bestMatch</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">	Comparator&lt;String&gt; patternComparator = getPathMatcher().getPatternComparator(urlPath);</span><br><span class="line">	<span class="keyword">if</span> (!matchingPatterns.isEmpty()) &#123;</span><br><span class="line">		<span class="comment">// 排序</span></span><br><span class="line">		matchingPatterns.sort(patternComparator);</span><br><span class="line">		<span class="keyword">if</span> (logger.isTraceEnabled() &amp;&amp; matchingPatterns.size() &gt; <span class="number">1</span>) &#123;</span><br><span class="line">			logger.trace(<span class="string">&quot;Matching patterns &quot;</span> + matchingPatterns);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 认为第一个是最好的匹配</span></span><br><span class="line">		bestMatch = matchingPatterns.get(<span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (bestMatch != <span class="literal">null</span>) &#123;</span><br><span class="line">		handler = <span class="built_in">this</span>.handlerMap.get(bestMatch);</span><br><span class="line">		<span class="keyword">if</span> (handler == <span class="literal">null</span>) &#123;</span><br><span class="line">			<span class="comment">// 匹配不到。这里是为了处理上面 useTrailingSlashMatch 的问题</span></span><br><span class="line">			<span class="comment">// 去除末尾斜杠</span></span><br><span class="line">			<span class="keyword">if</span> (bestMatch.endsWith(<span class="string">&quot;/&quot;</span>)) &#123;</span><br><span class="line">				handler = <span class="built_in">this</span>.handlerMap.get(bestMatch.substring(<span class="number">0</span>, bestMatch.length() - <span class="number">1</span>));</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (handler == <span class="literal">null</span>) &#123;</span><br><span class="line">				<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalStateException</span>(<span class="string">&quot;Could not find handler for best pattern match [&quot;</span> + bestMatch + <span class="string">&quot;]&quot;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// Bean name or resolved handler?</span></span><br><span class="line">		<span class="keyword">if</span> (handler <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">			<span class="type">String</span> <span class="variable">handlerName</span> <span class="operator">=</span> (String) handler;</span><br><span class="line">			handler = obtainApplicationContext().getBean(handlerName);</span><br><span class="line">		&#125;</span><br><span class="line">		validateHandler(handler, request);</span><br><span class="line">		<span class="type">String</span> <span class="variable">pathWithinMapping</span> <span class="operator">=</span> getPathMatcher().extractPathWithinPattern(bestMatch, urlPath);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// There might be multiple &#x27;best patterns&#x27;, let&#x27;s make sure we have the correct URI template variables</span></span><br><span class="line">		<span class="comment">// for all of them</span></span><br><span class="line">		<span class="comment">// 可能有多个最佳匹配，我们需要确定对于每个都有正确的 uri 模板变量</span></span><br><span class="line">		Map&lt;String, String&gt; uriTemplateVariables = <span class="keyword">new</span> <span class="title class_">LinkedHashMap</span>&lt;&gt;();</span><br><span class="line">		<span class="keyword">for</span> (String matchingPattern : matchingPatterns) &#123;</span><br><span class="line">			<span class="comment">// 这里可能出现并列最佳匹配</span></span><br><span class="line">			<span class="keyword">if</span> (patternComparator.compare(bestMatch, matchingPattern) == <span class="number">0</span>) &#123;</span><br><span class="line">				Map&lt;String, String&gt; vars = getPathMatcher().extractUriTemplateVariables(matchingPattern, urlPath);</span><br><span class="line">				Map&lt;String, String&gt; decodedVars = getUrlPathHelper().decodePathVariables(request, vars);</span><br><span class="line">				uriTemplateVariables.putAll(decodedVars);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (logger.isTraceEnabled() &amp;&amp; uriTemplateVariables.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">			logger.trace(<span class="string">&quot;URI variables &quot;</span> + uriTemplateVariables);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> buildPathExposingHandler(handler, bestMatch, pathWithinMapping, uriTemplateVariables);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// No handler found...</span></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>useTrailingSlashMatch</strong></p>
+<p>在以上代码的模式匹配部分，使用了 <code>useTrailingSlashMatch()</code> 方法判断是否使用尾部斜杠匹配。如果启用了，那么例如 <code>/users</code> 这样的 URL 模式匹配也可以匹配到 <code>/users</code>。默认是 <strong>false</strong>。</p>
+<p>如果需要启用该选项，目前我能想到的方法是：在某一个 <code>@Configuration</code> 配置类中绑定字段类型 <code>HandlerMapping</code>，使用构造器后置处理修改其属性。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@AutoConfigureAfter(WebMvcAutoConfiguration.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HandlerMappingConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource(name = &quot;resourceHandlerMapping&quot;)</span></span><br><span class="line">    HandlerMapping handlerMapping;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setSimpleUrlHandlerMapping</span><span class="params">()</span> &#123;</span><br><span class="line">        ((SimpleUrlHandlerMapping) handlerMapping).setUseTrailingSlashMatch(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于 <code>SimpleUrlHandlerMapping</code> 是在 <code>WebMvcAutoConfiguration</code> 注入到容器中的，因此需要使用 <code>@AutoConfigureAfter</code> 确保自动配置的顺序，防止找到 bean。</p>
+<p>由于 <code>SimpleUrlHandlerMapping</code> 是以 <code>HandlerMapping</code> 类型注入到容器中的，因此无法使用基于类型绑定的 <code>@Autowired</code>，只能使用 <code>@Resource</code> 根据 bean name 进行绑定。</p>
+</section>
+    <!-- Tags START -->
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/22/Spring-Framework/Spring-MVC-DispatcherServlet-%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E7%9A%84%E8%BF%87%E7%A8%8B/">
+        <span class="nav-arrow">← </span>
+        
+          Spring MVC DispatcherServlet 处理请求的过程
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/23/Spring-Framework/Spring-Web-MVC-HandlerAdapter-%E7%AC%94%E8%AE%B0/">
+        
+          Spring Web MVC HandlerAdapter 笔记
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo="JiangChunbo/jiangchunbo.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Spring-Web-MVC-HandlerMapping-%E7%AC%94%E8%AE%B0"><span class="toc-nav-text">Spring Web MVC HandlerMapping 笔记</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#HandlerMapping"><span class="toc-nav-text">HandlerMapping</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="toc-nav-text">1. 介绍</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-Spring-Boot"><span class="toc-nav-text">2. Spring Boot</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#AbstractHandlerMapping"><span class="toc-nav-text">AbstractHandlerMapping</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#RequestMappingHandlerMapping"><span class="toc-nav-text">RequestMappingHandlerMapping</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#RouterFunctionMapping"><span class="toc-nav-text">RouterFunctionMapping</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#SimpleUrlHandlerMapping"><span class="toc-nav-text">SimpleUrlHandlerMapping</span></a></li></ol></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/22/Spring-Framework/Spring-Web-MVC-HandlerMapping-笔记/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

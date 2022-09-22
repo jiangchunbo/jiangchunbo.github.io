@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Shiro 架构 | 🥫🍞
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="🥫🍞" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>🥫🍞</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Shiro 架构</h2>
+  <p class="post-date">2022-07-24</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Shiro-架构"><a href="#Shiro-架构" class="headerlink" title="Shiro 架构"></a>Shiro 架构</h1><h2 id="Apache-Shiro-架构"><a href="#Apache-Shiro-架构" class="headerlink" title="Apache Shiro 架构"></a><a target="_blank" rel="noopener" href="https://shiro.apache.org/architecture.html">Apache Shiro 架构</a></h2><p>Apache Shiro 的设计目的就是，通过直观化且易于使用来简化应用程序安全性。Shiro 的核心设计模型化了大多数人考虑应用安全性的方式 —— 在某人（或某物）与应用程序交互的上下文中。</p>
+<p>软件应用通常基于用户故事设计的。即，你通常会根据用户将会（或者应该）如何与软件交互来设计用户接口或者服务 API。例如，你可能会说，”如果与我的软件交互的用户已经登陆了，我将向他们展示一个按钮，他们可以点机查看其账户信息。如果他们未登录，我将显示一个注册按钮”。</p>
+<p>该实例语句标识，应用程序主要是为了满足用户需求和需要而大量编写的。即使“用户”是另一个软件系统，不是一个人类，你仍然可以编码，根据谁（或者什么东西）目前正在与你的软件进行交互反映行为。</p>
+<h3 id="高级概述"><a href="#高级概述" class="headerlink" title="高级概述"></a>高级概述</h3><img src="https://shiro.apache.org/images/ShiroBasicArchitecture.png">
+
+<ul>
+<li><strong>Subject</strong>: 正如我们在教程中提及的，<code>Subject</code> 本质上是当前正在执行用户的安全性特定“视图”。尽管词语“用户”通常表示一个人，但是 <code>Subject</code> 可以是一个人，但它也可以表示第三方服务，守护账户，cron 作业，或者任何类似的东西 —— 基本任何当前与软件交互的东西。</li>
+</ul>
+<p><code>Subject</code> 实例都会绑定到（且需要）一个 <code>SecurityManager</code>。当你和一个 <code>Subject</code> 交互时，这些交互会转换为特定于 subject 的与 <code>SecurityManager</code> 的交互。</p>
+<ul>
+<li><strong>SecurityManager</strong>: <code>SecurityManager</code> 是 Shiro 架构的核心。它主要是一个 “伞” 对象，可以协调其管理的组件，确保他们能顺序运行。</li>
+</ul>
+<p>我们将在稍后详细讨论 <code>SecurityManager</code>，但是重要的是要意识到，当你与 <code>Subject</code> 进行互动时，实际上，幕后的 <code>SecurityManager</code> 为任何 <code>Subject</code> 安全操作做了所有繁重的工作。这反映在上面的基本流程图中。</p>
+<ul>
+<li><strong>Realms</strong>: Realm 充当 Shiro 与你应用程序安全性数据之间的“桥梁”或者连接器。</li>
+</ul>
+<p>从这个意义上讲，一个 Realm 本质上是一种特定于安全性的 DAO: 它封装了数据源的连接细节，并使得 Shiro 在需要时获得相关数据。当配置 Shiro 时，你必须至少指定一个用于认证以及（或者）授权的 Realm。<code>SecurityManager</code> 可以配置多个 Realm，但至少需要配置一个。</p>
+<h3 id="详细架构"><a href="#详细架构" class="headerlink" title="详细架构"></a><a target="_blank" rel="noopener" href="https://shiro.apache.org/architecture.html">详细架构</a></h3><p><img src="https://img-blog.csdnimg.cn/66b4aa43259d4065b55e1a631f72918c.png" alt="请添加图片描述"></p>
+<ul>
+<li>Subject (<code>org.apache.shiro.subject.Subject</code>) 当前正在与软件交互的，特定安全的实体视图（用户，第三方服务，cron 任务等）</li>
+<li>SecurityManager (<code>org.apache.shiro.mgt.SecurityManager</code>) 如上所述，<code>SecurityManager</code> 是 Shiro 架构的核心。它主要是一个 “伞” 对象，可以协调其管理的组件，确保他们能顺序运行。它还管理每个应用用户的视图，因此它知道每个用户如何执行安全操作。</li>
+<li>Authenticator (<code>org.apache.shiro.authc.Authenticator</code>) <code>Authenticator</code> 是负责执行和响应用户的认证（登录）请求的组件。当一个用户尝试登录，<code>Authenticator</code> 就会执行该逻辑。<code>Authenticator</code> 知道如何与一个或多个存储相关用户&#x2F;账户信息的 <code>Realms</code> 协作。用从这些 <code>Realms</code> 获得的数据验证用户身份，保证用户的确如他们所说。</li>
+<li>Authorizer (<code>org.apache.shiro.authz.Authorizer</code>) <code>Authorizer</code> 是负责确定用户在应用程序中访问控制的组件。归根结底地说，这是一种机制，判断是否用户允许做某事。像 <code>Authenticator</code> 一样，<code>Authorizer</code> 也知道如何与多个后端数据源协作，访问角色和权限信息。<code>Authorizer</code> 使用这些信息，确定是否用户允许执行给定的操作。</li>
+<li>SessionManager (<code>org.apache.shiro.session.mgt.SessionManager</code>) <code>SessionManager</code>  知道如何创建和管理用户 <code>Session</code> 生命周期，为所有环境中的用户提供强大的会话体验。这是安全框架的世界独有的功能，Shiro 有能力本地化地管理任何环境下的用户会话，即使没有可用的 Web&#x2F;Servlet 或者 EJB 容器。默认情况下，Shiro 将使用现有的会话机制，如果可用，（例如 Servlet Container），但是如果没有，例如在一个独立应用或者非 Web 环境下，将使用其内建的企业会话管理，提供相同的编程体验。<code>SessionDAO</code> 允许使用任何数据源持久化 Session。</li>
+<li>CacheManager (<code>org.apache.shiro.cache.CacheManager</code>)</li>
+<li>Cryptography (org.apache.shiro.crypto.*) </li>
+<li>Realms (<code>org.apache.shiro.realm.Realm</code>) 如上所述，Realms 充当 Shiro 和应用安全数据之间的 “桥梁” 或者 “连接器”。当实际需要与安全相关数据（就像用户账户）进行交互，执行认证（login）以及授权（访问控制）的时候，Shiro 会从一个或多个为应用配置的 Realms 中查找许多相关的数据。你可以根据需要配置尽可能多的 <code>Realms</code>（通常每个数据源配一个），Shiro 在认证和授权的时候，根据需要协调它们。</li>
+</ul>
+<h3 id="Apache-Shiro-Web-Support"><a href="#Apache-Shiro-Web-Support" class="headerlink" title="Apache Shiro Web Support"></a><a target="_blank" rel="noopener" href="https://shiro.apache.org/web.html">Apache Shiro Web Support</a></h3><h3 id="Default-Filters"><a href="#Default-Filters" class="headerlink" title="Default Filters"></a>Default Filters</h3><h3 id="Session-Management"><a href="#Session-Management" class="headerlink" title="Session Management"></a>Session Management</h3><h4 id="Servlet-Container-Sessions"><a href="#Servlet-Container-Sessions" class="headerlink" title="Servlet Container Sessions"></a>Servlet Container Sessions</h4><p>在 Web 环境下，Shiro 的默认会话管理器 <code>SessionManager</code> 的实现是 <code>ServletContainerSessionManager</code>。这是一个非常简易的实现，将所有会话管理的职责（包括会话集群，如果 Servlet 容器支持）委托给运行时的 Servlet 容器。它本质上是 Shiro 会话 API 到 Servlet 容器的桥梁，几乎没做什么。</p>
+<h4 id="Native-Sessions"><a href="#Native-Sessions" class="headerlink" title="Native Sessions"></a>Native Sessions</h4><p>如果你希望会话配置设置以及集群可以在 Servlet 容器上移植，或者你想控制特定的会话&#x2F;集群功能，你可以启用 Shiro 的本地会话管理。</p>
+<p>这里 “Native” 一词意味着，将会使用 Shiro 自己的企业会话管理实现，支持所有 <code>Subject</code> 以及 <code>HttpServletRequest</code> 会话，并完全绕过 Servlet 容器。但是，请放心，Shiro 直接实现了相关的 Servlet 规范部分，因此任何现有的 web&#x2F;http 相关代码都可以按照预期工作，并且也不需要知道 Shiro 正在透明地管理会话。</p>
+<h5 id="DefaultWebSessionManager"><a href="#DefaultWebSessionManager" class="headerlink" title="DefaultWebSessionManager"></a><code>DefaultWebSessionManager</code></h5></section>
+    <!-- Tags START -->
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/23/Shiro/ShiroFilter%20%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/">
+        <span class="nav-arrow">← </span>
+        
+          ShiroFilter 执行流程
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/24/%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E4%BA%8C%E5%8F%89%E6%A0%91/">
+        
+          数据结构——二叉树
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo="JiangChunbo/jiangchunbo.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Shiro-%E6%9E%B6%E6%9E%84"><span class="toc-nav-text">Shiro 架构</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Apache-Shiro-%E6%9E%B6%E6%9E%84"><span class="toc-nav-text">Apache Shiro 架构</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E9%AB%98%E7%BA%A7%E6%A6%82%E8%BF%B0"><span class="toc-nav-text">高级概述</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E8%AF%A6%E7%BB%86%E6%9E%B6%E6%9E%84"><span class="toc-nav-text">详细架构</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Apache-Shiro-Web-Support"><span class="toc-nav-text">Apache Shiro Web Support</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Default-Filters"><span class="toc-nav-text">Default Filters</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Session-Management"><span class="toc-nav-text">Session Management</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Servlet-Container-Sessions"><span class="toc-nav-text">Servlet Container Sessions</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Native-Sessions"><span class="toc-nav-text">Native Sessions</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#DefaultWebSessionManager"><span class="toc-nav-text">DefaultWebSessionManager</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/24/Shiro/Shiro-架构/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

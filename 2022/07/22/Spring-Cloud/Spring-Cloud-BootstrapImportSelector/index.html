@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Spring Cloud BootstrapImportSelector | 🥫🍞
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="🥫🍞" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>🥫🍞</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Spring Cloud BootstrapImportSelector</h2>
+  <p class="post-date">2022-07-22</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Spring-Cloud-BootstrapImportSelector"><a href="#Spring-Cloud-BootstrapImportSelector" class="headerlink" title="Spring Cloud BootstrapImportSelector"></a>Spring Cloud BootstrapImportSelector</h1><p>在 <code>BootstrapApplicationListener</code> 监听器中，会将 <code>BootstrapImportSelectorConfiguration</code> 配置类注入到 IoC 容器，该配置类有一个注解 <code>@Import</code>，将 <code>BootstrapImportSelector</code> 类注入到容器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration(proxyBeanMethods = false)</span></span><br><span class="line"><span class="meta">@Import(BootstrapImportSelector.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BootstrapImportSelectorConfiguration</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><code>BootstrapImportSelector</code> 获得 spring.factories 文件中 key 为 <code>org.springframework.cloud.bootstrap.BootstrapConfiguration</code> 的配置组件。</p>
+<h2 id="构建-bootstrapServiceContext-流程"><a href="#构建-bootstrapServiceContext-流程" class="headerlink" title="构建 bootstrapServiceContext 流程"></a>构建 bootstrapServiceContext 流程</h2><p>在 <code>SpringApplication</code> 运行 run 方法的过程中会调用 <code>prepareEnvironment</code> 进行环境准备，其中会调用所有的监听器 <code>SpringApplicationRunListener</code> 进行环境准备，调用链如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SpringApplication.run()</span><br><span class="line">-&gt; SpringApplication.prepareEnvironment()</span><br><span class="line">-&gt; listeners.environmentPrepared()</span><br></pre></td></tr></table></figure>
+
+<p>一般来说，默认只有一个监听器 <code>EventPublishingRunListener</code>，以下是 <code>SpringApplicationRunListeners</code> 的调用入口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">environmentPrepared</span><span class="params">(ConfigurableEnvironment environment)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (SpringApplicationRunListener listener : <span class="built_in">this</span>.listeners) &#123;</span><br><span class="line">        listener.environmentPrepared(environment);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>EventPublishingRunListener</code> 会调用内部的 <code>initialMulticaster</code> 进行事件广播，代码清单如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">environmentPrepared</span><span class="params">(ConfigurableEnvironment environment)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.initialMulticaster</span><br><span class="line">            .multicastEvent(<span class="keyword">new</span> <span class="title class_">ApplicationEnvironmentPreparedEvent</span>(<span class="built_in">this</span>.application, <span class="built_in">this</span>.args, environment));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>接下来会进入 <code>SimpleApplicationEventMulticaster</code> 的广播事件逻辑，将会获取所有的 <code>ApplicationListener</code>（这也包括 <code>BootstrapApplicationListener</code>）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">multicastEvent</span><span class="params">(<span class="keyword">final</span> ApplicationEvent event, <span class="meta">@Nullable</span> ResolvableType eventType)</span> &#123;</span><br><span class="line">    <span class="type">ResolvableType</span> <span class="variable">type</span> <span class="operator">=</span> (eventType != <span class="literal">null</span> ? eventType : resolveDefaultEventType(event));</span><br><span class="line">    <span class="type">Executor</span> <span class="variable">executor</span> <span class="operator">=</span> getTaskExecutor();</span><br><span class="line">    <span class="keyword">for</span> (ApplicationListener&lt;?&gt; listener : getApplicationListeners(event, type)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (executor != <span class="literal">null</span>) &#123;</span><br><span class="line">            executor.execute(() -&gt; invokeListener(listener, event));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            invokeListener(listener, event);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用事件逻辑链如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SimpleApplicationEventMulticaster.invokeListener()</span><br><span class="line">-&gt; SimpleApplicationEventMulticaster.doInvokeListener()</span><br><span class="line">-&gt; ApplicationListener.onApplicationEvent(event)</span><br></pre></td></tr></table></figure>
+
+
+<p>下面 <code>BootstrapApplicationListener</code> 开始处理事件:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onApplicationEvent</span><span class="params">(ApplicationEnvironmentPreparedEvent event)</span> &#123;</span><br><span class="line">    <span class="type">ConfigurableEnvironment</span> <span class="variable">environment</span> <span class="operator">=</span> event.getEnvironment();</span><br><span class="line">    <span class="keyword">if</span> (!environment.getProperty(<span class="string">&quot;spring.cloud.bootstrap.enabled&quot;</span>, Boolean.class,</span><br><span class="line">            <span class="literal">true</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// don&#x27;t listen to events in a bootstrap context</span></span><br><span class="line">    <span class="keyword">if</span> (environment.getPropertySources().contains(BOOTSTRAP_PROPERTY_SOURCE_NAME)) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">ConfigurableApplicationContext</span> <span class="variable">context</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="type">String</span> <span class="variable">configName</span> <span class="operator">=</span> environment</span><br><span class="line">            .resolvePlaceholders(<span class="string">&quot;$&#123;spring.cloud.bootstrap.name:bootstrap&#125;&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (ApplicationContextInitializer&lt;?&gt; initializer : event.getSpringApplication()</span><br><span class="line">            .getInitializers()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (initializer <span class="keyword">instanceof</span> ParentContextApplicationContextInitializer) &#123;</span><br><span class="line">            context = findBootstrapContext(</span><br><span class="line">                    (ParentContextApplicationContextInitializer) initializer,</span><br><span class="line">                    configName);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (context == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 这里调用 bootstrapServiceContext 创建了一个上下文</span></span><br><span class="line">        context = bootstrapServiceContext(environment, event.getSpringApplication(), configName);</span><br><span class="line">        event.getSpringApplication().addListeners(<span class="keyword">new</span> <span class="title class_">CloseContextOnFailureApplicationListener</span>(context));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    apply(context, event.getSpringApplication(), environment);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面是 BoostrapApplicationListener 创建上下文的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> ConfigurableApplicationContext <span class="title function_">bootstrapServiceContext</span><span class="params">(</span></span><br><span class="line"><span class="params">        ConfigurableEnvironment environment, <span class="keyword">final</span> SpringApplication application,</span></span><br><span class="line"><span class="params">        String configName)</span> &#123;</span><br><span class="line">    <span class="type">StandardEnvironment</span> <span class="variable">bootstrapEnvironment</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StandardEnvironment</span>();</span><br><span class="line">    <span class="type">MutablePropertySources</span> <span class="variable">bootstrapProperties</span> <span class="operator">=</span> bootstrapEnvironment</span><br><span class="line">            .getPropertySources();</span><br><span class="line">    <span class="keyword">for</span> (PropertySource&lt;?&gt; source : bootstrapProperties) &#123;</span><br><span class="line">        bootstrapProperties.remove(source.getName());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">String</span> <span class="variable">configLocation</span> <span class="operator">=</span> environment</span><br><span class="line">            .resolvePlaceholders(<span class="string">&quot;$&#123;spring.cloud.bootstrap.location:&#125;&quot;</span>);</span><br><span class="line">    <span class="type">String</span> <span class="variable">configAdditionalLocation</span> <span class="operator">=</span> environment</span><br><span class="line">            .resolvePlaceholders(<span class="string">&quot;$&#123;spring.cloud.bootstrap.additional-location:&#125;&quot;</span>);</span><br><span class="line">    Map&lt;String, Object&gt; bootstrapMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    bootstrapMap.put(<span class="string">&quot;spring.config.name&quot;</span>, configName);</span><br><span class="line">    <span class="comment">// if an app (or test) uses spring.main.web-application-type=reactive, bootstrap</span></span><br><span class="line">    <span class="comment">// will fail</span></span><br><span class="line">    <span class="comment">// force the environment to use none, because if though it is set below in the</span></span><br><span class="line">    <span class="comment">// builder</span></span><br><span class="line">    <span class="comment">// the environment overrides it</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果一个应用（或者 test）使用 spring.main.web-application-type=reactive，bootstrap 就会失败</span></span><br><span class="line">    <span class="comment">// 强制环境使用 none，因为如果在构建器中设置为 below，环境就会覆盖???</span></span><br><span class="line">    bootstrapMap.put(<span class="string">&quot;spring.main.web-application-type&quot;</span>, <span class="string">&quot;none&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (StringUtils.hasText(configLocation)) &#123;</span><br><span class="line">        bootstrapMap.put(<span class="string">&quot;spring.config.location&quot;</span>, configLocation);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (StringUtils.hasText(configAdditionalLocation)) &#123;</span><br><span class="line">        bootstrapMap.put(<span class="string">&quot;spring.config.additional-location&quot;</span>,</span><br><span class="line">                configAdditionalLocation);</span><br><span class="line">    &#125;</span><br><span class="line">    bootstrapProperties.addFirst(</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">MapPropertySource</span>(BOOTSTRAP_PROPERTY_SOURCE_NAME, bootstrapMap));</span><br><span class="line">    <span class="keyword">for</span> (PropertySource&lt;?&gt; source : environment.getPropertySources()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (source <span class="keyword">instanceof</span> StubPropertySource) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        bootstrapProperties.addLast(source);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> is it possible or sensible to share a ResourceLoader?</span></span><br><span class="line">    <span class="type">SpringApplicationBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SpringApplicationBuilder</span>()</span><br><span class="line">            .profiles(environment.getActiveProfiles()).bannerMode(Mode.OFF)</span><br><span class="line">            .environment(bootstrapEnvironment)</span><br><span class="line">            <span class="comment">// Don&#x27;t use the default properties in this builder</span></span><br><span class="line">            .registerShutdownHook(<span class="literal">false</span>).logStartupInfo(<span class="literal">false</span>)</span><br><span class="line">            .web(WebApplicationType.NONE);</span><br><span class="line">    <span class="keyword">final</span> <span class="type">SpringApplication</span> <span class="variable">builderApplication</span> <span class="operator">=</span> builder.application();</span><br><span class="line">    <span class="keyword">if</span> (builderApplication.getMainApplicationClass() == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">// gh_425:</span></span><br><span class="line">        <span class="comment">// SpringApplication cannot deduce the MainApplicationClass here</span></span><br><span class="line">        <span class="comment">// if it is booted from SpringBootServletInitializer due to the</span></span><br><span class="line">        <span class="comment">// absense of the &quot;main&quot; method in stackTraces.</span></span><br><span class="line">        <span class="comment">// But luckily this method&#x27;s second parameter &quot;application&quot; here</span></span><br><span class="line">        <span class="comment">// carries the real MainApplicationClass which has been explicitly</span></span><br><span class="line">        <span class="comment">// set by SpringBootServletInitializer itself already.</span></span><br><span class="line">        builder.main(application.getMainApplicationClass());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (environment.getPropertySources().contains(<span class="string">&quot;refreshArgs&quot;</span>)) &#123;</span><br><span class="line">        <span class="comment">// If we are doing a context refresh, really we only want to refresh the</span></span><br><span class="line">        <span class="comment">// Environment, and there are some toxic listeners (like the</span></span><br><span class="line">        <span class="comment">// LoggingApplicationListener) that affect global static state, so we need a</span></span><br><span class="line">        <span class="comment">// way to switch those off.</span></span><br><span class="line">        builderApplication</span><br><span class="line">                .setListeners(filterListeners(builderApplication.getListeners()));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 这里配了一个 BootstrapImportSelectorConfiguration</span></span><br><span class="line">    builder.sources(BootstrapImportSelectorConfiguration.class);</span><br><span class="line">    <span class="keyword">final</span> <span class="type">ConfigurableApplicationContext</span> <span class="variable">context</span> <span class="operator">=</span> builder.run();</span><br><span class="line">    <span class="comment">// gh-214 using spring.application.name=bootstrap to set the context id via</span></span><br><span class="line">    <span class="comment">// `ContextIdApplicationContextInitializer` prevents apps from getting the actual</span></span><br><span class="line">    <span class="comment">// spring.application.name</span></span><br><span class="line">    <span class="comment">// during the bootstrap phase.</span></span><br><span class="line">    context.setId(<span class="string">&quot;bootstrap&quot;</span>);</span><br><span class="line">    <span class="comment">// Make the bootstrap context a parent of the app context</span></span><br><span class="line">    addAncestorInitializer(application, context);</span><br><span class="line">    <span class="comment">// It only has properties in it now that we don&#x27;t want in the parent so remove</span></span><br><span class="line">    <span class="comment">// it (and it will be added back later)</span></span><br><span class="line">    bootstrapProperties.remove(BOOTSTRAP_PROPERTY_SOURCE_NAME);</span><br><span class="line">    mergeDefaultProperties(environment.getPropertySources(), bootstrapProperties);</span><br><span class="line">    <span class="keyword">return</span> context;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="BootstrapImportSelector-如何进行-selectImports-操作"><a href="#BootstrapImportSelector-如何进行-selectImports-操作" class="headerlink" title="BootstrapImportSelector 如何进行 selectImports 操作"></a><code>BootstrapImportSelector</code> 如何进行 <code>selectImports</code> 操作</h2><p><code>bootstrapServiceContext</code> 与一般的 <code>ApplicationContext</code> 类似，也需要进行容器 <code>refresh</code> 操作。</p>
+<p>其中会调用许多 <code>BeanFactoryPostProcessor</code> 进行处理，包括 <code>ConfigurationClassPostProcessor</code>，Bean Definition <code>bootstrapImportSelectorConfiguration</code> 就是其处理对象，也可以说是候选人 <code>candidates</code> 之一。</p>
+<p>候选人经过 <code>ConfigurationClassParser</code> 解析，解析之后会得到许多 <code>ConfigurationClass</code>。解析的过程主要分两个步骤：解析、延迟处理：</p>
+<blockquote>
+<p>对于那些实现了 <code>DeferredImportSelector</code> 接口的 <code>ImportSelector</code>，会在延迟处理中处理</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ConfigurationClassParser</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">parse</span><span class="params">(Set&lt;BeanDefinitionHolder&gt; configCandidates)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (BeanDefinitionHolder holder : configCandidates) &#123;</span><br><span class="line">        <span class="type">BeanDefinition</span> <span class="variable">bd</span> <span class="operator">=</span> holder.getBeanDefinition();</span><br><span class="line">        <span class="comment">// 以下的 parse 方法也会特殊过滤 DeferredImportSelector</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (bd <span class="keyword">instanceof</span> AnnotatedBeanDefinition) &#123;</span><br><span class="line">                parse(((AnnotatedBeanDefinition) bd).getMetadata(), holder.getBeanName());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (bd <span class="keyword">instanceof</span> AbstractBeanDefinition &amp;&amp; ((AbstractBeanDefinition) bd).hasBeanClass()) &#123;</span><br><span class="line">                parse(((AbstractBeanDefinition) bd).getBeanClass(), holder.getBeanName());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                parse(bd.getBeanClassName(), holder.getBeanName());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (BeanDefinitionStoreException ex) &#123;</span><br><span class="line">            <span class="keyword">throw</span> ex;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BeanDefinitionStoreException</span>(</span><br><span class="line">                    <span class="string">&quot;Failed to parse configuration class [&quot;</span> + bd.getBeanClassName() + <span class="string">&quot;]&quot;</span>, ex);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 延迟处理 ImportSelector</span></span><br><span class="line">    <span class="built_in">this</span>.deferredImportSelectorHandler.process();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><code>parse</code> 方法执行结束，接着使用 <code>ConfigurationClassBeanDefinitionReader</code> 加载所有的 <code>ConfigurationClass</code>。一般这里会解析到如下：</p>
+<ul>
+<li>org.springframework.cloud.bootstrap.BootstrapImportSelectorConfiguration</li>
+<li>org&#x2F;springframework&#x2F;cloud&#x2F;bootstrap&#x2F;config&#x2F;PropertySourceBootstrapConfiguration.class</li>
+<li>org&#x2F;springframework&#x2F;cloud&#x2F;bootstrap&#x2F;encrypt&#x2F;EncryptionBootstrapConfiguration.class</li>
+<li>org&#x2F;springframework&#x2F;cloud&#x2F;autoconfigure&#x2F;ConfigurationPropertiesRebinderAutoConfiguration.class</li>
+<li>org&#x2F;springframework&#x2F;boot&#x2F;autoconfigure&#x2F;context&#x2F;PropertyPlaceholderAutoConfiguration.class</li>
+<li>org&#x2F;springframework&#x2F;cloud&#x2F;util&#x2F;random&#x2F;CachedRandomPropertySourceAutoConfiguration.class</li>
+</ul>
+<p>针对这些 <code>ConfigurationClass</code>，以此进行 Bean Definition 的加载：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ConfigurationClassBeanDefinitionReader.java</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">loadBeanDefinitionsForConfigurationClass</span><span class="params">(</span></span><br><span class="line"><span class="params">        ConfigurationClass configClass, TrackedConditionEvaluator trackedConditionEvaluator)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (trackedConditionEvaluator.shouldSkip(configClass)) &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">beanName</span> <span class="operator">=</span> configClass.getBeanName();</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.hasLength(beanName) &amp;&amp; <span class="built_in">this</span>.registry.containsBeanDefinition(beanName)) &#123;</span><br><span class="line">            <span class="built_in">this</span>.registry.removeBeanDefinition(beanName);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.importRegistry.removeImportingClass(configClass.getMetadata().getClassName());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (configClass.isImported()) &#123;</span><br><span class="line">        registerBeanDefinitionForImportedConfigurationClass(configClass);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (BeanMethod beanMethod : configClass.getBeanMethods()) &#123;</span><br><span class="line">        loadBeanDefinitionsForBeanMethod(beanMethod);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 用于处理导入资源</span></span><br><span class="line">    loadBeanDefinitionsFromImportedResources(configClass.getImportedResources());</span><br><span class="line">    <span class="comment">// 用于处理 </span></span><br><span class="line">    loadBeanDefinitionsFromRegistrars(configClass.getImportBeanDefinitionRegistrars());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Spring Cloud" >
+    <span class="tag-code">Spring Cloud</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/22/%E9%9D%A2%E8%AF%95/MQ-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        <span class="nav-arrow">← </span>
+        
+          MQ 学习笔记
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/22/Spring-Framework/Spring-MVC-DispatcherServlet-%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E7%9A%84%E8%BF%87%E7%A8%8B/">
+        
+          Spring MVC DispatcherServlet 处理请求的过程
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo="JiangChunbo/jiangchunbo.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Spring-Cloud-BootstrapImportSelector"><span class="toc-nav-text">Spring Cloud BootstrapImportSelector</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%9E%84%E5%BB%BA-bootstrapServiceContext-%E6%B5%81%E7%A8%8B"><span class="toc-nav-text">构建 bootstrapServiceContext 流程</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#BootstrapImportSelector-%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C-selectImports-%E6%93%8D%E4%BD%9C"><span class="toc-nav-text">BootstrapImportSelector 如何进行 selectImports 操作</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/22/Spring-Cloud/Spring-Cloud-BootstrapImportSelector/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

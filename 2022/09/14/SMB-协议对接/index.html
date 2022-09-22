@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      SMB 协议对接 | 🥫🍞
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="🥫🍞" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>🥫🍞</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>SMB 协议对接</h2>
+  <p class="post-date">2022-09-14</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="参考引用"><a href="#参考引用" class="headerlink" title="参考引用"></a>参考引用</h1><p><a target="_blank" rel="noopener" href="https://github.com/hierynomus/smbj">https://github.com/hierynomus/smbj</a></p>
+<p>fileAttributes，包含文件属性掩码<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/ca28ec38-f155-4768-81d6-4bfeb8586fc9">https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/ca28ec38-f155-4768-81d6-4bfeb8586fc9</a></p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>maven</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.hierynomus<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>smbj<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.11.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>SMB 关于 Windows 的共享文件夹</p>
+<p>如果开启了<strong>密码保护</strong>需要提供<strong>账户</strong>和<strong>密码</strong></p>
+<p>计算机处于睡眠状态时无法访问共享目录</p>
+<p>如果为 EveryOne 开启了访问权限，即使不存在的<strong>账户</strong>，也可以访问，此时密码应该被忽略</p>
+<p>如果<strong>账户</strong>是系统存在的，则会进行<strong>密码</strong>认证，失败则不通过。</p>
+<h2 id="获得一个-SMBClient"><a href="#获得一个-SMBClient" class="headerlink" title="获得一个 SMBClient"></a>获得一个 SMBClient</h2><p>无参构造器:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">SMBClient</span> <span class="variable">client</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SMBClient</span>();</span><br></pre></td></tr></table></figure>
+
+<p>自定义配置:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">SmbConfig</span> <span class="variable">config</span> <span class="operator">=</span> SmbConfig.builder()</span><br><span class="line">        .withTimeout(<span class="number">120</span>, TimeUnit.SECONDS) <span class="comment">// Timeout sets Read, Write, and Transact timeouts (default is 60 seconds)</span></span><br><span class="line">        .withSoTimeout(<span class="number">180</span>, TimeUnit.SECONDS) <span class="comment">// Socket Timeout (default is 0 seconds, blocks forever)</span></span><br><span class="line">        .build();</span><br><span class="line"><span class="type">SMBClient</span> <span class="variable">client</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SMBClient</span>(config);</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="获得一个-Connection"><a href="#获得一个-Connection" class="headerlink" title="获得一个 Connection"></a>获得一个 Connection</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 注意关闭</span></span><br><span class="line"><span class="keyword">try</span> (<span class="type">Connection</span> <span class="variable">connection</span> <span class="operator">=</span> client.connect(<span class="string">&quot;127.0.0.1&quot;</span>)) &#123;</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    <span class="comment">// 可能 client connect 超时</span></span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e.getMessage(), e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="获得一个-Session"><a href="#获得一个-Session" class="headerlink" title="获得一个 Session"></a>获得一个 Session</h2><p>获得一个会话示例代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Session</span> <span class="variable">session</span> <span class="operator">=</span> connection.authenticate(</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">AuthenticationContext</span>(<span class="string">&quot;USERNAME&quot;</span>, <span class="string">&quot;PASSWORD&quot;</span>.toCharArray(), <span class="literal">null</span>));</span><br></pre></td></tr></table></figure>
+
+<h2 id="获得-DiskShare"><a href="#获得-DiskShare" class="headerlink" title="获得 DiskShare"></a>获得 DiskShare</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Connect to Share</span></span><br><span class="line"><span class="keyword">try</span> (<span class="type">DiskShare</span> <span class="variable">share</span> <span class="operator">=</span> (DiskShare) session.connectShare(<span class="string">&quot;shareDirectory&quot;</span>)) &#123;</span><br><span class="line">    <span class="keyword">for</span> (FileIdBothDirectoryInformation f : share.list(<span class="string">&quot;data&quot;</span>, <span class="string">&quot;*.csv&quot;</span>)) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;File : &quot;</span> + f.getFileName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="整体-Demo"><a href="#整体-Demo" class="headerlink" title="整体 Demo"></a>整体 Demo</h2><p>获得共享名称为 shareDir 下的所有文件名信息，并输出: </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 1. 使用 try 语句块自动关闭资源</span></span><br><span class="line"><span class="comment">    * 2. client.connect 参数 hostname 可能导致抛出异常</span></span><br><span class="line"><span class="comment">    * 3. connection.authenticate 认证失败可能导致抛出异常</span></span><br><span class="line"><span class="comment">    * 4. session.connectShare shareName 不存在可能导致抛出异常</span></span><br><span class="line"><span class="comment">    * 5. share.list 传入的 path 错误可能导致抛出异常</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line"><span class="keyword">try</span> (<span class="type">SMBClient</span> <span class="variable">client</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SMBClient</span>();</span><br><span class="line">        <span class="type">Connection</span> <span class="variable">connection</span> <span class="operator">=</span> client.connect(<span class="string">&quot;127.0.0.1&quot;</span>);</span><br><span class="line">        <span class="type">Session</span> <span class="variable">session</span> <span class="operator">=</span> connection.authenticate(<span class="keyword">new</span> <span class="title class_">AuthenticationContext</span>(<span class="string">&quot;USERNAME&quot;</span>, <span class="string">&quot;PASSWORD&quot;</span>.toCharArray(), <span class="literal">null</span>));</span><br><span class="line">        <span class="type">DiskShare</span> <span class="variable">share</span> <span class="operator">=</span> (DiskShare) session.connectShare(<span class="string">&quot;shareDir&quot;</span>)) &#123;</span><br><span class="line">    <span class="keyword">for</span> (FileIdBothDirectoryInformation f : share.list(<span class="string">&quot;&quot;</span>, <span class="string">&quot;*.csv&quot;</span>)) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;File : &quot;</span> + f.getFileName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="com-hierynomus-smbj-share-File"><a href="#com-hierynomus-smbj-share-File" class="headerlink" title="com.hierynomus.smbj.share.File"></a><code>com.hierynomus.smbj.share.File</code></h2><ul>
+<li>打开一个文件（读）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">File</span> <span class="variable">smbFileRead</span> <span class="operator">=</span> dirShare.openFile(</span><br><span class="line">    fileName, <span class="comment">// 路径</span></span><br><span class="line">    EnumSet.of(AccessMask.GENERIC_READ), <span class="comment">// Set&lt;AccessMask&gt;</span></span><br><span class="line">    <span class="literal">null</span>, <span class="comment">// Set&lt;FileAttributes&gt;</span></span><br><span class="line">    SMB2ShareAccess.ALL, <span class="comment">// Set&lt;SMB2ShareAccess&gt;</span></span><br><span class="line">    SMB2CreateDisposition.FILE_OPEN, <span class="comment">// SMB2CreateDisposition</span></span><br><span class="line">    <span class="literal">null</span>); <span class="comment">// Set&lt;SMB2CreateOptions&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<p>SMB2CreateDisposition: 如果传递 <code>FILE_OPEN</code>，那么文件找不到的情况下会抛出异常；如果设置为 <code>FILE_OPEN_IF</code>，那么文件找不到的情况下会静默继续</p>
+<ul>
+<li>远程拷贝</li>
+</ul>
+<p>就是直接在远程机器上将一个文件拷贝到另一个文件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 确保拷贝到的文件夹存在</span></span><br><span class="line"><span class="built_in">this</span>.ensureDirectoryExists(diskShare, dir);</span><br><span class="line">com.hierynomus.smbj.share.<span class="type">File</span> <span class="variable">backupShareFile</span> <span class="operator">=</span> diskShare.openFile(</span><br><span class="line">        <span class="string">&quot;copy-directory\\&quot;</span> + filename,</span><br><span class="line">        EnumSet.of(AccessMask.GENERIC_ALL), <span class="comment">// Set&lt;AccessMask&gt;</span></span><br><span class="line">        <span class="literal">null</span>, <span class="comment">// Set&lt;FileAttributes&gt;</span></span><br><span class="line">        SMB2ShareAccess.ALL, <span class="comment">// Set&lt;SMB2ShareAccess&gt;</span></span><br><span class="line">        SMB2CreateDisposition.FILE_CREATE, <span class="comment">// SMB2CreateDisposition</span></span><br><span class="line">        <span class="literal">null</span>);</span><br><span class="line">smbFile.remoteCopyTo(backupShareFile);</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>如何判断一个 <code>File</code> 是否是文件夹</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// FileIdBothDirectoryInformation</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">isDirectory</span> <span class="operator">=</span> (f.getFileAttributes() &amp; <span class="number">0x10</span>) == <span class="number">0x10</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// File</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">directory</span> <span class="operator">=</span> shareFile.getFileInformation().getStandardInformation().isDirectory();</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p>将共享文件夹 <code>\\127.0.0.1\shareDirectory</code> 下的所有文件都转移到 <code>\\127.0.0.1\shareDirectory\backup</code> 文件夹下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">transferAllFiles</span><span class="params">(String path)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> (<span class="type">SMBClient</span> <span class="variable">client</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SMBClient</span>();</span><br><span class="line">            <span class="type">Connection</span> <span class="variable">connection</span> <span class="operator">=</span> client.connect(<span class="string">&quot;127.0.0.1&quot;</span>);</span><br><span class="line">            <span class="type">Session</span> <span class="variable">session</span> <span class="operator">=</span> connection.authenticate(<span class="keyword">new</span> <span class="title class_">AuthenticationContext</span>(<span class="string">&quot;USERNAME&quot;</span>, <span class="string">&quot;PASSWORD&quot;</span>.toCharArray(), <span class="literal">null</span>));</span><br><span class="line">            <span class="type">DiskShare</span> <span class="variable">share</span> <span class="operator">=</span> (DiskShare) session.connectShare(<span class="string">&quot;shareDirectory&quot;</span>)) &#123;</span><br><span class="line">        List&lt;FileIdBothDirectoryInformation&gt; fileIdBothDirectoryInformationList = share.list(path, <span class="string">&quot;*&quot;</span>);</span><br><span class="line">        fileIdBothDirectoryInformationList = fileIdBothDirectoryInformationList.stream().filter(fileIdBothDirectoryInformation -&gt; &#123;</span><br><span class="line">            <span class="comment">// 过滤掉文件夹</span></span><br><span class="line">            <span class="keyword">return</span> (fileIdBothDirectoryInformation.getFileAttributes() &amp; <span class="number">0x10</span>) == <span class="number">0</span>;</span><br><span class="line">        &#125;).collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (FileIdBothDirectoryInformation f : fileIdBothDirectoryInformationList) &#123;</span><br><span class="line">            com.hierynomus.smbj.share.<span class="type">File</span> <span class="variable">shareFile</span> <span class="operator">=</span> share.openFile(</span><br><span class="line">                    path + <span class="string">&quot;\\&quot;</span> + f.getFileName(), <span class="comment">// 路径</span></span><br><span class="line">                    EnumSet.of(AccessMask.GENERIC_ALL), <span class="comment">// Set&lt;AccessMask&gt;</span></span><br><span class="line">                    <span class="literal">null</span>, <span class="comment">// Set&lt;FileAttributes&gt;</span></span><br><span class="line">                    SMB2ShareAccess.ALL, <span class="comment">// Set&lt;SMB2ShareAccess&gt;</span></span><br><span class="line">                    SMB2CreateDisposition.FILE_OPEN, <span class="comment">// SMB2CreateDisposition</span></span><br><span class="line">                    <span class="literal">null</span>); <span class="comment">// Set&lt;SMB2CreateOptions&gt;</span></span><br><span class="line">            com.hierynomus.smbj.share.<span class="type">File</span> <span class="variable">backupShareFile</span> <span class="operator">=</span> share.openFile(</span><br><span class="line">                    path + <span class="string">&quot;\\backup\\&quot;</span> + f.getFileName(),</span><br><span class="line">                    EnumSet.of(AccessMask.GENERIC_ALL), <span class="comment">// Set&lt;AccessMask&gt;</span></span><br><span class="line">                    <span class="literal">null</span>, <span class="comment">// Set&lt;FileAttributes&gt;</span></span><br><span class="line">                    SMB2ShareAccess.ALL, <span class="comment">// Set&lt;SMB2ShareAccess&gt;</span></span><br><span class="line">                    SMB2CreateDisposition.FILE_CREATE, <span class="comment">// SMB2CreateDisposition</span></span><br><span class="line">                    <span class="literal">null</span>);</span><br><span class="line">            shareFile.remoteCopyTo(backupShareFile);</span><br><span class="line">            <span class="comment">// 最后要删掉</span></span><br><span class="line">            shareFile.deleteOnClose();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></section>
+    <!-- Tags START -->
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/09/08/maven/Maven-%E7%AC%94%E8%AE%B0/">
+        <span class="nav-arrow">← </span>
+        
+          Maven 笔记
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/09/14/%E5%A4%9A%E7%BA%BF%E7%A8%8B/Java-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%AC%94%E8%AE%B0/">
+        
+          Java 线程池笔记
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo="JiangChunbo/jiangchunbo.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%8F%82%E8%80%83%E5%BC%95%E7%94%A8"><span class="toc-nav-text">参考引用</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-nav-text">使用</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%8E%B7%E5%BE%97%E4%B8%80%E4%B8%AA-SMBClient"><span class="toc-nav-text">获得一个 SMBClient</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%8E%B7%E5%BE%97%E4%B8%80%E4%B8%AA-Connection"><span class="toc-nav-text">获得一个 Connection</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%8E%B7%E5%BE%97%E4%B8%80%E4%B8%AA-Session"><span class="toc-nav-text">获得一个 Session</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%8E%B7%E5%BE%97-DiskShare"><span class="toc-nav-text">获得 DiskShare</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%95%B4%E4%BD%93-Demo"><span class="toc-nav-text">整体 Demo</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#com-hierynomus-smbj-share-File"><span class="toc-nav-text">com.hierynomus.smbj.share.File</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="toc-nav-text">案例</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/09/14/SMB-协议对接/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      ShiroFilter 执行流程 | 🥫🍞
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="🥫🍞" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>🥫🍞</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>ShiroFilter 执行流程</h2>
+  <p class="post-date">2022-07-23</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="ShiroFilter-执行流程"><a href="#ShiroFilter-执行流程" class="headerlink" title="ShiroFilter 执行流程"></a>ShiroFilter 执行流程</h1><h2 id="SpringShiroFilter"><a href="#SpringShiroFilter" class="headerlink" title="SpringShiroFilter"></a>SpringShiroFilter</h2><p><code>SpringShiroFilter</code> 是 Shiro 整合 Spring Web 提供的一个 <code>Filter</code>，通过将其配置到 Servlet 容器的过滤器链中参与处理。</p>
+<ol>
+<li>包装 Request 和 Response，使它们由原来的 HttpServlet 系列包装（装饰）为 ShiroHttpServletRequest</li>
+</ol>
+<blockquote>
+<p>装饰器设计模式，扩展了一些功能</p>
+</blockquote>
+<ol start="2">
+<li>创建 Subject，传递给接下来的过滤器（通过 ThreadLocal）；</li>
+</ol>
+<p>如果没有定义任何 <code>FilterChainDefinitionMap</code>，那 Shiro 也会把 Request 交给它默认的过滤器过滤。</p>
+<ol start="3">
+<li><p>寻找合适的 <code>FilterChain</code>，如果找到则转交给该 <code>FilterChain</code> 过滤</p>
+</li>
+<li><p>更新 SessionLastAccessTime（native sessions）</p>
+</li>
+</ol>
+<p>以下是 <code>SpringShiroFilter</code> 的代码清单：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doFilterInternal</span><span class="params">(ServletRequest servletRequest, ServletResponse servletResponse, <span class="keyword">final</span> FilterChain chain)</span></span><br><span class="line">        <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">Throwable</span> <span class="variable">t</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 装饰原生 request response</span></span><br><span class="line">        <span class="keyword">final</span> <span class="type">ServletRequest</span> <span class="variable">request</span> <span class="operator">=</span> prepareServletRequest(servletRequest, servletResponse, chain);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">ServletResponse</span> <span class="variable">response</span> <span class="operator">=</span> prepareServletResponse(request, servletResponse, chain);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="type">Subject</span> <span class="variable">subject</span> <span class="operator">=</span> createSubject(request, response);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//noinspection unchecked</span></span><br><span class="line">        <span class="comment">// 通过 Callable 进行增强，底层会将 subject、securityManager 都存到 ThreadLocal</span></span><br><span class="line">        subject.execute(<span class="keyword">new</span> <span class="title class_">Callable</span>() &#123;</span><br><span class="line">            <span class="keyword">public</span> Object <span class="title function_">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">                <span class="comment">// 更新 session last access time</span></span><br><span class="line">                updateSessionLastAccessTime(request, response);</span><br><span class="line">                <span class="comment">// 执行链</span></span><br><span class="line">                executeChain(request, response, chain);</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ExecutionException ex) &#123;</span><br><span class="line">        t = ex.getCause();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable throwable) &#123;</span><br><span class="line">        t = throwable;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (t != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (t <span class="keyword">instanceof</span> ServletException) &#123;</span><br><span class="line">            <span class="keyword">throw</span> (ServletException) t;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (t <span class="keyword">instanceof</span> IOException) &#123;</span><br><span class="line">            <span class="keyword">throw</span> (IOException) t;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//otherwise it&#x27;s not one of the two exceptions expected by the filter method signature - wrap it in one:</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">msg</span> <span class="operator">=</span> <span class="string">&quot;Filtered request failed.&quot;</span>;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ServletException</span>(msg, t);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>从上述代码可以看到，subject 对象并不是直接调用相关的方法，而是通过向 execute 方法传递一个 <code>Callable</code>，该 <code>Callable</code> 实际会被 Shiro 的 <code>SubjectCallable</code> 包装起来，可以认为是一种装饰器模式。<code>SubjectCallable</code> 调用如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> V <span class="title function_">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// threadState 实际上是 SubjectThreadState</span></span><br><span class="line">        <span class="comment">// bind 方法底层会将 subject, securityManager 都绑定到一个 Map 的 ThreadLocal</span></span><br><span class="line">        threadState.bind();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 实际调用被装饰的 callable</span></span><br><span class="line">        <span class="keyword">return</span> doCall(<span class="built_in">this</span>.callable);</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        threadState.restore();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span> V <span class="title function_">doCall</span><span class="params">(Callable&lt;V&gt; target)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="keyword">return</span> target.call();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Subject 执行 executeChain 的代码清单如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">executeChain</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain origChain)</span> <span class="keyword">throws</span> IOException, ServletException &#123;</span><br><span class="line">    <span class="comment">// 寻找合适的 FilterChain</span></span><br><span class="line">    <span class="comment">// 可能是 Tomcat 原生（未找到），也可能是 Shiro 自己链</span></span><br><span class="line">    <span class="type">FilterChain</span> <span class="variable">chain</span> <span class="operator">=</span> getExecutionChain(request, response, origChain);</span><br><span class="line">    chain.doFilter(request, response);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以下是通过 requestURI 获取 FilterChain 的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> FilterChain <span class="title function_">getChain</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain originalChain)</span> &#123;</span><br><span class="line">    <span class="type">FilterChainManager</span> <span class="variable">filterChainManager</span> <span class="operator">=</span> getFilterChainManager();</span><br><span class="line">    <span class="keyword">if</span> (!filterChainManager.hasChains()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="type">String</span> <span class="variable">requestURI</span> <span class="operator">=</span> getPathWithinApplication(request);</span><br><span class="line">    <span class="keyword">final</span> <span class="type">String</span> <span class="variable">requestURINoTrailingSlash</span> <span class="operator">=</span> removeTrailingSlash(requestURI);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//the &#x27;chain names&#x27; in this implementation are actually path patterns defined by the user.  We just use them</span></span><br><span class="line">    <span class="comment">//as the chain name for the FilterChainManager&#x27;s requirements</span></span><br><span class="line">    <span class="keyword">for</span> (String pathPattern : filterChainManager.getChainNames()) &#123;</span><br><span class="line">        <span class="comment">// If the path does match, then pass on to the subclass implementation for specific checks:</span></span><br><span class="line">        <span class="keyword">if</span> (pathMatches(pathPattern, requestURI)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (log.isTraceEnabled()) &#123;</span><br><span class="line">                log.trace(<span class="string">&quot;Matched path pattern [&#123;&#125;] for requestURI [&#123;&#125;].  &quot;</span> +</span><br><span class="line">                        <span class="string">&quot;Utilizing corresponding filter chain...&quot;</span>, pathPattern, Encode.forHtml(requestURI));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> filterChainManager.proxy(originalChain, pathPattern);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// in spring web, the requestURI &quot;/resource/menus&quot; ---- &quot;resource/menus/&quot; bose can access the resource</span></span><br><span class="line">            <span class="comment">// but the pathPattern match &quot;/resource/menus&quot; can not match &quot;resource/menus/&quot;</span></span><br><span class="line">            <span class="comment">// user can use requestURI + &quot;/&quot; to simply bypassed chain filter, to bypassed shiro protect</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 在 Spring Web 中，requestURI &quot;/resource/menus&quot; ---- &quot;resource/menus/&quot; 都可以访问资源</span></span><br><span class="line">            <span class="comment">// 但是 pathPattern 匹配 &quot;/resource/menus&quot; 不能匹配 &quot;resource/menus/&quot;</span></span><br><span class="line">            <span class="comment">// 用户可能使用 requestURI + &quot;/&quot; 来简单跳过 chain filter，以避开 shiro 的保护</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 因此，这里去除了末尾的 &quot;/&quot;</span></span><br><span class="line">            pathPattern = removeTrailingSlash(pathPattern);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 逻辑类似上面</span></span><br><span class="line">            <span class="keyword">if</span> (pathMatches(pathPattern, requestURINoTrailingSlash)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (log.isTraceEnabled()) &#123;</span><br><span class="line">                    log.trace(<span class="string">&quot;Matched path pattern [&#123;&#125;] for requestURI [&#123;&#125;].  &quot;</span> +</span><br><span class="line">                                <span class="string">&quot;Utilizing corresponding filter chain...&quot;</span>, pathPattern, Encode.forHtml(requestURINoTrailingSlash));</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> filterChainManager.proxy(originalChain, pathPattern);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></section>
+    <!-- Tags START -->
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/23/Spring-Framework/Spring-Web-MVC-ViewResolver-%E7%AC%94%E8%AE%B0/">
+        <span class="nav-arrow">← </span>
+        
+          Spring Web MVC ViewResolver 笔记
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/24/Shiro/Shiro-%E6%9E%B6%E6%9E%84/">
+        
+          Shiro 架构
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo="JiangChunbo/jiangchunbo.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#ShiroFilter-%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="toc-nav-text">ShiroFilter 执行流程</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#SpringShiroFilter"><span class="toc-nav-text">SpringShiroFilter</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/23/Shiro/ShiroFilter 执行流程/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JiangChunbo&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Maven 笔记 | 🥫🍞
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="🥫🍞" type="application/atom+xml">
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>🥫🍞</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/categories/" class="item-link">Categories</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/categories/" class="menu-link">Categories</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Maven 笔记</h2>
+  <p class="post-date">2022-09-08</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Maven-笔记"><a href="#Maven-笔记" class="headerlink" title="Maven 笔记"></a>Maven 笔记</h1><h2 id="Maven-是什么"><a href="#Maven-是什么" class="headerlink" title="Maven 是什么"></a>Maven 是什么</h2><p><a target="_blank" rel="noopener" href="https://maven.apache.org/what-is-maven.html">官方介绍 What is  Maven?</a></p>
+<p>Maven 是 Apache 软件基金会唯一维护的一款【自动化构建工具】。专注于 Java 平台的【项目构建】和【项目管理】</p>
+<h2 id="Inheritance"><a href="#Inheritance" class="headerlink" title="Inheritance"></a>Inheritance</h2><p>Maven 为构建管理带来的强大的额外特性就是项目继承 (Inheritance) 的概念。</p>
+<p>对于父工程和聚合 (多模块) 工程，<code>packaging</code> 类型必须是 <code>pom</code>。这些类型定义了绑定到一组生命周期阶段的目标。例如，如果 packaging 是 <code>jar</code>, 那么 <code>package</code> 阶段就会执行 <code>jar:jar</code> 目标。</p>
+<p>请注意 <code>relativePath</code> 元素。它不是必需的，但是它可以作为一个指示器，告诉 Maven 在搜索本地以及远程仓库之前，首先搜索该工程的父工程给定的路径。</p>
+<blockquote>
+<p>个人感觉 <code>relativePath</code> 使用场景很小</p>
+</blockquote>
+<h2 id="构建项目的主要环节"><a href="#构建项目的主要环节" class="headerlink" title="构建项目的主要环节"></a>构建项目的主要环节</h2><ul>
+<li>clean：清理，删除以前的编译结果</li>
+<li>compile：编译，将 Java 源程序编译为字节码</li>
+<li>test：对项目进行测试</li>
+<li>package：将项目进行打包，以 jar 或 war 格式。</li>
+<li>install：将打包的结果 jar 或者 war 安装到本地仓库。</li>
+<li>deploy：将打包的结果部署到远程仓库或者 war 包部署到服务器上运行</li>
+</ul>
+<h2 id="Maven-常用命令"><a href="#Maven-常用命令" class="headerlink" title="Maven 常用命令"></a>Maven 常用命令</h2><p><code>mvn -version / mvn -v</code> 显示版本信息<br><code>mvn clean</code> 清理<br><code>mvn compile</code> 编译<br><code>mvn test</code> 编译并测试<br><code>mvn package</code> 生成 target 目录，编译、测试代码，生成测试报告，生成 jar&#x2F;war<br><code>mvn site</code> 生成项目相关信息的网站<br><code>mvn clean compile</code> 清理之后编译<br><code>mvn clean package</code> 清理之后打包<br><code>mvn clean install</code> 清理之后安装<br><code>mvn clean deploy</code> 清理之后发布</p>
+<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><h3 id="依赖的范围"><a href="#依赖的范围" class="headerlink" title="依赖的范围"></a>依赖的范围</h3><p>依赖范围 <code>&lt;scope&gt;</code> 控制哪些依赖在哪些 classpath 中可用，哪些依赖包含在一个应用中。</p>
+<p>【compile】默认的范围；编译范围依赖在所有的 classpath 中可用，同时它们也会被打包。</p>
+<p>【provided】provided 依赖只有在当 JDK 或者一个容器已提供该依赖之后才使用。例如， 如果你开发了一个web 应用，你可能在编译 classpath 中需要可用的 Servlet API 来编译一个 servlet，但是你不会想要在打包好的 WAR 中包含这个Servlet API；这个Servlet API JAR 由你的应用服务器或者servlet 容器提供。已提供范围的依赖在编译classpath （不是运行时）可用。它们不是传递性的，也不会被打包。</p>
+<p>或者还有 lombok 的使用，打包完毕之后便不再需要包含这个 API。</p>
+<p>【runtime】 runtime 依赖在运行和测试系统的时候需要，但在编译的时候不需要。比如，你可能在编译的时候只需要JDBC API JAR，而只有在运行的时候才需要JDBC 驱动实现。</p>
+<p>【test】 test范围依赖 在一般的编译和运行时都不需要，它们只有在测试编译和测试运行阶段可用。</p>
+<p>【system】 system范围依赖与provided类似，但是你必须显式的提供一个对于本地系统中JAR文件的路径。这么做是为了允许基于本地对象编译，而这些对象是系统类库的一部分。这样的构建应该是一直可用的，Maven 也不会在仓库中去寻找它。如果你将一个依赖范围设置成系统范围，你必须同时提供一个systemPath元素。注意该范围是不推荐使用的（建议尽量去从公共或定制的 Maven 仓库中引用依赖）。</p>
+<p>【import】 import 仅支持在 <code>&lt;dependencyManagement&gt;</code> 中的类型依赖项上。该选项可以用来解决 Maven 的单继承。</p>
+<p>通常，我们会使用 spring-boot-starter-parent 作为项目的父工程，因为其中进行了很多版本管理，同时我们也希望引入其他版本管理的工程，如 spring-cloud、spring-cloud-alibaba。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>Hoxton.SR1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="lt-version-gt"><a href="#lt-version-gt" class="headerlink" title="&lt;version&gt;"></a><code>&lt;version&gt;</code></h3><ul>
+<li><code>&lt;parent&gt;</code> 标签下的 <code>&lt;version&gt;</code></li>
+</ul>
+<p>Snapshot版本代表不稳定、尚处于开发中的版本  Release版本则代表稳定的版本<br>如果 deploy 到远程服务器 如果是 release 只能 deploy 一次，以后部署的话，就会报错冲突，因为是稳定版<br>但是如果是 snapshot 的话，你可以 deploy 多次，每一次都会冲掉原来的版本，表示不稳定</p>
+<ul>
+<li><code>&lt;dependency&gt;</code> 下的 <code>&lt;version&gt;</code></li>
+</ul>
+<p>显式设置依赖的版本</p>
+<h3 id="lt-dependencyManagement-gt"><a href="#lt-dependencyManagement-gt" class="headerlink" title="&lt;dependencyManagement &gt;"></a><code>&lt;dependencyManagement &gt;</code></h3><p>Maven 使用 dependencyManagement 元素来提供一种管理<strong>依赖版本</strong>的方式。通常会在一个组织或项目的最顶层的父 POM 中看到。</p>
+<p>使用 pom.xml 中的 <code>&lt;dependencyManagement &gt; </code>能让所有在子项目中引用一个依赖而不用显式地写 <code>&lt;version&gt;</code>，Maven 会沿着父子层次向上找，直到找到一个拥有 dependencyManagement 元素的项目，然后它就会使用这个版本号。</p>
+<p>dependencyManagement 只是声明依赖，并不引入依赖，因此子项目需要显式进行依赖引入。</p>
+<h3 id="lt-optional-gt"><a href="#lt-optional-gt" class="headerlink" title="&lt;optional&gt;"></a><code>&lt;optional&gt;</code></h3><p>默认为 false，optional 标签 设置为true 可以防止依赖继承到 jar 包，比如 spring-boot-devtools</p>
+</section>
+    <!-- Tags START -->
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/08/26/Spring-Framework/Spring-Framework-Data-Access/">
+        <span class="nav-arrow">← </span>
+        
+          Spring Framework Data Access
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/09/14/SMB-%E5%8D%8F%E8%AE%AE%E5%AF%B9%E6%8E%A5/">
+        
+          SMB 协议对接
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo="JiangChunbo/jiangchunbo.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Maven-%E7%AC%94%E8%AE%B0"><span class="toc-nav-text">Maven 笔记</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Maven-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-nav-text">Maven 是什么</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Inheritance"><span class="toc-nav-text">Inheritance</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%BB%E8%A6%81%E7%8E%AF%E8%8A%82"><span class="toc-nav-text">构建项目的主要环节</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Maven-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-nav-text">Maven 常用命令</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E4%BE%9D%E8%B5%96"><span class="toc-nav-text">依赖</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E4%BE%9D%E8%B5%96%E7%9A%84%E8%8C%83%E5%9B%B4"><span class="toc-nav-text">依赖的范围</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#lt-version-gt"><span class="toc-nav-text">&lt;version&gt;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#lt-dependencyManagement-gt"><span class="toc-nav-text">&lt;dependencyManagement &gt;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#lt-optional-gt"><span class="toc-nav-text">&lt;optional&gt;</span></a></li></ol></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/09/08/maven/Maven-笔记/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>
